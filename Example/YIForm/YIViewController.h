@@ -8,6 +8,7 @@
 
 @import UIKit;
 
-@interface YIViewController : UIViewController
+#import <YIForm/YIForm.h>
+@interface YIViewController : YIFormViewController
 
 @end

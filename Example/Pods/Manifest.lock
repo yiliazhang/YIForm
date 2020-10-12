@@ -1,0 +1,16 @@
+PODS:
+  - YIForm (0.1.0)
+
+DEPENDENCIES:
+  - YIForm (from `../`)
+
+EXTERNAL SOURCES:
+  YIForm:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  YIForm: e5b4ff80e0a2e57feb95c368c8620c855de94b52
+
+PODFILE CHECKSUM: c11fe29ec536070364876145106e1dc2fe33284c
+
+COCOAPODS: 1.9.3

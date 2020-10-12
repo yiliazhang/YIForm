@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'YIForm'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of YIForm.'
+  s.summary          = 'iOS 常用复杂表单'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,10 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+iOS 常用复杂表单.
+iOS 常用复杂表单.
+iOS 常用复杂表单.
+iOS 常用复杂表单.
                        DESC
 
   s.homepage         = 'https://github.com/yiliazhang/YIForm'
@@ -28,15 +31,14 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'https://github.com/yiliazhang/YIForm.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '12.0'
 
-  s.source_files = 'YIForm/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'YIForm' => ['YIForm/Assets/*.png']
-  # }
+  s.source_files  = "YIForm", "YIForm/Classes/*.{h,m,swift}"
+   s.resource_bundles = {
+     'YIForm' => ['YIForm/Assets/*.png']
+   }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  #s.public_header_files = 'Pod/Classes/YIForm.h'
+  # s.frameworks = 'UIKit'
+  # s.dependency 'AFNetworking'
 end

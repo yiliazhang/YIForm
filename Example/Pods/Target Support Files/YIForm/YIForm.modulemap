@@ -1,0 +1,6 @@
+framework module YIForm {
+  umbrella header "YIForm-umbrella.h"
+
+  export *
+  module * { export * }
+}
