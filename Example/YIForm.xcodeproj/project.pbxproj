@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31478A46253E70B400E05422 /* YIFormRowText.m in Sources */ = {isa = PBXBuildFile; fileRef = 31478A45253E70B400E05422 /* YIFormRowText.m */; };
+		31F16A8125382AB400364E1B /* YIAttachUploadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F16A8025382AB400364E1B /* YIAttachUploadCell.m */; };
+		31F16A8625382AD500364E1B /* YIAttachFormRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F16A8525382AD500364E1B /* YIAttachFormRow.m */; };
+		31F16A8E25383F6900364E1B /* YIFormTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F16A8D25383F6900364E1B /* YIFormTextCell.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -38,6 +42,14 @@
 
 /* Begin PBXFileReference section */
 		164021A8CBD5C390543BC1B5 /* Pods_YIForm_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YIForm_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		31478A45253E70B400E05422 /* YIFormRowText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YIFormRowText.m; sourceTree = "<group>"; };
+		31F16A7F25382AB400364E1B /* YIAttachUploadCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YIAttachUploadCell.h; sourceTree = "<group>"; };
+		31F16A8025382AB400364E1B /* YIAttachUploadCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YIAttachUploadCell.m; sourceTree = "<group>"; };
+		31F16A8425382AD500364E1B /* YIAttachFormRow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YIAttachFormRow.h; sourceTree = "<group>"; };
+		31F16A8525382AD500364E1B /* YIAttachFormRow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YIAttachFormRow.m; sourceTree = "<group>"; };
+		31F16A8A25383F6900364E1B /* YIFormTextCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YIFormTextCell.h; sourceTree = "<group>"; };
+		31F16A8C25383F6900364E1B /* YIFormRowText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YIFormRowText.h; sourceTree = "<group>"; };
+		31F16A8D25383F6900364E1B /* YIFormTextCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YIFormTextCell.m; sourceTree = "<group>"; };
 		3AC7170F0CA9990182D41F0B /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		482D1511F6DD68E4DE03B4E5 /* Pods-YIForm_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YIForm_Tests.debug.xcconfig"; path = "Target Support Files/Pods-YIForm_Tests/Pods-YIForm_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A38AA5F69502BAE550AF0BE /* Pods-YIForm_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YIForm_Example.release.xcconfig"; path = "Target Support Files/Pods-YIForm_Example/Pods-YIForm_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -95,6 +107,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		31F16A98253849CC00364E1B /* CustomItems */ = {
+			isa = PBXGroup;
+			children = (
+				31F16A7F25382AB400364E1B /* YIAttachUploadCell.h */,
+				31F16A8025382AB400364E1B /* YIAttachUploadCell.m */,
+				31F16A8425382AD500364E1B /* YIAttachFormRow.h */,
+				31F16A8525382AD500364E1B /* YIAttachFormRow.m */,
+				31F16A8C25383F6900364E1B /* YIFormRowText.h */,
+				31478A45253E70B400E05422 /* YIFormRowText.m */,
+				31F16A8A25383F6900364E1B /* YIFormTextCell.h */,
+				31F16A8D25383F6900364E1B /* YIFormTextCell.m */,
+			);
+			name = CustomItems;
+			sourceTree = "<group>";
+		};
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +167,7 @@
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
+				31F16A98253849CC00364E1B /* CustomItems */,
 			);
 			name = "Example for YIForm";
 			path = YIForm;
@@ -247,6 +275,10 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = yiliazhang;
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = 685DPV4URE;
+						ProvisioningStyle = Manual;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -324,10 +356,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-YIForm_Example/Pods-YIForm_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/YIForm/YIForm.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YIForm.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,9 +398,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31F16A8E25383F6900364E1B /* YIFormTextCell.m in Sources */,
+				31478A46253E70B400E05422 /* YIFormRowText.m in Sources */,
 				6003F59E195388D20070C39A /* YIAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* YIViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				31F16A8125382AB400364E1B /* YIAttachUploadCell.m in Sources */,
+				31F16A8625382AD500364E1B /* YIAttachFormRow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,12 +532,16 @@
 			baseConfigurationReference = BCE110776BEBD99B2D4B3159 /* Pods-YIForm_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 685DPV4URE;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YIForm/YIForm-Prefix.pch";
 				INFOPLIST_FILE = "YIForm/YIForm-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yilia.form;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = all_dev;
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = app;
 			};
@@ -510,12 +552,16 @@
 			baseConfigurationReference = 5A38AA5F69502BAE550AF0BE /* Pods-YIForm_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = 685DPV4URE;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YIForm/YIForm-Prefix.pch";
 				INFOPLIST_FILE = "YIForm/YIForm-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MODULE_NAME = ExampleApp;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yilia.form;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = all_dev;
 				SWIFT_VERSION = 4.0;
 				WRAPPER_EXTENSION = app;
 			};

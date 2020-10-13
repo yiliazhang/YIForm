@@ -8,7 +8,6 @@
 #import "YIFormViewController.h"
 
 @interface YIFormViewController ()
-
 @end
 
 @implementation YIFormViewController
@@ -17,7 +16,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 //    UIImage *image = [UIImage imageNamed:@"Frameworks/YIForm.framework/YIForm.bundle/forwardarrow"];
-//    
 //    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 //    imageView.frame = CGRectMake(100, 100, 100, 100);
 //    [self.view addSubview:imageView];

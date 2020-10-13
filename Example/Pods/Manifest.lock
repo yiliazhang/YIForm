@@ -1,16 +1,23 @@
 PODS:
+  - Masonry (1.1.0)
   - YIForm (0.1.0)
 
 DEPENDENCIES:
+  - Masonry
   - YIForm (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - Masonry
 
 EXTERNAL SOURCES:
   YIForm:
     :path: "../"
 
 SPEC CHECKSUMS:
-  YIForm: e5b4ff80e0a2e57feb95c368c8620c855de94b52
+  Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
+  YIForm: d56d770196b5bee4ca529fc261e53fe34250d343
 
-PODFILE CHECKSUM: c11fe29ec536070364876145106e1dc2fe33284c
+PODFILE CHECKSUM: 5d1bd1daa3d5d706d4a8ab3bfd89f0e1633506f4
 
 COCOAPODS: 1.9.3

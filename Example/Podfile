@@ -2,9 +2,12 @@ use_frameworks!
 
 platform :ios, '12.0'
 
-target 'YIForm_Example' do
+def pods
   pod 'YIForm', :path => '../'
-
+  pod 'Masonry'
+end
+target 'YIForm_Example' do
+  pods
   target 'YIForm_Tests' do
     inherit! :search_paths
 

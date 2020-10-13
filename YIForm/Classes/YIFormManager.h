@@ -6,14 +6,88 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "YIForm.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// 创建 section
+FOUNDATION_EXPORT __kindof YIFormSection *Section(void);
 
-extern NSString *const YIFormRowTypeText;
+typedef NS_ENUM(NSUInteger, XLPredicateType) {
+    XLPredicateTypeDisabled = 0,
+    XLPredicateTypeHidden
+};
 
 @interface YIFormManager : NSObject
+// 默认 NO
+@property (nonatomic) BOOL disabled;
+/// 对应tableView
+@property (nullable, weak, nonatomic, readonly) UITableView *tableView;
 
+/// 初始化方法
+/// @param tableView  tableView
++ (instancetype)managerForTableView:(nullable UITableView *)tableView;
+/// 初始化方法
+/// @param tableView  tableView
+- (instancetype)initWithTableView:(nullable UITableView *)tableView;
+
+//- (instancetype)config:(void (^ __nullable)(void))configForInstance;
+
+/// tag 对应 section
+/// @param tag section tag
+- (nullable YIFormSection *)sectionWithTag:(NSString *)tag;
+/// tag 对应 row
+/// @param tag row tag
+- (nullable __kindof YIFormRow *)rowWithTag:(NSString *)tag;
+
+/// row 所在 section
+/// @param row row
+- (YIFormSection * _Nullable)sectionForRow:(YIFormRow *)row;
+
+/// indexPath 对应的 row
+/// @param indexPath indexPath
+-(nullable YIFormRow *)rowAtIndex:(NSIndexPath *)indexPath;
+
+/// 添加 sections
+/// @param sections section 数组
+- (void)addSections:(NSArray<YIFormSection *> *)sections;
+/// 移除 sections
+/// @param sections section 数组
+- (void)removeSections:(NSArray<YIFormSection *> *)sections;
+/// 移除indexes 对应的 sections
+/// @param indexes index 数组
+- (void)removeSectionsAt:(NSIndexSet *)indexes;
+
+/// 移除所有
+- (void)removeAll;
+
+/// 移除 row
+/// @param formRow row
+-(void)removeRow:(YIFormRow *)formRow;
+
+/// 移除 tag 对应的 row
+/// @param tag row tag
+-(void)removeRowWithTag:(nonnull NSString *)tag;
+
+/// 重新加载 sections
+/// @param sections section 数组
+- (void)reloadSections:(NSArray<YIFormSection *> *)sections;
+/// 重新加载
+/// @param rows row 数组
+- (void)reloadRows:(NSArray<YIFormRow *> *)rows;
+
+/// 重新加载
+/// @param sections section 数组
+- (void)reloadSectionsAt:(NSIndexSet *)sections;
+/// 重新加载 indexPathes
+/// @param indexPathes indexPathes 数组
+- (void)reloadIndexPathes:(NSArray<NSIndexPath *> *)indexPathes;
+
+///
+/// @param formRow formRow
+/// @param oldValue oldValue
+/// @param newValue newValue
+-(void)formRowValueHasChanged:(YIFormRow *)formRow oldValue:(id)oldValue newValue:(id)newValue;
 @end
 
 NS_ASSUME_NONNULL_END

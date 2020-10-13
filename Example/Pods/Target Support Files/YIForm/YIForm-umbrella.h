@@ -13,9 +13,9 @@
 #import "YIForm.h"
 #import "YIFormCell.h"
 #import "YIFormManager.h"
+#import "YIFormRow.h"
+#import "YIFormSection.h"
 #import "YIFormViewController.h"
-#import "YIRow.h"
-#import "YISection.h"
 
 FOUNDATION_EXPORT double YIFormVersionNumber;
 FOUNDATION_EXPORT const unsigned char YIFormVersionString[];
