@@ -43,13 +43,13 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
     self = [super init];
     if (self) {
         _height = YIFormRowInitialHeight;
-        _seperatorLeftInset = 0;
-        _seperatorRightInset = 0;
+        _separatorLeftInset = 0;
+        _separatorRightInset = 0;
 //        _disabled = NO;
 //        _hidden = @NO;
         _selectionStyle = UITableViewCellSelectionStyleDefault;
         _cellStyle = UITableViewCellStyleDefault;
-        _seperatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        _separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 //        _validators = [NSMutableArray new];
 //        _cellConfig = [NSMutableDictionary dictionary];
 //        _cellConfigIfDisabled = [NSMutableDictionary dictionary];

@@ -11,7 +11,7 @@
 @interface YIFormCell()
 
 ///
-@property (nonnull, strong, nonatomic) UIView *seperatorLineView;
+@property (nonnull, strong, nonatomic) UIView *separatorLineView;
 @end
 @implementation YIFormCell
 
@@ -48,18 +48,20 @@
     [self.contentView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:self.bottomMargin].active = YES;
     [self.contentView.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:self.leftMargin].active = YES;
     [self.contentView.rightAnchor constraintEqualToAnchor:self.rightAnchor constant:self.rightMargin].active = YES;
-    if (self.row.seperatorStyle == UITableViewCellSeparatorStyleSingleLine) {
-        [self addSubview: self.seperatorLineView];
+    if (self.row.separatorStyle == UITableViewCellSeparatorStyleSingleLine) {
+        if (![self.subviews containsObject:self.separatorLineView]) {
+            [self addSubview: self.separatorLineView];
+            self.separatorLineView.translatesAutoresizingMaskIntoConstraints = NO;
+        }
         CGFloat lineHeight = (1.f / [UIScreen mainScreen].scale);
-        CGFloat left = self.leftMargin + self.row.seperatorLeftInset;
-        CGFloat right = self.rightMargin - self.row.seperatorRightInset;
-        self.seperatorLineView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.seperatorLineView.heightAnchor constraintEqualToConstant:lineHeight].active = YES;
-        [self.seperatorLineView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
-        [self.seperatorLineView.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:left].active = YES;
-        [self.seperatorLineView.rightAnchor constraintEqualToAnchor:self.rightAnchor constant:right].active = YES;
+        CGFloat left = self.leftMargin + self.row.separatorLeftInset;
+        CGFloat right = self.rightMargin - self.row.separatorRightInset;
+        [self.separatorLineView.heightAnchor constraintEqualToConstant:lineHeight].active = YES;
+        [self.separatorLineView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
+        [self.separatorLineView.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:left].active = YES;
+        [self.separatorLineView.rightAnchor constraintEqualToAnchor:self.rightAnchor constant:right].active = YES;
     } else {
-        [self.seperatorLineView removeFromSuperview];
+        [self.separatorLineView removeFromSuperview];
     }
 }
 
@@ -101,14 +103,15 @@
     return right;
 }
 
-- (UIView *)seperatorLineView {
-    if (!_seperatorLineView) {
-        _seperatorLineView = [[UIView alloc] init];
+- (UIView *)separatorLineView {
+    if (!_separatorLineView) {
+        _separatorLineView = [[UIView alloc] init];
     }
-    return _seperatorLineView;
+    return _separatorLineView;
 }
-- (void)setSeperatorColor:(UIColor *)seperatorColor {
-    _seperatorColor = seperatorColor;
-    self.seperatorLineView.backgroundColor = seperatorColor;
+
+- (void)setSeparatorColor:(UIColor *)separatorColor {
+    _separatorColor = separatorColor;
+    self.separatorLineView.backgroundColor = separatorColor;
 }
 @end

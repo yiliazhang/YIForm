@@ -49,14 +49,14 @@
     [self.formManager removeAll];
     NSArray *sections = @[
         [self accessoryTypeSection],
-        [self customAccessorySection],
-        [self randomSection],
-        [self deletableSection],
-        [self deleteConfirmSection],
-        [self insertSection],
-        [self movableSection],
-        [self movableAndDeletableSection],
-        [self copyCutPastSection],
+//        [self customAccessorySection],
+//        [self randomSection],
+//        [self deletableSection],
+//        [self deleteConfirmSection],
+//        [self insertSection],
+//        [self movableSection],
+//        [self movableAndDeletableSection],
+//        [self copyCutPastSection],
     ];
     [self.formManager addSections:sections];
     [self.tableView reloadData];
@@ -81,12 +81,12 @@
         YIFormRow *row = [self rowWithTitle:title tag:title];
         if (r == 1) {
             row.disabled = YES;
-            row.seperatorStyle = UITableViewCellSeparatorStyleNone;
+            row.separatorStyle = UITableViewCellSeparatorStyleNone;
             row.title = @"disabled - random";
         }
         row.contentEdgeMargins = UIEdgeInsetsMake(20, 40, 10, 30);
-        row.seperatorLeftInset = 20;
-        row.seperatorRightInset = 20;
+        row.separatorLeftInset = 20;
+        row.separatorRightInset = 20;
         [rows addObject:row];
         r++;
     }
@@ -121,8 +121,8 @@
     
     YIFormSection *section = Section();
     [section addRows:rows];
-    section.headerView = [self sectionHeaderView];
-    section.footerView = [self sectionFooterView];
+    section.headerView = [self headerViewWithTitle:@" custom Accessory \r\n 有accesoryView 的情况下就不要设置 contentEdgeMargins 或 horizontalInset"];
+    section.footerView = [self footerView];
     
     return section;
 }
@@ -145,7 +145,7 @@
     
     YIFormSection *section = Section();
     [section addRows:rows];
-    section.headerHeight = 20;
+    section.headerView = [self headerViewWithTitle:@"accessoryType \r\n 有accesoryView 的情况下就不要设置 contentEdgeMargins 或 horizontalInset"];
     section.footerHeight = 20;
     return section;
 }
@@ -171,7 +171,7 @@
         r++;
     }
     YIFormSection *section = Section();
-    section.headerHeight = 20;
+    section.headerView = [self headerViewWithTitle:@"insert 功能"];
     section.footerHeight = 20;
     [section addRows:rows];
     return section;
@@ -185,7 +185,6 @@
         //        __weak typeof(self) weakSelf = self;
         NSString *title = [NSString stringWithFormat:@"movable %d", r];
         YIFormRow *row = [self rowWithTitle:title tag:title];
-        row.seperatorStyle = UITableViewCellSeparatorStyleNone;
         row.moveHandler = ^BOOL(id item, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath) {
             return YES;
         };
@@ -200,7 +199,7 @@
         r++;
     }
     YIFormSection *section = Section();
-    section.headerHeight = 20;
+    section.headerView = [self headerViewWithTitle:@"move 功能"];
     section.footerHeight = 20;
     [section addRows:rows];
     return section;
@@ -221,8 +220,8 @@
         }
         row.contentEdgeMargins = UIEdgeInsetsMake(20, 40, 10, 30);
         
-        row.seperatorLeftInset = 20;
-        row.seperatorRightInset = 20;
+        row.separatorLeftInset = 20;
+        row.separatorRightInset = 20;
         
         row.editingStyle = UITableViewCellEditingStyleDelete;
         row.deletionHandler = ^(YIFormRow *item) {
@@ -258,7 +257,7 @@
         r++;
     }
     YIFormSection *section = Section();
-    section.headerHeight = 20;
+    section.headerView = [self headerViewWithTitle:@"delete 删除功能"];
     section.footerHeight = 20;
     [section addRows:rows];
     return section;
@@ -283,6 +282,7 @@
         r++;
     }
     YIFormSection *section = Section();
+    section.headerView = [self headerViewWithTitle:@"move delete 功能"];
     section.headerHeight = 20;
     section.footerHeight = 20;
     [section addRows:rows];
@@ -326,7 +326,8 @@
         //        [item reloadRowWithAnimation:UITableViewRowAnimationAutomatic];
     };
     YIFormSection *section = Section();
-    section.disabled = YES;
+    section.headerView = [self headerViewWithTitle:@"copy cut paste 功能"];
+    section.disabled = self.tableView.editing;
     section.headerHeight = 20;
     section.footerHeight = 20;
     [section addRows:@[copyItem, pasteItem, cutCopyPasteItem]];
@@ -335,14 +336,19 @@
 
 
 
-- (UIView *)sectionHeaderView {
+- (UIView *)headerViewWithTitle:(NSString *)title {
     UIView *headerView = [[UIView alloc] init];
     headerView.backgroundColor = [UIColor redColor];
     headerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 100);
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectInset(headerView.bounds, 20, 5)];
+    [headerView addSubview:label];
+    label.text = title;
+    label.numberOfLines = 0;
+    
     return headerView;
 }
 
-- (UIView *)sectionFooterView {
+- (UIView *)footerView {
     UIView *footerView = [[UIView alloc] init];
     footerView.backgroundColor = [UIColor orangeColor];
     footerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 5);

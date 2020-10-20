@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface YIFormCell : UITableViewCell<YIFormCellProtocol>
 ///
-@property (nonnull, strong, nonatomic) UIColor *seperatorColor;
+@property (nullable, strong, nonatomic) UIColor *separatorColor;
 @property (nonatomic, weak) __kindof YIFormRow * row;
 
 /// top 距 tableview 缩进

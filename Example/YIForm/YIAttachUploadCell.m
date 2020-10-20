@@ -50,7 +50,7 @@
             make.top.equalTo(@15);
             make.bottom.equalTo(@(-15));
         make.width.equalTo(@100);
-            make.height.equalTo(@60).priorityHigh();
+            make.height.equalTo(@50).priorityHigh();
     }];
     
     [self.uploadButton mas_makeConstraints:^(MASConstraintMaker *make) {

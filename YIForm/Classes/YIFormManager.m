@@ -24,7 +24,7 @@ inline __kindof YIFormSection *Section() {
 @property (nonnull, strong, nonatomic) NSMutableSet<NSString *> *rowTags;
 ///
 @property (nonnull, strong, nonatomic) NSMutableArray<YIFormSection *> *sections;
-//@property (nonatomic) UITableViewCellSeparatorStyle seperatorStyle;
+//@property (nonatomic) UITableViewCellSeparatorStyle separatorStyle;
 @end
 
 NSString * const XLFormErrorDomain = @"XLFormErrorDomain";
@@ -55,7 +55,7 @@ NSString * const XLFormSectionsKey = @"formSections";
     if (self) {
         tableView.delegate = self;
         tableView.dataSource = self;
-//        self.seperatorStyle = tableView.separatorStyle;
+//        self.separatorStyle = tableView.separatorStyle;
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.tableView = tableView;
     }
@@ -70,8 +70,8 @@ NSString * const XLFormSectionsKey = @"formSections";
 //    YIFormCell * cell = [formRow cellForTableView:self.tableView];
     YIFormCell * cell = formRow.cell;
     if (cell != nil) {
+        cell.separatorColor = [self separatorColorFor:formRow];
         [self configureCell:cell];
-        cell.seperatorColor = self.tableView.separatorColor;
         [cell setNeedsLayout];
         [cell layoutIfNeeded];
     }
@@ -315,10 +315,9 @@ NSString * const XLFormSectionsKey = @"formSections";
     if (cornerRadius == 0 ) {
         return;
     }
-
-    CGRect bounds = CGRectInset(cell.bounds, section.horizontalInset, 0);
+    formCell.separatorColor = UIColor.clearColor;
     cell.backgroundColor = UIColor.clearColor;
-    formCell.seperatorColor = UIColor.clearColor;
+    CGRect bounds = CGRectInset(cell.bounds, section.horizontalInset, 0);
     CAShapeLayer *layer = [[CAShapeLayer alloc] init];
     CGMutablePathRef pathRef = CGPathCreateMutable();
 
@@ -343,11 +342,11 @@ NSString * const XLFormSectionsKey = @"formSections";
     layer.path = pathRef;
     CFRelease(pathRef);
     layer.fillColor = [UIColor colorWithWhite:1.f alpha:0.8f].CGColor;
-    if (addLine == YES && item.seperatorStyle == UITableViewCellSeparatorStyleSingleLine ) {
+    if (addLine == YES && item.separatorStyle == UITableViewCellSeparatorStyleSingleLine ) {
         CALayer *lineLayer = [[CALayer alloc] init];
         CGFloat lineHeight = (1.f / [UIScreen mainScreen].scale);
-        lineLayer.frame = CGRectMake(CGRectGetMinX(bounds)+item.seperatorLeftInset, bounds.size.height-lineHeight, bounds.size.width-(item.seperatorRightInset + item.seperatorLeftInset), lineHeight);
-        lineLayer.backgroundColor = tableView.separatorColor.CGColor;
+        lineLayer.frame = CGRectMake(CGRectGetMinX(bounds)+item.separatorLeftInset, bounds.size.height-lineHeight, bounds.size.width-(item.separatorRightInset + item.separatorLeftInset), lineHeight);
+        lineLayer.backgroundColor = [self separatorColorFor:item].CGColor;
         [layer addSublayer:lineLayer];
     }
     UIView *testView = [[UIView alloc] initWithFrame:bounds];
@@ -591,4 +590,11 @@ NSString * const XLFormSectionsKey = @"formSections";
     
 }
 
+- (UIColor *)separatorColorFor:(YIFormRow *)row {
+    if (!row.separatorColor) {
+//        return self.tableView.separatorColor;
+        return [UIColor redColor];
+    }
+    return row.separatorColor;
+}
 @end

@@ -30,8 +30,8 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 @property (nonatomic, assign) CGFloat height;
 /// cell 内容与边缘间距
 @property (nonatomic, assign) UIEdgeInsets contentEdgeMargins;
-/// seperator style
-@property (nonatomic) UITableViewCellSeparatorStyle seperatorStyle;
+/// separator style
+@property (nonatomic) UITableViewCellSeparatorStyle separatorStyle;
 
 // cell class
 @property (nonatomic, strong, readonly) id cellClass;
@@ -91,9 +91,9 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 /// cell 内缩进
 @property (nonatomic, assign) UIEdgeInsets contentEdgeMargins;
 /// 分割线 左 缩进
-@property (nonatomic) CGFloat seperatorLeftInset;
+@property (nonatomic) CGFloat separatorLeftInset;
 /// 分割线 右 缩进
-@property (nonatomic) CGFloat seperatorRightInset;
+@property (nonatomic) CGFloat separatorRightInset;
 
 
 // XLForm
@@ -112,8 +112,9 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 //@property (nonatomic, nullable, strong) NSArray * selectorOptions;
 
 // RETableViewManager
-@property (nonatomic) UITableViewCellSeparatorStyle seperatorStyle;
-@property (assign, readwrite, nonatomic) UITableViewCellStyle style;
+///
+@property (nonnull, strong, nonatomic) UIColor *separatorColor;
+@property (nonatomic) UITableViewCellSeparatorStyle separatorStyle;
 @property (assign, readwrite, nonatomic) UITableViewCellSelectionStyle selectionStyle;
 @property (assign, readwrite, nonatomic) UITableViewCellAccessoryType accessoryType;
 @property (assign, readwrite, nonatomic) UITableViewCellEditingStyle editingStyle;
