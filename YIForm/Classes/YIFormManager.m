@@ -36,14 +36,14 @@ NSString * const XLFormSectionsKey = @"formSections";
 
 -(void)dealloc
 {
-//    [self removeObserver:self forKeyPath:XLFormSectionsKey];
+    //    [self removeObserver:self forKeyPath:XLFormSectionsKey];
     
-//    [_formSections removeAllObjects];
-//    _formSections = nil;
-//    [_allSections removeAllObjects];
-//    _allSections = nil;
-//    [_allRowsByTag removeAllObjects];
-//    _allRowsByTag = nil;
+    //    [_formSections removeAllObjects];
+    //    _formSections = nil;
+    //    [_allSections removeAllObjects];
+    //    _allSections = nil;
+    //    [_allRowsByTag removeAllObjects];
+    //    _allRowsByTag = nil;
 }
 
 + (instancetype)managerForTableView:(UITableView *)tableView {
@@ -55,7 +55,7 @@ NSString * const XLFormSectionsKey = @"formSections";
     if (self) {
         tableView.delegate = self;
         tableView.dataSource = self;
-//        self.separatorStyle = tableView.separatorStyle;
+        //        self.separatorStyle = tableView.separatorStyle;
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.tableView = tableView;
     }
@@ -90,10 +90,10 @@ NSString * const XLFormSectionsKey = @"formSections";
         return sectionIndex;
     }
     [self.sections enumerateObjectsUsingBlock:^(YIFormSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if ([obj isEqual:section]) {
-                sectionIndex = idx;
-                *stop = YES;
-            }
+        if ([obj isEqual:section]) {
+            sectionIndex = idx;
+            *stop = YES;
+        }
     }];
     return sectionIndex;
 }
@@ -101,13 +101,18 @@ NSString * const XLFormSectionsKey = @"formSections";
 
 - (nullable __kindof YIFormRow *)rowWithTag:(NSString *)tag {
     __block YIFormRow *result = nil;
+    
     [self.sections enumerateObjectsUsingBlock:^(YIFormSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [obj.rows enumerateObjectsUsingBlock:^(__kindof YIFormRow * _Nonnull row, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if (row.tag && row.tag.length > 0 && row.tag == tag) {
-                        result = row;
-                        *stop = YES;
-                    }
+        if (result) {
+            *stop = YES;
+        }
+        [obj.rows enumerateObjectsUsingBlock:^(__kindof YIFormRow * _Nonnull row, NSUInteger idx, BOOL * _Nonnull stop1) {
+            if (row.tag && row.tag.length > 0 && row.tag == tag) {
+                result = row;
+                *stop = YES;
+            }
         }];
+        
     }];
     return result;
 }
@@ -127,10 +132,10 @@ NSString * const XLFormSectionsKey = @"formSections";
         return section;
     }
     [self.sections enumerateObjectsUsingBlock:^(YIFormSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (obj.tag && [obj.tag isEqualToString:tag]) {
-                section = obj;
-                *stop = YES;
-            }
+        if (obj.tag && [obj.tag isEqualToString:tag]) {
+            section = obj;
+            *stop = YES;
+        }
     }];
     return section;
 }
@@ -194,11 +199,36 @@ NSString * const XLFormSectionsKey = @"formSections";
     }
 }
 
+- (void)reloadSections:(NSArray<YIFormSection *> *)sections {
+    if (self.sections.count == 0) {
+        return;
+    }
+    NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+    for (int index = 0; index < sections.count; index++) {
+        YIFormSection *section = sections[index];
+        if ([self.sections containsObject:section]) {
+            [indexSet addIndex:index];
+        }
+    }
+    if (indexSet.count > 0) {
+        [self reloadSectionsAt:indexSet];
+    }
+}
+
+- (void)reloadRowsAt:(NSArray<NSIndexPath *> *)indexPaths {
+    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+}
+
+- (void)reloadSectionsAt:(NSIndexSet *)indexes {
+    [self.tableView reloadSections:indexes withRowAnimation:UITableViewRowAnimationNone];
+}
+
+
 /// 更新row 对应的 cell
 /// @param formRow row
 -(__kindof YIFormCell *)updateFormRow:(YIFormRow *)formRow
 {
-//    YIFormCell * cell = [formRow cellForTableView:self.tableView];
+    //    YIFormCell * cell = [formRow cellForTableView:self.tableView];
     YIFormCell * cell = formRow.cell;
     if (cell != nil) {
         cell.separatorColor = [self separatorColorFor:formRow];
@@ -214,18 +244,18 @@ NSString * const XLFormSectionsKey = @"formSections";
 -(void)configureCell:(__kindof YIFormCell *) cell
 {
     [cell update];
-
-//    if(cell.row != nil && cell.rowDescriptor.cellConfig != nil) {
-//        [cell.row.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
-//            [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
-//        }];
-//    }
-//
-//    if (cell.row.isDisabled){
-//        [cell.row.cellConfigIfDisabled enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
-//            [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
-//        }];
-//    }
+    
+    //    if(cell.row != nil && cell.rowDescriptor.cellConfig != nil) {
+    //        [cell.row.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
+    //            [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
+    //        }];
+    //    }
+    //
+    //    if (cell.row.isDisabled){
+    //        [cell.row.cellConfigIfDisabled enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
+    //            [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
+    //        }];
+    //    }
 }
 
 - (UIColor *)separatorColorFor:(YIFormRow *)row {
@@ -248,7 +278,7 @@ NSString * const XLFormSectionsKey = @"formSections";
 {
     YIFormRow *rowDescriptor = [self rowAtIndexPath:indexPath];
     CGFloat height = rowDescriptor.height;
-    if (height != YIFormRowInitialHeight){
+    if (height > YIFormRowInitialHeight){
         return height;
     }
     return self.tableView.rowHeight;
@@ -258,7 +288,7 @@ NSString * const XLFormSectionsKey = @"formSections";
 {
     YIFormRow *rowDescriptor = [self rowAtIndexPath:indexPath];
     CGFloat height = rowDescriptor.height;
-    if (height != YIFormRowInitialHeight){
+    if (height > YIFormRowInitialHeight){
         return height;
     }
     return self.tableView.estimatedRowHeight;
@@ -323,8 +353,8 @@ NSString * const XLFormSectionsKey = @"formSections";
     YIFormSection *section = self.sections[indexPath.section];
     YIFormRow *item = section.rows[indexPath.row];
     if (item.disabled) {
-                        return NO;
-                    }
+        return NO;
+    }
     return item.moveHandler != nil;
 }
 
@@ -336,13 +366,13 @@ NSString * const XLFormSectionsKey = @"formSections";
             YIFormRow *item = section.rows[indexPath.row];
             if ([item isKindOfClass:[YIFormRow class]]) {
                 if (item.disabled) {
-                                    return NO;
-                                }
+                    return NO;
+                }
                 return item.editingStyle != UITableViewCellEditingStyleNone || item.moveHandler;
             }
         }
     }
-
+    
     return NO;
 }
 
@@ -369,7 +399,7 @@ NSString * const XLFormSectionsKey = @"formSections";
         YIFormRow *item = section.rows[indexPath.row];
         if (item.insertionHandler)
             item.insertionHandler(item);
-
+        
         [section insertRow:[item copy] at:indexPath.row];
         __weak typeof(self) weak = self;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.02 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -377,11 +407,11 @@ NSString * const XLFormSectionsKey = @"formSections";
             weak.tableView.editing = !weak.tableView.editing;
         });
         [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
-//        [tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-//        UITableViewCell<YIFormCellProtocol> * cell = item.cell;
-//        if ([cell formDescriptorCellCanBecomeFirstResponder]){
-//            [cell formDescriptorCellBecomeFirstResponder];
-//        }
+        //        [tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        //        UITableViewCell<YIFormCellProtocol> * cell = item.cell;
+        //        if ([cell formDescriptorCellCanBecomeFirstResponder]){
+        //            [cell formDescriptorCellBecomeFirstResponder];
+        //        }
         
         
     }
@@ -406,7 +436,7 @@ NSString * const XLFormSectionsKey = @"formSections";
     CGRect bounds = CGRectInset(cell.bounds, section.horizontalInset, 0);
     CAShapeLayer *layer = [[CAShapeLayer alloc] init];
     CGMutablePathRef pathRef = CGPathCreateMutable();
-
+    
     BOOL addLine = NO;
     if (indexPath.row == 0 && indexPath.row == [tableView numberOfRowsInSection:indexPath.section]-1) {
         CGPathAddRoundedRect(pathRef, nil, bounds, cornerRadius, cornerRadius);
@@ -436,7 +466,7 @@ NSString * const XLFormSectionsKey = @"formSections";
         [layer addSublayer:lineLayer];
     }
     UIView *testView = [[UIView alloc] initWithFrame:bounds];
-
+    
     [testView.layer insertSublayer:layer atIndex:0];
     testView.backgroundColor = UIColor.clearColor;
     cell.backgroundView = testView;
@@ -462,12 +492,12 @@ NSString * const XLFormSectionsKey = @"formSections";
     if (formSection.headerView) {
         return formSection.headerView.frame.size.height;
     }
-//    if (formSection.headerHeight != YIFormSectionHeaderHeightAutomatic) {
-        return formSection.headerHeight;
-//    }
+    //    if (formSection.headerHeight != YIFormSectionHeaderHeightAutomatic) {
+    return formSection.headerHeight;
+    //    }
     
     
-//    return self.tableView.estimatedSectionHeaderHeight;
+    //    return self.tableView.estimatedSectionHeaderHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {
@@ -476,9 +506,9 @@ NSString * const XLFormSectionsKey = @"formSections";
     if (formSection.footerView) {
         return formSection.footerView.frame.size.height;
     }
-//    if (formSection.footerHeight != YIFormSectionFooterHeightAutomatic) {
-        return formSection.footerHeight;
-//    }
+    //    if (formSection.footerHeight != YIFormSectionFooterHeightAutomatic) {
+    return formSection.footerHeight;
+    //    }
     
     
     return self.tableView.estimatedSectionFooterHeight;
@@ -492,11 +522,11 @@ NSString * const XLFormSectionsKey = @"formSections";
     YIFormSection *section = self.sections[sectionIndex];
     if (section.headerView) {
         return section.headerView.frame.size.height;
-    
+        
     }
-//    if (section.headerHeight != YIFormSectionHeaderHeightAutomatic) {
-        return section.headerHeight;
-//    }
+    //    if (section.headerHeight != YIFormSectionHeaderHeightAutomatic) {
+    return section.headerHeight;
+    //    }
     return UITableViewAutomaticDimension;
 }
 
@@ -509,10 +539,10 @@ NSString * const XLFormSectionsKey = @"formSections";
     if (section.footerView) {
         return section.footerView.frame.size.height;
     }
-//    if (section.footerHeight != YIFormSectionFooterHeightAutomatic) {
-        return section.footerHeight;
-//    }
-
+    //    if (section.footerHeight != YIFormSectionFooterHeightAutomatic) {
+    return section.footerHeight;
+    //    }
+    
     return UITableViewAutomaticDimension;
 }
 
@@ -640,8 +670,8 @@ NSString * const XLFormSectionsKey = @"formSections";
     if ([anItem respondsToSelector:@selector(setCopyHandler:)]) {
         YIFormRow *item = anItem;
         if (item.disabled) {
-                            return NO;
-                        }
+            return NO;
+        }
         if (item.copyHandler && action == @selector(copy:))
             return YES;
         
@@ -663,12 +693,12 @@ NSString * const XLFormSectionsKey = @"formSections";
         if (item.copyHandler)
             item.copyHandler(item);
     }
-
+    
     if (action == @selector(paste:)) {
         if (item.pasteHandler)
             item.pasteHandler(item);
     }
-
+    
     if (action == @selector(cut:)) {
         if (item.cutHandler)
             item.cutHandler(item);

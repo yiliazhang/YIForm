@@ -80,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param tag tag
 - (nullable __kindof YIFormRow *)rowWithTag:(NSString *)tag;
 
-
+- (void)reload;
 
 @end
 

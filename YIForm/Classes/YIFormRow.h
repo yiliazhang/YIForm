@@ -136,6 +136,8 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 /// row 所在section
 @property (nonatomic, weak, null_unspecified) YIFormSection *section;
 //- (__kindof YIFormCell *)cellForTableView:(UITableView *)tableView;
+
+- (void)reload;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -221,8 +221,8 @@
             
             row.separatorColor = [UIColor blueColor];
         }
-        row.contentEdgeMargins = UIEdgeInsetsMake(20, 40, 10, 30);
-        row.separatorLeftInset = 20;
+        row.contentEdgeMargins = UIEdgeInsetsMake(10, 0, 10, 20);
+        row.separatorLeftInset = 5;
         row.separatorRightInset = 20;
         
         row.editingStyle = UITableViewCellEditingStyleDelete;
@@ -234,7 +234,7 @@
     }
     YIFormSection *section = Section();
     [section addRows:rows];
-    section.cornerRadius = 20;
+    section.cornerRadius = 10;
     section.horizontalInset = 20;
     return section;
 }
@@ -310,7 +310,7 @@
     };
     pasteItem.pasteHandler = ^(YIFormRow *item) {
         item.title = [UIPasteboard generalPasteboard].string;
-        //        [item reloadRowWithAnimation:UITableViewRowAnimationAutomatic];
+        [item reload];
     };
     
     YIAttachFormRow *cutCopyPasteItem = [[YIAttachFormRow alloc] init];
@@ -320,13 +320,14 @@
     };
     cutCopyPasteItem.pasteHandler = ^(YIFormRow *item) {
         item.title = [UIPasteboard generalPasteboard].string;
-        //        [item reloadRowWithAnimation:UITableViewRowAnimationAutomatic];
+        [item reload];
     };
     cutCopyPasteItem.cutHandler = ^(YIFormRow *item) {
         item.title = @"(Empty)";
         [UIPasteboard generalPasteboard].string = @"Copied item #3";
-        //        [item reloadRowWithAnimation:UITableViewRowAnimationAutomatic];
+//        [item reload];
     };
+    
     YIFormSection *section = Section();
     section.headerView = [self headerViewWithTitle:@"copy cut paste 功能"];
     section.disabled = self.tableView.editing;

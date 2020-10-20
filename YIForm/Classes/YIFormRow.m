@@ -8,7 +8,7 @@
 #import "YIFormRow.h"
 #import "YIFormManager.h"
 #import "YIFormSection.h"
-CGFloat YIFormRowInitialHeight = -2;
+CGFloat YIFormRowInitialHeight = -1;
 @interface YIFormRow()<NSCopying>
 
 @property(nonatomic) BOOL hidden;
@@ -71,7 +71,9 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
     }
     return self;
 }
-
+- (void)reload {
+    [self.section.formManager reloadRows:@[self]];
+}
 // MARK: - NSCopy
 
 // In the implementation

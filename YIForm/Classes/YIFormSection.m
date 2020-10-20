@@ -114,4 +114,7 @@ CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
     return [_rows copy];
 }
 
+- (void)reload {
+//    [self.formManager r];
+}
 @end

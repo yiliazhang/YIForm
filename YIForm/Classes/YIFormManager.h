@@ -40,10 +40,18 @@ typedef NS_ENUM(NSUInteger, XLPredicateType) {
 
 /// 重新加载 sections
 /// @param sections section 数组
-//- (void)reloadSections:(NSArray<YIFormSection *> *)sections;
+- (void)reloadSections:(NSArray<YIFormSection *> *)sections;
 /// 重新加载
 /// @param rows row 数组
 - (void)reloadRows:(NSArray<YIFormRow *> *)rows;
+
+/// 重新加载 sections
+/// @param indexes indexes
+- (void)reloadSectionsAt:(NSIndexSet *)indexes;
+
+/// 重新加载
+/// @param indexPaths indexPaths
+- (void)reloadRowsAt:(NSArray<NSIndexPath *> *)indexPaths;
 
 // MARK: - 检索
 /// <#Description#>
@@ -51,14 +59,6 @@ typedef NS_ENUM(NSUInteger, XLPredicateType) {
 -(NSIndexPath *)indexPathForRow:(YIFormRow *)row;
 
 -(NSUInteger)indexForSection:(YIFormSection *)section;
-
-/// 重新加载
-/// @param sections section 数组
-//- (void)reloadSectionsAt:(NSIndexSet *)sections;
-/// 重新加载 indexPathes
-/// @param indexPathes indexPathes 数组
-//- (void)reloadIndexPathes:(NSArray<NSIndexPath *> *)indexPathes;
-
 ///
 /// tag 对应 section
 /// @param tag section tag
