@@ -40,10 +40,6 @@ typedef NS_ENUM(NSUInteger, XLPredicateType) {
 /// @param tag row tag
 - (nullable __kindof YIFormRow *)rowWithTag:(NSString *)tag;
 
-/// row 所在 section
-/// @param row row
-- (YIFormSection * _Nullable)sectionForRow:(YIFormRow *)row;
-
 /// indexPath 对应的 row
 /// @param indexPath indexPath
 -(nullable YIFormRow *)rowAtIndex:(NSIndexPath *)indexPath;
@@ -67,21 +63,26 @@ typedef NS_ENUM(NSUInteger, XLPredicateType) {
 
 /// 移除 tag 对应的 row
 /// @param tag row tag
--(void)removeRowWithTag:(nonnull NSString *)tag;
+//-(void)removeRowWithTag:(nonnull NSString *)tag;
 
 /// 重新加载 sections
 /// @param sections section 数组
-- (void)reloadSections:(NSArray<YIFormSection *> *)sections;
+//- (void)reloadSections:(NSArray<YIFormSection *> *)sections;
 /// 重新加载
 /// @param rows row 数组
 - (void)reloadRows:(NSArray<YIFormRow *> *)rows;
+/// <#Description#>
+/// @param row <#row description#>
+-(NSIndexPath *)indexPathForRow:(YIFormRow *)row;
+
+-(NSUInteger)indexForSection:(YIFormSection *)section;
 
 /// 重新加载
 /// @param sections section 数组
-- (void)reloadSectionsAt:(NSIndexSet *)sections;
+//- (void)reloadSectionsAt:(NSIndexSet *)sections;
 /// 重新加载 indexPathes
 /// @param indexPathes indexPathes 数组
-- (void)reloadIndexPathes:(NSArray<NSIndexPath *> *)indexPathes;
+//- (void)reloadIndexPathes:(NSArray<NSIndexPath *> *)indexPathes;
 
 ///
 /// @param formRow formRow

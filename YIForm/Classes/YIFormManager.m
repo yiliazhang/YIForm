@@ -139,7 +139,64 @@ NSString * const XLFormSectionsKey = @"formSections";
     for (YIFormRow *row in rows) {
         [self updateFormRow:row];
     }
-//    [self.tableView reloadData];
+}
+
+-(NSIndexPath *)indexPathForRow:(YIFormRow *)row {
+    if (self.sections.count == 0) {
+        return nil;
+    }
+    NSUInteger sectionIndex = -1;
+    NSUInteger rowIndex = -1;
+    
+    for (int index = 0; index < self.sections.count; index++) {
+        YIFormSection *section = self.sections[index];
+        if ([section.rows containsObject:row]) {
+            sectionIndex = index;
+            rowIndex = [section.rows indexOfObject:row];
+        }
+    }
+    
+    if (sectionIndex == -1 || rowIndex == -1) {
+        return nil;
+    }
+    return [NSIndexPath indexPathForRow:rowIndex inSection:sectionIndex];
+}
+
+- (NSUInteger)indexForSection:(YIFormSection *)section {
+    __block NSUInteger sectionIndex = -1;
+    if (self.sections.count == 0) {
+        return sectionIndex;
+    }
+    [self.sections enumerateObjectsUsingBlock:^(YIFormSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isEqual:section]) {
+                sectionIndex = idx;
+                *stop = YES;
+            }
+    }];
+    return sectionIndex;
+}
+
+/// 移除 sections
+/// @param sections section 数组
+- (void)removeSections:(NSArray<YIFormSection *> *)sections {
+    
+}
+
+/// 移除 row
+/// @param formRow row
+-(void)removeRow:(YIFormRow *)formRow {
+    
+}
+
+/// 移除 tag 对应的 row
+/// @param tag row tag
+- (void)removeRowWithTag:(nonnull NSString *)tag {
+    YIFormRow *row = [self rowWithTag:tag];
+    if (row) {
+        [self.sections enumerateObjectsUsingBlock:^(YIFormSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj removeRows:@[row]];
+        }];
+    }
 }
 
 - (nullable __kindof YIFormRow *)rowWithTag:(NSString *)tag {
