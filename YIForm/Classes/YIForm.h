@@ -14,10 +14,10 @@ FOUNDATION_EXPORT double YIFormVersionNumber;
 FOUNDATION_EXPORT const unsigned char YIFormVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <YIForm/PublicHeader.h>
-
-
+#import "YIFormManager.h"
 //#import "YIFormViewController.h"
 
-#import "YIFormSection.h"
+
+
 
 

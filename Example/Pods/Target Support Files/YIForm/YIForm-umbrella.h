@@ -12,6 +12,7 @@
 
 #import "YIForm.h"
 #import "YIFormCell.h"
+#import "YIFormMacro.h"
 #import "YIFormManager.h"
 #import "YIFormRow.h"
 #import "YIFormSection.h"

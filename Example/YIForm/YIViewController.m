@@ -7,7 +7,7 @@
 //
 
 #import "YIViewController.h"
-#import <YIForm/YIFormManager.h>
+#import <YIForm/YIForm.h>
 #import "YIAttachFormRow.h"
 #import "YIFormRowText.h"
 

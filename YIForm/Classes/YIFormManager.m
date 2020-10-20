@@ -191,6 +191,24 @@ NSString * const XLFormSectionsKey = @"formSections";
     return self.sections[indexPath.section].rows[indexPath.row];
 }
 
+/// tag 对应 section
+/// @param tag section tag
+- (nullable YIFormSection *)sectionWithTag:(NSString *)tag {
+    __block YIFormSection *section = nil;
+    if (tag.length == 0) {
+        return section;
+    }
+    if (self.sections.count == 0) {
+        return section;
+    }
+    [self.sections enumerateObjectsUsingBlock:^(YIFormSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (obj.tag && [obj.tag isEqualToString:tag]) {
+                section = obj;
+                *stop = YES;
+            }
+    }];
+    return section;
+}
 #pragma mark -
 #pragma mark Table view data source
 
