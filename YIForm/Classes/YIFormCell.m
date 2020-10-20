@@ -40,8 +40,6 @@
 }
 
 - (void)configure {
-    self.backgroundColor = [UIColor whiteColor];
-    self.contentView.backgroundColor = [UIColor yellowColor];
 }
 
 - (void)update {

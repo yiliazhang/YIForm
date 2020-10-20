@@ -236,6 +236,9 @@ NSString * const XLFormSectionsKey = @"formSections";
     }
     YIFormSection *section = self.sections[indexPath.section];
     YIFormRow *item = section.rows[indexPath.row];
+    if (item.disabled) {
+                        return NO;
+                    }
     return item.moveHandler != nil;
 }
 
@@ -246,6 +249,9 @@ NSString * const XLFormSectionsKey = @"formSections";
         if (indexPath.row < [section.rows count]) {
             YIFormRow *item = section.rows[indexPath.row];
             if ([item isKindOfClass:[YIFormRow class]]) {
+                if (item.disabled) {
+                                    return NO;
+                                }
                 return item.editingStyle != UITableViewCellEditingStyleNone || item.moveHandler;
             }
         }
@@ -548,6 +554,9 @@ NSString * const XLFormSectionsKey = @"formSections";
     id anItem = self.sections[indexPath.section].rows[indexPath.row];
     if ([anItem respondsToSelector:@selector(setCopyHandler:)]) {
         YIFormRow *item = anItem;
+        if (item.disabled) {
+                            return NO;
+                        }
         if (item.copyHandler && action == @selector(copy:))
             return YES;
         

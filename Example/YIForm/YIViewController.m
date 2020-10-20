@@ -39,26 +39,130 @@
     
     // Do any additional setup after loading the view, typically from a nib.
     self.formManager = [YIFormManager managerForTableView:self.tableView];
-//    self.formManager.delegate = self;
+    //    self.formManager.delegate = self;
     self.tableView.frame = self.view.bounds;
     [self.view addSubview:self.tableView];
     [self refreshAction:nil];
 }
 
+- (IBAction)refreshAction:(id)sender {
+    [self.formManager removeAll];
+    NSArray *sections = @[
+        [self accessoryTypeSection],
+        [self customAccessorySection],
+        [self randomSection],
+        [self deletableSection],
+        [self deleteConfirmSection],
+        [self insertSection],
+        [self movableSection],
+        [self movableAndDeletableSection],
+        [self copyCutPastSection],
+    ];
+    [self.formManager addSections:sections];
+    [self.tableView reloadData];
+}
+
+- (IBAction)removeAction:(id)sender {
+    
+}
 - (void)switchTableEdit:(UIBarButtonItem *)sender {
     self.editing = !self.editing;
     self.tableView.editing = self.editing;
     [sender setTitle:self.editing ? @"完成" : @"编辑"];
 }
 
+- (YIFormSection *)randomSection {
+    NSMutableArray *rows = [NSMutableArray array];
+    int r = 0;
+    int maxRow = 3;
+    while (r < maxRow) {
+        //        __weak typeof(self) weakSelf = self;
+        NSString *title = [NSString stringWithFormat:@"random %d", r];
+        YIFormRow *row = [self rowWithTitle:title tag:title];
+        if (r == 1) {
+            row.disabled = YES;
+            row.seperatorStyle = UITableViewCellSeparatorStyleNone;
+            row.title = @"disabled - random";
+        }
+        row.contentEdgeMargins = UIEdgeInsetsMake(20, 40, 10, 30);
+        row.seperatorLeftInset = 20;
+        row.seperatorRightInset = 20;
+        [rows addObject:row];
+        r++;
+    }
+    YIFormSection *section = Section();
+    section.headerHeight = 20;
+    section.footerHeight = 20;
+    [section addRows:rows];
+    section.cornerRadius = 20;
+    section.horizontalInset = 20;
+    return section;
+}
+
+
+- (YIFormSection *)customAccessorySection {
+    // 有accesoryView 的情况下就不要设置 contentEdgeMargins 或 horizontalInset
+    NSMutableArray *rows = [NSMutableArray array];
+    int r = 0;
+    int maxRow = 3;
+    while (r < maxRow) {
+        NSString *title = [NSString stringWithFormat:@"customAccessory %d", r];
+        YIFormRow *row = [self rowWithTitle:title tag:title];
+        UIButton *button = [[UIButton alloc] init];
+        button.frame = CGRectMake(0, 0, 50, 30);
+        [button setTitle:@"点击" forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(accessoryButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+        button.backgroundColor = [UIColor blackColor];
+        row.accessoryView = button;
+        
+        [rows addObject:row];
+        r++;
+    }
+    
+    YIFormSection *section = Section();
+    [section addRows:rows];
+    section.headerView = [self sectionHeaderView];
+    section.footerView = [self sectionFooterView];
+    
+    return section;
+}
+
+- (YIFormSection *)accessoryTypeSection {
+    // 有accesoryView 的情况下就不要设置 contentEdgeMargins 或 horizontalInset
+    NSMutableArray *rows = [NSMutableArray array];
+    int r = 0;
+    int maxRow = 3;
+    while (r < maxRow) {
+        NSString *title = [NSString stringWithFormat:@"accessoryType %d", r];
+        YIFormRow *row = [self rowWithTitle:title tag:title];
+        row.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        row.accessoryButtonTapHandler = ^(__kindof YIFormRow * _Nonnull item) {
+            NSLog(@"accessoryButtonTapHandler");
+        };
+        [rows addObject:row];
+        r++;
+    }
+    
+    YIFormSection *section = Section();
+    [section addRows:rows];
+    section.headerHeight = 20;
+    section.footerHeight = 20;
+    return section;
+}
+
 - (YIFormSection *)insertSection {
     NSMutableArray *rows = [NSMutableArray array];
     int r = 0;
-    int maxRow = 1;
+    int maxRow = 3;
     while (r < maxRow) {
-//        __weak typeof(self) weakSelf = self;
+        //        __weak typeof(self) weakSelf = self;
         NSString *title = [NSString stringWithFormat:@"insert %d", r];
         YIFormRow *row = [self rowWithTitle:title tag:title];
+        
+        if (r == 1) {
+            row.disabled = YES;
+            row.title = @"disabled - insert";
+        }
         row.insertionHandler = ^(YIFormRow *item) {
             NSLog(@"Insertion handler callback");
         };
@@ -67,6 +171,8 @@
         r++;
     }
     YIFormSection *section = Section();
+    section.headerHeight = 20;
+    section.footerHeight = 20;
     [section addRows:rows];
     return section;
 }
@@ -76,7 +182,7 @@
     int r = 0;
     int maxRow = 3;
     while (r < maxRow) {
-//        __weak typeof(self) weakSelf = self;
+        //        __weak typeof(self) weakSelf = self;
         NSString *title = [NSString stringWithFormat:@"movable %d", r];
         YIFormRow *row = [self rowWithTitle:title tag:title];
         row.seperatorStyle = UITableViewCellSeparatorStyleNone;
@@ -86,10 +192,16 @@
         row.moveCompletionHandler = ^(YIFormRow *item, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath) {
             NSLog(@"Moved item: %@ from [%li,%li] to [%li,%li]", item.title, (long) sourceIndexPath.section, (long) sourceIndexPath.row, (long) destinationIndexPath.section, (long) destinationIndexPath.row);
         };
+        if (r == 1) {
+            row.disabled = YES;
+            row.title = @"disabled - movable";
+        }
         [rows addObject:row];
         r++;
     }
     YIFormSection *section = Section();
+    section.headerHeight = 20;
+    section.footerHeight = 20;
     [section addRows:rows];
     return section;
 }
@@ -99,9 +211,14 @@
     int r = 0;
     int maxRow = 3;
     while (r < maxRow) {
-//        __weak typeof(self) weakSelf = self;
+        //        __weak typeof(self) weakSelf = self;
         NSString *title = [NSString stringWithFormat:@"deletable %d", r];
         YIFormRow *row = [self rowWithTitle:title tag:title];
+        
+        if (r == 1) {
+            row.disabled = YES;
+            row.title = @"disabled - deletable";
+        }
         row.contentEdgeMargins = UIEdgeInsetsMake(20, 40, 10, 30);
         
         row.seperatorLeftInset = 20;
@@ -141,6 +258,8 @@
         r++;
     }
     YIFormSection *section = Section();
+    section.headerHeight = 20;
+    section.footerHeight = 20;
     [section addRows:rows];
     return section;
 }
@@ -153,8 +272,6 @@
         NSString *title = [NSString stringWithFormat:@"movableAndDeletable %d", r];
         YIFormRow *row = [self rowWithTitle:title tag:title];
         row.editingStyle = UITableViewCellEditingStyleDelete;
-        row.seperatorLeftInset  = 30;
-        row.seperatorRightInset = 30;
         
         row.moveHandler = ^BOOL(id item, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath) {
             return YES;
@@ -166,6 +283,8 @@
         r++;
     }
     YIFormSection *section = Section();
+    section.headerHeight = 20;
+    section.footerHeight = 20;
     [section addRows:rows];
     return section;
 }
@@ -175,7 +294,7 @@
     YIAttachFormRow *copyItem = [[YIAttachFormRow alloc] init];
     copyItem.title = @"copy";
     copyItem.selectionHandler = ^(__kindof YIFormRow * _Nonnull item) {
-//        [item deselectRowAnimated:YES];
+        //        [item deselectRowAnimated:YES];
     };
     copyItem.copyHandler = ^(YIFormRow *item) {
         [UIPasteboard generalPasteboard].string = @"Copied item #1";
@@ -185,11 +304,11 @@
     YIAttachFormRow *pasteItem = [[YIAttachFormRow alloc] init];
     pasteItem.title = @"paste";
     pasteItem.selectionHandler = ^(__kindof YIFormRow * _Nonnull item) {
-//        [item deselectRowAnimated:YES];
+        //        [item deselectRowAnimated:YES];
     };
     pasteItem.pasteHandler = ^(YIFormRow *item) {
         item.title = [UIPasteboard generalPasteboard].string;
-//        [item reloadRowWithAnimation:UITableViewRowAnimationAutomatic];
+        //        [item reloadRowWithAnimation:UITableViewRowAnimationAutomatic];
     };
     
     YIAttachFormRow *cutCopyPasteItem = [[YIAttachFormRow alloc] init];
@@ -199,68 +318,21 @@
     };
     cutCopyPasteItem.pasteHandler = ^(YIFormRow *item) {
         item.title = [UIPasteboard generalPasteboard].string;
-//        [item reloadRowWithAnimation:UITableViewRowAnimationAutomatic];
+        //        [item reloadRowWithAnimation:UITableViewRowAnimationAutomatic];
     };
     cutCopyPasteItem.cutHandler = ^(YIFormRow *item) {
         item.title = @"(Empty)";
         [UIPasteboard generalPasteboard].string = @"Copied item #3";
-//        [item reloadRowWithAnimation:UITableViewRowAnimationAutomatic];
+        //        [item reloadRowWithAnimation:UITableViewRowAnimationAutomatic];
     };
     YIFormSection *section = Section();
+    section.disabled = YES;
     section.headerHeight = 20;
+    section.footerHeight = 20;
     [section addRows:@[copyItem, pasteItem, cutCopyPasteItem]];
     return section;
 }
 
-- (YIFormSection *)customAccessorySection {
-    // 有accesoryView 的情况下就不要设置 contentEdgeMargins 或 horizontalInset
-    NSMutableArray *rows = [NSMutableArray array];
-    int r = 0;
-    int maxRow = 1;
-    while (r < maxRow) {
-        NSString *title = [NSString stringWithFormat:@"random %d", r];
-        YIFormRow *row = [self rowWithTitle:title tag:title];
-        UIButton *button = [[UIButton alloc] init];
-        button.frame = CGRectMake(0, 0, 50, 30);
-        [button setTitle:@"点击" forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(accessoryButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-        button.backgroundColor = [UIColor blackColor];
-        row.accessoryView = button;
-        
-        [rows addObject:row];
-        r++;
-    }
-    
-    YIFormSection *section = Section();
-    [section addRows:rows];
-    section.headerView = [self sectionHeaderView];
-    section.footerView = [self sectionFooterView];
-    section.cornerRadius = 20;
-    return section;
-}
-
-- (YIFormSection *)accessoryTypeSection {
-    // 有accesoryView 的情况下就不要设置 contentEdgeMargins 或 horizontalInset
-    NSMutableArray *rows = [NSMutableArray array];
-    int r = 0;
-    int maxRow = 1;
-    while (r < maxRow) {
-        NSString *title = [NSString stringWithFormat:@"random %d", r];
-        YIFormRow *row = [self rowWithTitle:title tag:title];
-        row.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-        row.accessoryButtonTapHandler = ^(__kindof YIFormRow * _Nonnull item) {
-            NSLog(@"accessoryButtonTapHandler");
-        };
-        [rows addObject:row];
-        r++;
-    }
-    
-    YIFormSection *section = Section();
-        [section addRows:rows];
-    section.cornerRadius = 20;
-//    section.horizontalInset = 30;
-    return section;
-}
 
 
 - (UIView *)sectionHeaderView {
@@ -299,7 +371,7 @@
     };
     
     row.selectionHandler = ^(__kindof YIFormRow * _Nonnull item) {
-            NSLog(@"selectionHandler");
+        NSLog(@"selectionHandler");
     };
     
     return row;
@@ -307,7 +379,7 @@
 
 - (void)accessoryButtonAction:(id)sender {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"点击" message:[NSString stringWithFormat:@"Hello,你点到我了"] preferredStyle:UIAlertControllerStyleAlert];
-   
+    
     // Create the actions.
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     
@@ -323,14 +395,14 @@
 
 - (void)showAlert:(YIFormRow *)item {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Confirmation" message:[NSString stringWithFormat:@"Are you sure you want to delete %@", item.title] preferredStyle:UIAlertControllerStyleAlert];
-   
+    
     // Create the actions.
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         if (self.deleteConfirmationHandler) {
-                    self.deleteConfirmationHandler();
-                    NSLog(@"Item removed: %@", self.itemToDelete.title);
+            self.deleteConfirmationHandler();
+            NSLog(@"Item removed: %@", self.itemToDelete.title);
         }
     }];
     // Add the actions.
@@ -353,27 +425,6 @@
     return _tableView;
 }
 
-- (IBAction)refreshAction:(id)sender {
-    [self.formManager removeAll];
-    NSArray *sections = @[
-        [self customAccessorySection],
-        [self accessoryTypeSection],
-        [self deletableSection],
-        [self deleteConfirmSection],
-        [self movableSection],
-        [self movableAndDeletableSection],
-        [self insertSection],
-        [self copyCutPastSection],
-    
-    
-    ];
-    [self.formManager addSections:sections];
-    [self.tableView reloadData];
-}
-
-- (IBAction)removeAction:(id)sender {
-    
-}
 
 - (void)preview:(NSURL *)url {
     UIDocumentInteractionController *_docVc = [UIDocumentInteractionController interactionControllerWithURL:url];

@@ -47,6 +47,7 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
         _seperatorRightInset = 0;
 //        _disabled = NO;
 //        _hidden = @NO;
+        _selectionStyle = UITableViewCellSelectionStyleDefault;
         _cellStyle = UITableViewCellStyleDefault;
         _seperatorStyle = UITableViewCellSeparatorStyleSingleLine;
 //        _validators = [NSMutableArray new];
@@ -176,6 +177,7 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
     if (self.accessoryView) {
         _cell.accessoryView = self.accessoryView;
     }
+    _cell.selectionStyle = self.disabled ? UITableViewCellSelectionStyleNone : self.selectionStyle;
     return _cell;
 }
 

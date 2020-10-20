@@ -37,7 +37,9 @@
 
 - (void)configure {
     [super configure];
-    //self.accessoryType = UITableViewCellAccessoryNone;
+    self.backgroundColor = [UIColor whiteColor];
+    self.contentView.backgroundColor = [UIColor yellowColor];
+    
     [self.contentView addSubview:self.uploadButton];
     [self.contentView addSubview:self.fileButton];
     [self.contentView addSubview:self.titleLabel];
@@ -47,7 +49,7 @@
             make.right.equalTo(@(-15));
             make.top.equalTo(@15);
             make.bottom.equalTo(@(-15));
-        make.width.equalTo(@150);
+        make.width.equalTo(@100);
             make.height.equalTo(@60).priorityHigh();
     }];
     
@@ -69,14 +71,17 @@
     YIAttachFormRow *row = (YIAttachFormRow *)self.row;
     NSArray *files = row.value;
     NSString *title = files.count > 0 ? @"已上传" : @"暂无文件";
-    
+    UIColor *textColor = self.row.disabled ? UIColor.redColor : UIColor.grayColor;
+    self.titleLabel.textColor = textColor;
     self.titleLabel.text = self.row.title;
     [self.fileButton setTitle:title forState:UIControlStateNormal];
 }
 
 // 刷新
 - (IBAction)fileAction:(id)sender {
-    
+    if (self.row.disabled) {
+                        return;
+                    }
     YIAttachFormRow *row = self.row;
     if (row.value) {
         // TODO: - preview
@@ -89,6 +94,9 @@
 }
 
 - (IBAction)uploadAction:(id)sender {
+    if (self.row.disabled) {
+                        return;
+                    }
     YIAttachFormRow *row = self.row;
     if (row.uploadBlock) {
         row.uploadBlock(row);
@@ -98,7 +106,7 @@
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
-        _titleLabel.font = [UIFont systemFontOfSize:20];
+        _titleLabel.font = [UIFont systemFontOfSize:15];
         _titleLabel.textColor = [UIColor redColor];
     }
     return _titleLabel;
@@ -136,7 +144,7 @@
     }
     if (title) {
         [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont boldSystemFontOfSize:24.0f];
+        button.titleLabel.font = [UIFont boldSystemFontOfSize:12.0f];
         [button setTitle:title forState:UIControlStateNormal];
     }
     if (target && sel) {
