@@ -72,6 +72,40 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
     return self;
 }
 
+// MARK: - NSCopy
+
+// In the implementation
+-(id)copyWithZone:(NSZone *)zone
+{
+    YIFormRow *rowDescriptorCopy = [[YIFormRow alloc] init];
+    rowDescriptorCopy.title = [self.title copy];
+//    [rowDescriptorCopy.cellConfig addEntriesFromDictionary:self.cellConfig];
+//    [rowDescriptorCopy.cellConfigAtConfigure addEntriesFromDictionary:self.cellConfigAtConfigure];
+//    rowDescriptorCopy.valueTransformer = [self.valueTransformer copy];
+    rowDescriptorCopy.hidden = self.hidden;
+    rowDescriptorCopy.disabled = self.disabled;
+//    rowDescriptorCopy.required = self.isRequired;
+    rowDescriptorCopy.isDirtyDisablePredicateCache = YES;
+    rowDescriptorCopy.isDirtyHidePredicateCache = YES;
+//    rowDescriptorCopy.validators = [self.validators mutableCopy];
+    
+    // =====================
+    // properties for Button
+    // =====================
+//    rowDescriptorCopy.action = self.action;
+    
+    
+    // ===========================
+    // property used for Selectors
+    // ===========================
+    
+//    rowDescriptorCopy.noValueDisplayText = [self.noValueDisplayText copy];
+//    rowDescriptorCopy.selectorTitle = [self.selectorTitle copy];
+//    rowDescriptorCopy.selectorOptions = [self.selectorOptions copy];
+//    rowDescriptorCopy.leftRightSelectorLeftOptionSelected = [self.leftRightSelectorLeftOptionSelected copy];
+    
+    return rowDescriptorCopy;
+}
 #pragma mark - KVO
 
 
@@ -101,17 +135,6 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
         }
     }
 }
-
-+ (instancetype)rowWithTag:(nullable NSString *)tag {
-    return [[YIFormRow alloc] initWithTag:tag];
-}
-
-- (instancetype)initWithTag:(nullable NSString *)tag {
-    self = [self init];
-    self.tag = tag;
-    return self;
-}
-
 
 - (__kindof YIFormCell *)cellForTableView:(UITableView *)tableView {
     if (!_cell) {
@@ -181,38 +204,6 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
     return _cell;
 }
 
-// In the implementation
--(id)copyWithZone:(NSZone *)zone
-{
-    YIFormRow *rowDescriptorCopy = [[YIFormRow alloc] init];
-    rowDescriptorCopy.title = [self.title copy];
-//    [rowDescriptorCopy.cellConfig addEntriesFromDictionary:self.cellConfig];
-//    [rowDescriptorCopy.cellConfigAtConfigure addEntriesFromDictionary:self.cellConfigAtConfigure];
-//    rowDescriptorCopy.valueTransformer = [self.valueTransformer copy];
-    rowDescriptorCopy.hidden = self.hidden;
-    rowDescriptorCopy.disabled = self.disabled;
-//    rowDescriptorCopy.required = self.isRequired;
-    rowDescriptorCopy.isDirtyDisablePredicateCache = YES;
-    rowDescriptorCopy.isDirtyHidePredicateCache = YES;
-//    rowDescriptorCopy.validators = [self.validators mutableCopy];
-    
-    // =====================
-    // properties for Button
-    // =====================
-//    rowDescriptorCopy.action = self.action;
-    
-    
-    // ===========================
-    // property used for Selectors
-    // ===========================
-    
-//    rowDescriptorCopy.noValueDisplayText = [self.noValueDisplayText copy];
-//    rowDescriptorCopy.selectorTitle = [self.selectorTitle copy];
-//    rowDescriptorCopy.selectorOptions = [self.selectorOptions copy];
-//    rowDescriptorCopy.leftRightSelectorLeftOptionSelected = [self.leftRightSelectorLeftOptionSelected copy];
-    
-    return rowDescriptorCopy;
-}
 
 - (id)cellClass {
     return YIFormCell.class;

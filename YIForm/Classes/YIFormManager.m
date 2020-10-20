@@ -46,11 +46,11 @@ NSString * const XLFormSectionsKey = @"formSections";
 //    _allRowsByTag = nil;
 }
 
-+ (instancetype)managerForTableView:(UITableView * _Nullable)tableView {
++ (instancetype)managerForTableView:(UITableView *)tableView {
     return [[YIFormManager alloc] initWithTableView:tableView];
 }
 
-- (instancetype)initWithTableView:(UITableView *_Nullable)tableView {
+- (instancetype)initWithTableView:(UITableView *)tableView {
     self = [super init];
     if (self) {
         tableView.delegate = self;
@@ -61,85 +61,7 @@ NSString * const XLFormSectionsKey = @"formSections";
     }
     return self;
 }
-
-
-/// 更新row 对应的 cell
-/// @param formRow row
--(__kindof YIFormCell *)updateFormRow:(YIFormRow *)formRow
-{
-//    YIFormCell * cell = [formRow cellForTableView:self.tableView];
-    YIFormCell * cell = formRow.cell;
-    if (cell != nil) {
-        cell.separatorColor = [self separatorColorFor:formRow];
-        [self configureCell:cell];
-        [cell setNeedsLayout];
-        [cell layoutIfNeeded];
-    }
-    return cell;
-}
-
-/// cell 配置
-/// @param cell cell
--(void)configureCell:(__kindof YIFormCell *) cell
-{
-    [cell update];
-
-//    if(cell.row != nil && cell.rowDescriptor.cellConfig != nil) {
-//        [cell.row.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
-//            [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
-//        }];
-//    }
-//
-//    if (cell.row.isDisabled){
-//        [cell.row.cellConfigIfDisabled enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
-//            [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
-//        }];
-//    }
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    YIFormRow *rowDescriptor = [self rowAtIndex:indexPath];
-    
-    CGFloat height = rowDescriptor.height;
-    if (height != YIFormRowInitialHeight){
-        return height;
-    }
-    return self.tableView.rowHeight;
-}
-
--(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    YIFormRow *rowDescriptor = [self rowAtIndex:indexPath];
-    CGFloat height = rowDescriptor.height;
-    if (height != YIFormRowInitialHeight){
-        return height;
-    }
-    return self.tableView.estimatedRowHeight;
-}
-
-- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    YIFormRow * rowDescriptor = self.sections[indexPath.section].rows[indexPath.row];
-    return [self updateFormRow:rowDescriptor];
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.sections.count;
-}
-
-- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.sections.count == 0) {
-        return 0;
-    }
-    NSInteger count = self.sections[section].rows.count;
-    return count;
-}
-
-- (void)reloadRows:(NSArray<YIFormRow *> *)rows {
-    for (YIFormRow *row in rows) {
-        [self updateFormRow:row];
-    }
-}
+// MARK: - 检索
 
 -(NSIndexPath *)indexPathForRow:(YIFormRow *)row {
     if (self.sections.count == 0) {
@@ -176,6 +98,71 @@ NSString * const XLFormSectionsKey = @"formSections";
     return sectionIndex;
 }
 
+
+- (nullable __kindof YIFormRow *)rowWithTag:(NSString *)tag {
+    __block YIFormRow *result = nil;
+    [self.sections enumerateObjectsUsingBlock:^(YIFormSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj.rows enumerateObjectsUsingBlock:^(__kindof YIFormRow * _Nonnull row, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (row.tag && row.tag.length > 0 && row.tag == tag) {
+                        result = row;
+                        *stop = YES;
+                    }
+        }];
+    }];
+    return result;
+}
+
+- (nullable YIFormRow *)rowAtIndexPath:(NSIndexPath *)indexPath {
+    return self.sections[indexPath.section].rows[indexPath.row];
+}
+
+/// tag 对应 section
+/// @param tag section tag
+- (nullable YIFormSection *)sectionWithTag:(NSString *)tag {
+    __block YIFormSection *section = nil;
+    if (tag.length == 0) {
+        return section;
+    }
+    if (self.sections.count == 0) {
+        return section;
+    }
+    [self.sections enumerateObjectsUsingBlock:^(YIFormSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (obj.tag && [obj.tag isEqualToString:tag]) {
+                section = obj;
+                *stop = YES;
+            }
+    }];
+    return section;
+}
+
+- (NSMutableArray<YIFormSection *> *)sections {
+    if (!_sections) {
+        _sections = [NSMutableArray array];
+    }
+    return _sections;
+}
+
+// MARK: - 增删
+
+- (void)addSections:(NSArray<YIFormSection *> *)sections {
+    if (sections.count == 0) {
+        return;
+    }
+    
+    for (YIFormSection *section in sections) {
+        section.formManager = self;
+    }
+    [self.sections addObjectsFromArray:sections];
+}
+
+- (void)removeAll {
+    [self.sections removeAllObjects];
+}
+
+- (void)removeSectionsAt:(NSIndexSet *)indexes {
+    [self.sections removeObjectsAtIndexes:indexes];
+}
+
 /// 移除 sections
 /// @param sections section 数组
 - (void)removeSections:(NSArray<YIFormSection *> *)sections {
@@ -199,76 +186,100 @@ NSString * const XLFormSectionsKey = @"formSections";
     }
 }
 
-- (nullable __kindof YIFormRow *)rowWithTag:(NSString *)tag {
-    __block YIFormRow *result = nil;
-    [self.sections enumerateObjectsUsingBlock:^(YIFormSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [obj.rows enumerateObjectsUsingBlock:^(__kindof YIFormRow * _Nonnull row, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if (row.tag && row.tag.length > 0 && row.tag == tag) {
-                        result = row;
-                        *stop = YES;
-                    }
-        }];
-    }];
-    return result;
-}
+// MARK: - 刷新 和 其他
 
-- (NSMutableArray<YIFormSection *> *)sections {
-    if (!_sections) {
-        _sections = [NSMutableArray array];
+- (void)reloadRows:(NSArray<YIFormRow *> *)rows {
+    for (YIFormRow *row in rows) {
+        [self updateFormRow:row];
     }
-    return _sections;
 }
 
-- (void)addSections:(NSArray<YIFormSection *> *)sections {
-    if (sections.count == 0) {
-        return;
+/// 更新row 对应的 cell
+/// @param formRow row
+-(__kindof YIFormCell *)updateFormRow:(YIFormRow *)formRow
+{
+//    YIFormCell * cell = [formRow cellForTableView:self.tableView];
+    YIFormCell * cell = formRow.cell;
+    if (cell != nil) {
+        cell.separatorColor = [self separatorColorFor:formRow];
+        [self configureCell:cell];
+        [cell setNeedsLayout];
+        [cell layoutIfNeeded];
     }
-    
-    for (YIFormSection *section in sections) {
-        section.formManager = self;
+    return cell;
+}
+
+/// cell 配置
+/// @param cell cell
+-(void)configureCell:(__kindof YIFormCell *) cell
+{
+    [cell update];
+
+//    if(cell.row != nil && cell.rowDescriptor.cellConfig != nil) {
+//        [cell.row.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
+//            [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
+//        }];
+//    }
+//
+//    if (cell.row.isDisabled){
+//        [cell.row.cellConfigIfDisabled enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
+//            [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
+//        }];
+//    }
+}
+
+- (UIColor *)separatorColorFor:(YIFormRow *)row {
+    if (!row.separatorColor) {
+        return self.tableView.separatorColor;
     }
-    [self.sections addObjectsFromArray:sections];
+    return row.separatorColor;
 }
 
-- (void)removeAll {
-    [self.sections removeAllObjects];
-}
-
-- (void)removeSectionsAt:(NSIndexSet *)indexes {
-    [self.sections removeObjectsAtIndexes:indexes];
-}
-
+// MARK: -
 
 - (void)formRowValueHasChanged:(YIFormRow *)formRow oldValue:(id)oldValue newValue:(id)newValue
 {
     [self updateFormRow:formRow];
 }
-
-- (nullable YIFormRow *)rowAtIndex:(NSIndexPath *)indexPath {
-    return self.sections[indexPath.section].rows[indexPath.row];
-}
-
-/// tag 对应 section
-/// @param tag section tag
-- (nullable YIFormSection *)sectionWithTag:(NSString *)tag {
-    __block YIFormSection *section = nil;
-    if (tag.length == 0) {
-        return section;
-    }
-    if (self.sections.count == 0) {
-        return section;
-    }
-    [self.sections enumerateObjectsUsingBlock:^(YIFormSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (obj.tag && [obj.tag isEqualToString:tag]) {
-                section = obj;
-                *stop = YES;
-            }
-    }];
-    return section;
-}
 #pragma mark -
 #pragma mark Table view data source
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    YIFormRow *rowDescriptor = [self rowAtIndexPath:indexPath];
+    CGFloat height = rowDescriptor.height;
+    if (height != YIFormRowInitialHeight){
+        return height;
+    }
+    return self.tableView.rowHeight;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    YIFormRow *rowDescriptor = [self rowAtIndexPath:indexPath];
+    CGFloat height = rowDescriptor.height;
+    if (height != YIFormRowInitialHeight){
+        return height;
+    }
+    return self.tableView.estimatedRowHeight;
+}
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    YIFormRow * rowDescriptor = self.sections[indexPath.section].rows[indexPath.row];
+    return [self updateFormRow:rowDescriptor];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.sections.count;
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (self.sections.count == 0) {
+        return 0;
+    }
+    NSInteger count = self.sections[section].rows.count;
+    return count;
+}
 // Section header & footer information. Views are preferred over title should you decide to provide both
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)sectionIndex
@@ -665,10 +676,4 @@ NSString * const XLFormSectionsKey = @"formSections";
     
 }
 
-- (UIColor *)separatorColorFor:(YIFormRow *)row {
-    if (!row.separatorColor) {
-        return self.tableView.separatorColor;
-    }
-    return row.separatorColor;
-}
 @end

@@ -10,7 +10,7 @@
 #import <YIForm/YIForm.h>
 #import "YIAttachFormRow.h"
 #import "YIFormRowText.h"
-
+#import <Masonry/Masonry.h>
 
 #define kUploadAttachmentsURLDocumentTypes @[@"com.microsoft.word.docx", @"org.openxmlformats.wordprocessingml.document", @"org.openxmlformats.spreadsheetml.sheet", @"org.openxmlformats.presentationml.presentation", @"com.microsoft.word.doc", @"com.microsoft.powerpoint.ppt", @"com.adobe.pdf", @"com.microsoft.powerpoint.​pptx", @"com.microsoft.excel.xlsx", @"com.microsoft.excel.xls", @"public.png", @"public.jpeg", @"public.audio", @"com.microsoft.waveform-​audio", @"public.movie"]
 
@@ -37,11 +37,10 @@
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStyleDone target:self action:@selector(switchTableEdit:)];
     
-    // Do any additional setup after loading the view, typically from a nib.
-    self.formManager = [YIFormManager managerForTableView:self.tableView];
-    //    self.formManager.delegate = self;
     self.tableView.frame = self.view.bounds;
     [self.view addSubview:self.tableView];
+    // Do any additional setup after loading the view, typically from a nib.
+    self.formManager = [YIFormManager managerForTableView:self.tableView];
     [self refreshAction:nil];
 }
 
@@ -337,8 +336,6 @@
     return section;
 }
 
-
-
 - (UIView *)headerViewWithTitle:(NSString *)title {
     UIView *headerView = [[UIView alloc] init];
     headerView.backgroundColor = [UIColor redColor];
@@ -347,6 +344,10 @@
     [headerView addSubview:label];
     label.text = title;
     label.numberOfLines = 0;
+    
+    UIButton *button = [[UIButton alloc] init];
+    [button setTitle:@"点" forState:UIControlStateNormal];
+    
     
     return headerView;
 }

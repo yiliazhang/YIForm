@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern CGFloat YIFormRowInitialHeight;
 
-
 typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, YIFormRow * row);
 @protocol YIFormRowProtocol <NSObject>
 
@@ -26,7 +25,7 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 @property (nullable, strong, nonatomic) NSString *tag;
 
 @property(nonatomic, strong, nullable) id value;
-/// 行高 default is 44.0f
+/// 
 @property (nonatomic, assign) CGFloat height;
 /// cell 内容与边缘间距
 @property (nonatomic, assign) UIEdgeInsets contentEdgeMargins;

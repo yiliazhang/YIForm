@@ -26,13 +26,40 @@ typedef NS_ENUM(NSUInteger, XLPredicateType) {
 
 /// 初始化方法
 /// @param tableView  tableView
-+ (instancetype)managerForTableView:(nullable UITableView *)tableView;
++ (instancetype)managerForTableView:(UITableView *)tableView;
+
 /// 初始化方法
 /// @param tableView  tableView
-- (instancetype)initWithTableView:(nullable UITableView *)tableView;
+- (instancetype)initWithTableView:(UITableView *)tableView;
 
-//- (instancetype)config:(void (^ __nullable)(void))configForInstance;
 
+// MARK: - 刷新
+/// 移除 tag 对应的 row
+/// @param tag row tag
+//-(void)removeRowWithTag:(nonnull NSString *)tag;
+
+/// 重新加载 sections
+/// @param sections section 数组
+//- (void)reloadSections:(NSArray<YIFormSection *> *)sections;
+/// 重新加载
+/// @param rows row 数组
+- (void)reloadRows:(NSArray<YIFormRow *> *)rows;
+
+// MARK: - 检索
+/// <#Description#>
+/// @param row <#row description#>
+-(NSIndexPath *)indexPathForRow:(YIFormRow *)row;
+
+-(NSUInteger)indexForSection:(YIFormSection *)section;
+
+/// 重新加载
+/// @param sections section 数组
+//- (void)reloadSectionsAt:(NSIndexSet *)sections;
+/// 重新加载 indexPathes
+/// @param indexPathes indexPathes 数组
+//- (void)reloadIndexPathes:(NSArray<NSIndexPath *> *)indexPathes;
+
+///
 /// tag 对应 section
 /// @param tag section tag
 - (nullable YIFormSection *)sectionWithTag:(NSString *)tag;
@@ -42,7 +69,8 @@ typedef NS_ENUM(NSUInteger, XLPredicateType) {
 
 /// indexPath 对应的 row
 /// @param indexPath indexPath
--(nullable YIFormRow *)rowAtIndex:(NSIndexPath *)indexPath;
+-(nullable YIFormRow *)rowAtIndexPath:(NSIndexPath *)indexPath;
+// MARK: - 增 删
 
 /// 添加 sections
 /// @param sections section 数组
@@ -61,30 +89,8 @@ typedef NS_ENUM(NSUInteger, XLPredicateType) {
 /// @param formRow row
 -(void)removeRow:(YIFormRow *)formRow;
 
-/// 移除 tag 对应的 row
-/// @param tag row tag
-//-(void)removeRowWithTag:(nonnull NSString *)tag;
+// MARK: -
 
-/// 重新加载 sections
-/// @param sections section 数组
-//- (void)reloadSections:(NSArray<YIFormSection *> *)sections;
-/// 重新加载
-/// @param rows row 数组
-- (void)reloadRows:(NSArray<YIFormRow *> *)rows;
-/// <#Description#>
-/// @param row <#row description#>
--(NSIndexPath *)indexPathForRow:(YIFormRow *)row;
-
--(NSUInteger)indexForSection:(YIFormSection *)section;
-
-/// 重新加载
-/// @param sections section 数组
-//- (void)reloadSectionsAt:(NSIndexSet *)sections;
-/// 重新加载 indexPathes
-/// @param indexPathes indexPathes 数组
-//- (void)reloadIndexPathes:(NSArray<NSIndexPath *> *)indexPathes;
-
-///
 /// @param formRow formRow
 /// @param oldValue oldValue
 /// @param newValue newValue

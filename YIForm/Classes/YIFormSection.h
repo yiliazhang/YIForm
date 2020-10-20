@@ -49,6 +49,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// section 圆 半径
 @property (nonatomic) CGFloat cornerRadius;
 
+/// cell 内容与边缘间距
+@property (nonatomic, assign) CGFloat horizontalInset;
+
 /// 对应的 formManager
 @property (nonatomic, weak, null_unspecified) YIFormManager * formManager;
 
@@ -77,8 +80,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param tag tag
 - (nullable __kindof YIFormRow *)rowWithTag:(NSString *)tag;
 
-/// cell 内容与边缘间距
-@property (nonatomic, assign) CGFloat horizontalInset;
 
 
 @end
