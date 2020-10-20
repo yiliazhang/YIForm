@@ -175,27 +175,35 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
 - (__kindof YIFormCell *)cell {
     if (!_cell) {
         id cellClass = self.cellClass;
-        NSBundle *bundle = [NSBundle mainBundle];
-        NSString *cellClassString = cellClass;
-        NSString *cellResource = nil;
+//        NSBundle *bundle = [NSBundle mainBundle];
+//        NSString *cellClassString = cellClass;
+//        NSString *cellResource = nil;
+//        NSBundle *bundleForCaller = [NSBundle bundleForClass:self.class];
         
-        if ([cellClass isKindOfClass:[NSString class]]) {
-            if ([cellClassString rangeOfString:@"/"].location != NSNotFound) {
-                NSArray *components = [cellClassString componentsSeparatedByString:@"/"];
-                cellResource = [components lastObject];
-                NSString *folderName = [components firstObject];
-                NSString *bundlePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:folderName];
-                bundle = [NSBundle bundleWithPath:bundlePath];
-            } else {
-                cellResource = [cellClassString componentsSeparatedByString:@"."].lastObject;
-            }
-        } else {
-            cellResource = [NSStringFromClass(cellClass) componentsSeparatedByString:@"."].lastObject;
-        }
+        NSAssert(cellClass, @"cell class 未赋值");
         
-//        _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:[cellClass reuseIdentifier]];
-        _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:nil];
+//        if ([cellClass isKindOfClass:[NSString class]]) {
+//            if ([cellClassString rangeOfString:@"/"].location != NSNotFound) {
+//                NSArray *components = [cellClassString componentsSeparatedByString:@"/"];
+//                cellResource = [components lastObject];
+//                NSString *folderName = [components firstObject];
+//                NSString *bundlePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:folderName];
+//                bundle = [NSBundle bundleWithPath:bundlePath];
+//            } else {
+//                cellResource = [cellClassString componentsSeparatedByString:@"."].lastObject;
+//            }
+//        } else {
+//            cellResource = [NSStringFromClass(cellClass) componentsSeparatedByString:@"."].lastObject;
+//        }
         
+//        if ([bundle pathForResource:cellResource ofType:@"nib"]) {
+//            _cell = [[bundle loadNibNamed:cellResource owner:nil options:nil] firstObject];
+//        } else if ([bundleForCaller pathForResource:cellResource ofType:@"nib"]) {
+//            _cell = [[bundleForCaller loadNibNamed:cellResource owner:nil options:nil] firstObject];
+//        } else {
+            _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:nil];
+//        }
+        NSAssert([_cell isKindOfClass:[YIFormCell class]], @"UITableViewCell must extend from XLFormBaseCell");
     }
     _cell.row = self;
     _cell.accessoryType = self.accessoryType;

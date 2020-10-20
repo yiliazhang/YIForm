@@ -14,4 +14,5 @@
 - (id)cellClass {
     return YIAttachUploadCell.class;
 }
+
 @end
