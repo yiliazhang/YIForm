@@ -57,15 +57,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 添加 rows
 /// @param rows 数组
-- (instancetype)addRows:(NSArray<__kindof YIFormRow *> *)rows;
+- (void)addRows:(NSArray<__kindof YIFormRow *> *)rows;
 
 /// 删除rows
 /// @param rows 数组
-- (instancetype)removeRows:(NSArray<__kindof YIFormRow *> *)rows;
+- (void)removeRows:(NSArray<__kindof YIFormRow *> *)rows;
 
 /// 删除对应的indexes 的rows
 /// @param indexes 数组
-- (instancetype)removeRowsAt:(NSIndexSet *)indexes;
+- (void)removeRowsAt:(NSIndexSet *)indexes;
 
 /// 在 index 处插入 row
 /// @param row row
@@ -80,6 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param tag tag
 - (nullable __kindof YIFormRow *)rowWithTag:(NSString *)tag;
 
+/// 刷新
 - (void)reload;
 
 @end

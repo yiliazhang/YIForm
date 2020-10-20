@@ -34,9 +34,6 @@ typedef NS_ENUM(NSUInteger, XLPredicateType) {
 
 
 // MARK: - 刷新
-/// 移除 tag 对应的 row
-/// @param tag row tag
-//-(void)removeRowWithTag:(nonnull NSString *)tag;
 
 /// 重新加载 sections
 /// @param sections section 数组
@@ -69,7 +66,7 @@ typedef NS_ENUM(NSUInteger, XLPredicateType) {
 
 /// indexPath 对应的 row
 /// @param indexPath indexPath
--(nullable YIFormRow *)rowAtIndexPath:(NSIndexPath *)indexPath;
+- (nullable YIFormRow *)rowAtIndexPath:(NSIndexPath *)indexPath;
 // MARK: - 增 删
 
 /// 添加 sections
@@ -88,6 +85,10 @@ typedef NS_ENUM(NSUInteger, XLPredicateType) {
 /// 移除 row
 /// @param formRow row
 -(void)removeRow:(YIFormRow *)formRow;
+
+/// 移除 tag 对应的 row
+/// @param tag row tag
+-(void)removeRowWithTag:(nonnull NSString *)tag;
 
 // MARK: -
 

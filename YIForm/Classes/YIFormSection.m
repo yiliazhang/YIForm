@@ -32,9 +32,9 @@ CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
     return self;
 }
 
-- (instancetype)removeRows:(NSArray<__kindof YIFormRow *> * _Nonnull)rows {
+- (void)removeRows:(NSArray<__kindof YIFormRow *> * _Nonnull)rows {
     if (rows.count == 0) {
-        return self;
+        return;
     }
     NSMutableIndexSet *indexSet = [[NSMutableIndexSet alloc] init];
     for (NSUInteger index = 0; index < self.rows.count; index++) {
@@ -47,12 +47,11 @@ CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
     if (indexSet.count > 0) {
         [_rows removeObjectsAtIndexes:indexSet];
     }
-    return self;
 }
 
-- (instancetype)addRows:(NSArray<__kindof YIFormRow *> * _Nonnull)rows {
+- (void)addRows:(NSArray<__kindof YIFormRow *> * _Nonnull)rows {
     if (rows.count == 0) {
-        return self;
+        return;
     }
     
     for (YIFormRow *row in rows) {
@@ -60,15 +59,13 @@ CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
     }
     
     [_rows addObjectsFromArray:rows];
-    return self;
 }
 
-- (instancetype)removeRowsAt:(NSIndexSet *)indexes {
+- (void)removeRowsAt:(NSIndexSet *)indexes {
     if (indexes.count == 0) {
-        return self;
+        return;
     }
     [_rows removeObjectsAtIndexes:indexes];
-    return self;
 }
 
 - (void)insertRow:(__kindof YIFormRow *)row at:(NSInteger)index {

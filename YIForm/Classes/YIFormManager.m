@@ -186,7 +186,10 @@ NSString * const XLFormSectionsKey = @"formSections";
     YIFormRow *row = [self rowWithTag:tag];
     if (row) {
         [self.sections enumerateObjectsUsingBlock:^(YIFormSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [obj removeRows:@[row]];
+            if ([obj.rows containsObject:row]) {
+                [obj removeRows:@[row]];
+                *stop = YES;
+            }
         }];
     }
 }
