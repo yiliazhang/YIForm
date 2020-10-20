@@ -49,14 +49,14 @@
     [self.formManager removeAll];
     NSArray *sections = @[
         [self accessoryTypeSection],
-//        [self customAccessorySection],
-//        [self randomSection],
-//        [self deletableSection],
-//        [self deleteConfirmSection],
-//        [self insertSection],
-//        [self movableSection],
-//        [self movableAndDeletableSection],
-//        [self copyCutPastSection],
+        [self customAccessorySection],
+        [self randomSection],
+        [self deletableSection],
+        [self deleteConfirmSection],
+        [self insertSection],
+        [self movableSection],
+        [self movableAndDeletableSection],
+        [self copyCutPastSection],
     ];
     [self.formManager addSections:sections];
     [self.tableView reloadData];
@@ -217,9 +217,12 @@
         if (r == 1) {
             row.disabled = YES;
             row.title = @"disabled - deletable";
+            row.separatorColor = [UIColor greenColor];
+        } else {
+            
+            row.separatorColor = [UIColor blueColor];
         }
         row.contentEdgeMargins = UIEdgeInsetsMake(20, 40, 10, 30);
-        
         row.separatorLeftInset = 20;
         row.separatorRightInset = 20;
         

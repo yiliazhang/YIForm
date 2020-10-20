@@ -592,8 +592,7 @@ NSString * const XLFormSectionsKey = @"formSections";
 
 - (UIColor *)separatorColorFor:(YIFormRow *)row {
     if (!row.separatorColor) {
-//        return self.tableView.separatorColor;
-        return [UIColor redColor];
+        return self.tableView.separatorColor;
     }
     return row.separatorColor;
 }
