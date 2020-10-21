@@ -38,7 +38,6 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
     _cell = nil;
 }
 
-
 -(instancetype)init {
     self = [super init];
     if (self) {

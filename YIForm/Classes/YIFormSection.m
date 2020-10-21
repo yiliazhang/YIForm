@@ -114,4 +114,8 @@ CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
 - (void)reload {
 //    [self.formManager r];
 }
+
++ (instancetype)section {
+    return [[YIFormSection alloc] init];
+}
 @end

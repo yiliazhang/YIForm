@@ -11,6 +11,10 @@ inline __kindof YIFormSection *Section() {
     return [[YIFormSection alloc] init];
 }
 
+inline __kindof YIFormRow *Row(id rowClass) {
+    return [[rowClass alloc] init];
+}
+
 @interface YIFormManager()<UITableViewDelegate, UITableViewDataSource>
 
 @property(nonatomic, weak, nullable) UITableView *tableView;

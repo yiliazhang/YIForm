@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 创建 section
 FOUNDATION_EXPORT __kindof YIFormSection *Section(void);
+/// 创建 row
+/// @param rowClass row class
+FOUNDATION_EXPORT __kindof YIFormRow *Row(id rowClass);
+
 
 typedef NS_ENUM(NSUInteger, XLPredicateType) {
     XLPredicateTypeDisabled = 0,

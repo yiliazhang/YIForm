@@ -14,63 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 extern CGFloat YIFormRowInitialHeight;
 
 typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, YIFormRow * row);
-@protocol YIFormRowProtocol <NSObject>
 
-@required
-
-@property (nonatomic) BOOL disabled;
-/// 对应的cell
-@property (strong, nonatomic, readonly) YIFormCell *cell;
-///
-@property (nullable, strong, nonatomic) NSString *tag;
-
-@property(nonatomic, strong, nullable) id value;
-/// 
-@property (nonatomic, assign) CGFloat height;
-/// cell 内容与边缘间距
-@property (nonatomic, assign) UIEdgeInsets contentEdgeMargins;
-/// separator style
-@property (nonatomic) UITableViewCellSeparatorStyle separatorStyle;
-
-// cell class
-@property (nonatomic, strong, readonly) id cellClass;
-
-/// cell style
-@property (nonatomic, assign  ) UITableViewCellStyle cellStyle;
-// row 对应的值 更新后
-@property (nonatomic, copy, nullable) YIOnChangeBlock onChangeBlock;
-
-
-// RETableViewManager
-@property (copy, readwrite, nonatomic) void (^selectionHandler)(__kindof YIFormRow *item);
-@property (copy, readwrite, nonatomic) void (^accessoryButtonTapHandler)(__kindof YIFormRow *item);
-@property (copy, readwrite, nonatomic) void (^insertionHandler)(__kindof YIFormRow *item);
-@property (copy, readwrite, nonatomic) void (^deletionHandler)(__kindof YIFormRow *item);
-@property (copy, readwrite, nonatomic) void (^deletionHandlerWithCompletion)(__kindof YIFormRow *item, void (^)(void));
-@property (copy, readwrite, nonatomic) BOOL (^moveHandler)(YIFormRow *item, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
-@property (copy, readwrite, nonatomic) void (^moveCompletionHandler)(YIFormRow *item, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
-@property (copy, readwrite, nonatomic) void (^cutHandler)(__kindof YIFormRow *item);
-@property (copy, readwrite, nonatomic) void (^copyHandler)(__kindof YIFormRow *item);
-@property (copy, readwrite, nonatomic) void (^pasteHandler)(__kindof YIFormRow *item);
-
-
-/// row 所在section
-@property (nonatomic, weak, null_unspecified) YIFormSection *section;
-@optional
-
-//+(CGFloat)formDescriptorCellHeightForRowDescriptor:(__kindof YIFormRow *)row;
-//-(BOOL)formDescriptorCellCanBecomeFirstResponder;
-//-(BOOL)formDescriptorCellBecomeFirstResponder;
-//-(void)formDescriptorCellDidSelectedWithFormController:(XLFormViewController *)controller;
-//-(NSString *)formDescriptorHttpParameterName;
-
-//-(void)highlight;
-//-(void)unhighlight;
-
-@end
-
-
-@interface YIFormRow : NSObject<YIFormRowProtocol>
+@interface YIFormRow : NSObject
 
 //@property(nonatomic) BOOL hidden;
 /// 是否 disabled 默认NO
@@ -138,6 +83,7 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 //- (__kindof YIFormCell *)cellForTableView:(UITableView *)tableView;
 
 - (void)reload;
+
 @end
 
 NS_ASSUME_NONNULL_END

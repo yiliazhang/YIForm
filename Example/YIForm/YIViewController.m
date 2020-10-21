@@ -293,7 +293,7 @@
 
 
 - (YIFormSection *)copyCutPastSection {
-    YIAttachFormRow *copyItem = [[YIAttachFormRow alloc] init];
+    YIAttachFormRow *copyItem = [YIAttachFormRow row];
     copyItem.title = @"copy";
     copyItem.selectionHandler = ^(__kindof YIFormRow * _Nonnull item) {
         //        [item deselectRowAnimated:YES];
@@ -361,12 +361,12 @@
 }
 
 - (__kindof YIFormRow *)rowWithTitle:(NSString *)title tag:(NSString *)tag {
-    //    YIFormRowText *row = [[YIFormRowText alloc] init];
-    //    row.height = arc4random()%50 + 10;
-    //    row.title = [NSString stringWithFormat:@"%@ height:%.2f",title, row.height];
-    
+//    YIFormRowText *row00 = Row(YIFormRowText.class);
+//    row00.height = arc4random()%50 + 10;
+//    row00.title = [NSString stringWithFormat:@"%@ height:%.2f",title, row00.height];
+
     __weak typeof(self) weakSelf = self;
-    YIAttachFormRow *row = [[YIAttachFormRow alloc] init];
+    YIAttachFormRow *row = Row(YIFormRowText.class);
     row.tag = tag;
     row.title = title;
     row.previewBlock = ^(YIAttachFormRow * _Nonnull item) {
@@ -375,12 +375,12 @@
             [self preview:items[0]];
         }
     };
-    
+
     row.uploadBlock = ^(YIAttachFormRow * _Nonnull item) {
         weakSelf.currrentFileUploadRowTag = item.tag;
         [self chooseDocument];
     };
-    
+
     row.selectionHandler = ^(__kindof YIFormRow * _Nonnull item) {
         NSLog(@"selectionHandler");
     };
