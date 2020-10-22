@@ -36,6 +36,8 @@ typedef NS_ENUM(NSUInteger, XLPredicateType) {
 /// @param tableView  tableView
 - (instancetype)initWithTableView:(UITableView *)tableView;
 
+/// sections
+@property (strong, nonatomic, readonly) NSArray<__kindof YIFormSection *> *sections;
 
 // MARK: - 刷新
 
@@ -70,7 +72,7 @@ typedef NS_ENUM(NSUInteger, XLPredicateType) {
 
 /// indexPath 对应的 row
 /// @param indexPath indexPath
-- (nullable YIFormRow *)rowAtIndexPath:(NSIndexPath *)indexPath;
+- (nullable __kindof YIFormRow *)rowAtIndexPath:(NSIndexPath *)indexPath;
 // MARK: - 增 删
 
 /// 添加 sections

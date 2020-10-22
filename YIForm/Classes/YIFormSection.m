@@ -37,8 +37,8 @@ CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
         return;
     }
     NSMutableIndexSet *indexSet = [[NSMutableIndexSet alloc] init];
-    for (NSUInteger index = 0; index < self.rows.count; index++) {
-        YIFormRow *row = self.rows[index];
+    for (NSUInteger index = 0; index < _rows.count; index++) {
+        YIFormRow *row = _rows[index];
         if ([rows containsObject:row]) {
             [indexSet addIndex:index];
         }
@@ -78,7 +78,7 @@ CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
 /// 所有的tags
 - (NSArray *)rowTags {
     NSMutableSet *tags = [NSMutableSet set];
-    [self.rows enumerateObjectsUsingBlock:^(__kindof YIFormRow * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [_rows enumerateObjectsUsingBlock:^(__kindof YIFormRow * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if (obj.tag) {
             [tags addObject:obj.tag];
         }
@@ -98,17 +98,13 @@ CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
 }
 
 - (__kindof YIFormRow *)rowWithTag:(NSString *)tag {
-    for (__kindof YIFormRow *row in self.rows) {
+    for (__kindof YIFormRow *row in _rows) {
         if ([row.tag isEqualToString:tag]) {
             
             return row;
         }
     }
     return nil;
-}
-
-- (NSArray<__kindof YIFormRow *> *)rows {
-    return [_rows copy];
 }
 
 - (void)reload {
@@ -118,4 +114,5 @@ CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
 + (instancetype)section {
     return [[YIFormSection alloc] init];
 }
+
 @end

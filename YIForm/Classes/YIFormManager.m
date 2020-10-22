@@ -57,6 +57,7 @@ NSString * const XLFormSectionsKey = @"formSections";
 - (instancetype)initWithTableView:(UITableView *)tableView {
     self = [super init];
     if (self) {
+        _sections = [NSMutableArray array];
         tableView.delegate = self;
         tableView.dataSource = self;
         //        self.separatorStyle = tableView.separatorStyle;
@@ -144,13 +145,6 @@ NSString * const XLFormSectionsKey = @"formSections";
     return section;
 }
 
-- (NSMutableArray<YIFormSection *> *)sections {
-    if (!_sections) {
-        _sections = [NSMutableArray array];
-    }
-    return _sections;
-}
-
 // MARK: - 增删
 
 - (void)addSections:(NSArray<YIFormSection *> *)sections {
@@ -161,15 +155,15 @@ NSString * const XLFormSectionsKey = @"formSections";
     for (YIFormSection *section in sections) {
         section.formManager = self;
     }
-    [self.sections addObjectsFromArray:sections];
+    [_sections addObjectsFromArray:sections];
 }
 
 - (void)removeAll {
-    [self.sections removeAllObjects];
+    [_sections removeAllObjects];
 }
 
 - (void)removeSectionsAt:(NSIndexSet *)indexes {
-    [self.sections removeObjectsAtIndexes:indexes];
+    [_sections removeObjectsAtIndexes:indexes];
 }
 
 /// 移除 sections
@@ -307,7 +301,8 @@ NSString * const XLFormSectionsKey = @"formSections";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.sections.count;
+    NSInteger count = self.sections.count;
+    return count;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

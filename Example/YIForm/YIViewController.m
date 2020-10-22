@@ -293,7 +293,7 @@
 
 
 - (YIFormSection *)copyCutPastSection {
-    YIAttachFormRow *copyItem = [YIAttachFormRow row];
+    YIAttachFormRow *copyItem = [[YIAttachFormRow alloc] init];
     copyItem.title = @"copy";
     copyItem.selectionHandler = ^(__kindof YIFormRow * _Nonnull item) {
         //        [item deselectRowAnimated:YES];
@@ -364,9 +364,9 @@
 //    YIFormRowText *row00 = Row(YIFormRowText.class);
 //    row00.height = arc4random()%50 + 10;
 //    row00.title = [NSString stringWithFormat:@"%@ height:%.2f",title, row00.height];
-
+//    Row(YIAttachFormRow.class)
     __weak typeof(self) weakSelf = self;
-    YIAttachFormRow *row = Row(YIFormRowText.class);
+    YIAttachFormRow *row = [[YIAttachFormRow alloc] init];
     row.tag = tag;
     row.title = title;
     row.previewBlock = ^(YIAttachFormRow * _Nonnull item) {

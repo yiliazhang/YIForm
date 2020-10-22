@@ -27,8 +27,10 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 /// title
 @property (nonatomic, copy) NSString *title;
 
+/// 对应的cell
+@property (nonnull, strong, nonatomic, readonly) id cellClass;
 /// 值
-@property(nonatomic, strong, nullable) __kindof id value;
+@property(nonatomic, strong, nullable) id value;
 
 /// 行高 default is 44.0f
 @property (nonatomic, assign) CGFloat height;
