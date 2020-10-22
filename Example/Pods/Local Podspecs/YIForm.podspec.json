@@ -1,6 +1,6 @@
 {
   "name": "YIForm",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "summary": "iOS 常用复杂表单",
   "description": "iOS 常用复杂表单.\niOS 常用复杂表单.\niOS 常用复杂表单.\niOS 常用复杂表单.",
   "homepage": "https://github.com/yiliazhang/YIForm",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/yiliazhang/YIForm.git",
-    "tag": "0.1.3"
+    "tag": "0.1.4"
   },
   "platforms": {
     "ios": "12.0"
