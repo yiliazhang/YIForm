@@ -760,22 +760,6 @@
 			};
 			name = Debug;
 		};
-		45060680CFDA864238DC2A5A1D3BC7CB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A89CC869C953411DCED07E01FBB4D110 /* YIForm.debug.xcconfig */;
-			buildSettings = {
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/YIForm";
-				IBSC_MODULE = YIForm;
-				INFOPLIST_FILE = "Target Support Files/YIForm/ResourceBundle-YIForm-YIForm-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_NAME = YIForm;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
 		57F18EA670499A49CF94543F10D8CABA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F287598D192FA586BD4AECCD85B988A4 /* Masonry.debug.xcconfig */;
@@ -807,84 +791,19 @@
 			};
 			name = Debug;
 		};
-		72A06201B21F725587EFD0254A71FFF2 /* Release */ = {
+		6C5C4D5D81BFD4C328609981944B488E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EDC21F75BE1D81C26AA95DE1C1C5293B /* YIForm.release.xcconfig */;
+			baseConfigurationReference = A89CC869C953411DCED07E01FBB4D110 /* YIForm.debug.xcconfig */;
 			buildSettings = {
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/YIForm";
 				IBSC_MODULE = YIForm;
 				INFOPLIST_FILE = "Target Support Files/YIForm/ResourceBundle-YIForm-YIForm-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_NAME = YIForm;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
-		79D96BC500190275C08E754A4BB58A82 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = EDC21F75BE1D81C26AA95DE1C1C5293B /* YIForm.release.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/YIForm/YIForm-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/YIForm/YIForm-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/YIForm/YIForm.modulemap";
-				PRODUCT_MODULE_NAME = YIForm;
-				PRODUCT_NAME = YIForm;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		883EADEB42D0012D2EA1FAA77349C797 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A89CC869C953411DCED07E01FBB4D110 /* YIForm.debug.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/YIForm/YIForm-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/YIForm/YIForm-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/YIForm/YIForm.modulemap";
-				PRODUCT_MODULE_NAME = YIForm;
-				PRODUCT_NAME = YIForm;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
@@ -950,6 +869,22 @@
 			};
 			name = Release;
 		};
+		9BC61D01B463CCFE3C9FC76FD9358235 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDC21F75BE1D81C26AA95DE1C1C5293B /* YIForm.release.xcconfig */;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/YIForm";
+				IBSC_MODULE = YIForm;
+				INFOPLIST_FILE = "Target Support Files/YIForm/ResourceBundle-YIForm-YIForm-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				PRODUCT_NAME = YIForm;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
 		A68369881F74F32713A654C00E9604B8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 062CFB59F38A391174674520CC2636C3 /* Pods-YIForm_Example.release.xcconfig */;
@@ -978,6 +913,39 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		AC5DC59A69F4327F8826547EE1B867B7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EDC21F75BE1D81C26AA95DE1C1C5293B /* YIForm.release.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/YIForm/YIForm-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/YIForm/YIForm-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/YIForm/YIForm.modulemap";
+				PRODUCT_MODULE_NAME = YIForm;
+				PRODUCT_NAME = YIForm;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1152,6 +1120,38 @@
 			};
 			name = Release;
 		};
+		F925A600AF476E75D2C8525FCAB581D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A89CC869C953411DCED07E01FBB4D110 /* YIForm.debug.xcconfig */;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/YIForm/YIForm-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/YIForm/YIForm-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/YIForm/YIForm.modulemap";
+				PRODUCT_MODULE_NAME = YIForm;
+				PRODUCT_NAME = YIForm;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1167,8 +1167,8 @@
 		2D8539FC791AFE424FD7DC86E6C9F227 /* Build configuration list for PBXNativeTarget "YIForm" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				883EADEB42D0012D2EA1FAA77349C797 /* Debug */,
-				79D96BC500190275C08E754A4BB58A82 /* Release */,
+				F925A600AF476E75D2C8525FCAB581D7 /* Debug */,
+				AC5DC59A69F4327F8826547EE1B867B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1194,8 +1194,8 @@
 		9C4DB81D89B4EAE6B5E20CDCBBE05783 /* Build configuration list for PBXNativeTarget "YIForm-YIForm" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				45060680CFDA864238DC2A5A1D3BC7CB /* Debug */,
-				72A06201B21F725587EFD0254A71FFF2 /* Release */,
+				6C5C4D5D81BFD4C328609981944B488E /* Debug */,
+				9BC61D01B463CCFE3C9FC76FD9358235 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
