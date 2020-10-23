@@ -57,6 +57,11 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 //@property (nonatomic, nullable, copy) NSString * selectorTitle;
 //@property (nonatomic, nullable, strong) NSArray * selectorOptions;
 
+@property (nonatomic, strong) NSMutableDictionary * cellConfig;
+//@property (nonatomic, strong) NSMutableDictionary * cellConfigForSelector;
+@property (nonatomic, strong) NSMutableDictionary * cellConfigIfDisabled;
+@property (nonatomic, strong) NSMutableDictionary * cellConfigAtConfigure;
+
 // RETableViewManager
 ///
 @property (nonnull, strong, nonatomic) UIColor *separatorColor;

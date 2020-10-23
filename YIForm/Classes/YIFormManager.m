@@ -7,7 +7,7 @@
 
 #import "YIFormManager.h"
 
-inline __kindof YIFormSection *Section() {
+inline YIFormSection *Section() {
     return [[YIFormSection alloc] init];
 }
 
@@ -242,21 +242,21 @@ NSString * const XLFormSectionsKey = @"formSections";
 
 /// cell 配置
 /// @param cell cell
--(void)configureCell:(__kindof YIFormCell *) cell
+-(void)configureCell:(YIFormCell *) cell
 {
     [cell update];
     
-    //    if(cell.row != nil && cell.rowDescriptor.cellConfig != nil) {
-    //        [cell.row.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
-    //            [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
-    //        }];
-    //    }
-    //
-    //    if (cell.row.isDisabled){
-    //        [cell.row.cellConfigIfDisabled enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
-    //            [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
-    //        }];
-    //    }
+    if(cell.row != nil && cell.row.cellConfig != nil) {
+        [cell.row.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
+            [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
+        }];
+    }
+    
+    if (cell.row.disabled){
+        [cell.row.cellConfigIfDisabled enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, BOOL * __unused stop) {
+            [cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
+        }];
+    }
 }
 
 - (UIColor *)separatorColorFor:(YIFormRow *)row {

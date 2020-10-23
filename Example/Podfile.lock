@@ -1,6 +1,6 @@
 PODS:
   - Masonry (1.1.0)
-  - YIForm (0.1.4)
+  - YIForm (0.1.5)
 
 DEPENDENCIES:
   - Masonry
@@ -16,7 +16,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  YIForm: e42782f1425091d8d8cd2073e0323b70ef29ad1c
+  YIForm: d4c586325a6a07c2f24dc5bd3d61c3d6526b142d
 
 PODFILE CHECKSUM: 16fab3a3cb9b0dc7c912bc21ac1e2491cad3856e
 

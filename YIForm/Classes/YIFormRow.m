@@ -80,8 +80,8 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
 {
     YIFormRow *rowDescriptorCopy = [[YIFormRow alloc] init];
     rowDescriptorCopy.title = [self.title copy];
-//    [rowDescriptorCopy.cellConfig addEntriesFromDictionary:self.cellConfig];
-//    [rowDescriptorCopy.cellConfigAtConfigure addEntriesFromDictionary:self.cellConfigAtConfigure];
+    [rowDescriptorCopy.cellConfig addEntriesFromDictionary:self.cellConfig];
+    [rowDescriptorCopy.cellConfigAtConfigure addEntriesFromDictionary:self.cellConfigAtConfigure];
 //    rowDescriptorCopy.valueTransformer = [self.valueTransformer copy];
     rowDescriptorCopy.hidden = self.hidden;
     rowDescriptorCopy.disabled = self.disabled;
@@ -224,4 +224,42 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
     }
     return _disabled;
 }
+
+-(NSMutableDictionary *)cellConfig
+{
+    if (!_cellConfig) {
+        _cellConfig = [NSMutableDictionary dictionary];
+    }
+    
+    return _cellConfig;
+}
+
+-(NSMutableDictionary *)cellConfigForSelector
+{
+    if (!_cellConfigForSelector) {
+        _cellConfigForSelector = [NSMutableDictionary dictionary];
+    }
+    
+    return _cellConfigForSelector;
+}
+
+
+-(NSMutableDictionary *)cellConfigIfDisabled
+{
+    if (!_cellConfigIfDisabled) {
+        _cellConfigIfDisabled = [NSMutableDictionary dictionary];
+    }
+    
+    return _cellConfigIfDisabled;
+}
+
+-(NSMutableDictionary *)cellConfigAtConfigure
+{
+    if (!_cellConfigAtConfigure) {
+        _cellConfigAtConfigure = [NSMutableDictionary dictionary];
+    }
+    
+    return _cellConfigAtConfigure;
+}
+
 @end
