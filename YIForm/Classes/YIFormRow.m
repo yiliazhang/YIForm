@@ -210,9 +210,15 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
         _cell.accessoryView = self.accessoryView;
     }
     _cell.selectionStyle = self.disabled ? UITableViewCellSelectionStyleNone : self.selectionStyle;
+    [self configureCellAtCreationTime];
     return _cell;
 }
-
+- (void)configureCellAtCreationTime
+{
+    [self.cellConfigAtConfigure enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, __unused BOOL *stop) {
+        [self.cell setValue:(value == [NSNull null]) ? nil : value forKeyPath:keyPath];
+    }];
+}
 
 - (id)cellClass {
     return YIFormCell.class;
@@ -234,14 +240,14 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
     return _cellConfig;
 }
 
--(NSMutableDictionary *)cellConfigForSelector
-{
-    if (!_cellConfigForSelector) {
-        _cellConfigForSelector = [NSMutableDictionary dictionary];
-    }
-    
-    return _cellConfigForSelector;
-}
+//-(NSMutableDictionary *)cellConfigForSelector
+//{
+//    if (!_cellConfigForSelector) {
+//        _cellConfigForSelector = [NSMutableDictionary dictionary];
+//    }
+//
+//    return _cellConfigForSelector;
+//}
 
 
 -(NSMutableDictionary *)cellConfigIfDisabled
