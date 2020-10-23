@@ -32,7 +32,7 @@ CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
     return self;
 }
 
-- (void)removeRows:(NSArray<__kindof YIFormRow *> * _Nonnull)rows {
+- (void)removeRows:(NSArray<YIFormRow *> * _Nonnull)rows {
     if (rows.count == 0) {
         return;
     }
@@ -49,7 +49,7 @@ CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
     }
 }
 
-- (void)addRows:(NSArray<__kindof YIFormRow *> * _Nonnull)rows {
+- (void)addRows:(NSArray<YIFormRow *> * _Nonnull)rows {
     if (rows.count == 0) {
         return;
     }
@@ -68,7 +68,7 @@ CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
     [_rows removeObjectsAtIndexes:indexes];
 }
 
-- (void)insertRow:(__kindof YIFormRow *)row at:(NSInteger)index {
+- (void)insertRow:(YIFormRow *)row at:(NSInteger)index {
     if (!row) {
         return;
     }
