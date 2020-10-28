@@ -64,7 +64,9 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 
 // RETableViewManager
 ///
-@property (nonnull, strong, nonatomic) UIColor *separatorColor;
+@property (strong, nonatomic) UIColor *containerBackgroundColor;
+///
+@property (nullable, strong, nonatomic) UIColor *separatorColor;
 @property (nonatomic) UITableViewCellSeparatorStyle separatorStyle;
 @property (assign, readwrite, nonatomic) UITableViewCellSelectionStyle selectionStyle;
 @property (assign, readwrite, nonatomic) UITableViewCellAccessoryType accessoryType;
@@ -83,6 +85,9 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 @property (copy, readwrite, nonatomic) void (^cutHandler)(__kindof YIFormRow *item);
 @property (copy, readwrite, nonatomic) void (^copyHandler)(__kindof YIFormRow *item);
 @property (copy, readwrite, nonatomic) void (^pasteHandler)(__kindof YIFormRow *item);
+
+/// row 对应 indexPath
+@property (strong, nonatomic, readonly) NSIndexPath *indexPath;
 /// row 对应的cell
 @property (strong, nonatomic, readonly) __kindof YIFormCell *cell;
 /// row 所在section

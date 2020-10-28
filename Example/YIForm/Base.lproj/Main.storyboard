@@ -3,7 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,11 +21,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YCw-hG-Ji5">
-                                <rect key="frame" x="24" y="179" width="159" height="30"/>
+                                <rect key="frame" x="16" y="191" width="159" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="To Test View Controller"/>
                                 <connections>
                                     <segue destination="whP-gf-Uak" kind="show" id="WUV-He-nPy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sLH-4N-4To">
+                                <rect key="frame" x="15" y="258" width="162" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="To TableView Controller"/>
+                                <connections>
+                                    <segue destination="cMh-2y-niu" kind="show" id="vdP-Ej-EOl"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -36,6 +44,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QU2-1S-jiS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-522" y="212"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="WR2-q2-b8P">
+            <objects>
+                <tableViewController id="cMh-2y-niu" customClass="TableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="IZg-wv-2BR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="vWo-C9-gJr">
+                                <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vWo-C9-gJr" id="ctT-cc-jSN">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="cMh-2y-niu" id="aGB-II-kPV"/>
+                            <outlet property="delegate" destination="cMh-2y-niu" id="cj8-gO-hFY"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="y7I-GJ-VZt"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L4a-qI-ncd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-522" y="963"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="wQg-tq-qST">
@@ -53,6 +90,7 @@
                     <navigationItem key="navigationItem" id="pZM-Ng-oO3">
                         <nil key="title"/>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="C5W-xv-NAh">
+                            <rect key="frame" x="74" y="7" width="111" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Remove Section"/>
                         </button>

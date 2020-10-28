@@ -9,7 +9,11 @@
 #import "YIFormRow.h"
 #import "YIFormSection.h"
 @interface YIFormCell()
+///
+@property (nonnull, strong, nonatomic) UIView *containerView;
 
+///
+@property (nonnull, strong, nonatomic) UIView *customContentView;
 ///
 @property (nonnull, strong, nonatomic) UIView *separatorLineView;
 @end
@@ -23,6 +27,10 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        
+        [self.contentView addSubview:self.customContentView];
+
+        [self.customContentView addSubview:self.containerView];
         [self configure];
     }
     return self;
@@ -40,26 +48,31 @@
 }
 
 - (void)configure {
+    
 }
 
 - (void)update {
-    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.contentView.topAnchor constraintEqualToAnchor:self.topAnchor constant:self.topMargin].active = YES;
-    [self.contentView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:self.bottomMargin].active = YES;
-    [self.contentView.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:self.leftMargin].active = YES;
-    [self.contentView.rightAnchor constraintEqualToAnchor:self.rightAnchor constant:self.rightMargin].active = YES;
+    self.customContentView.backgroundColor = self.row.section.cornerRadius == 0 ? self.row.containerBackgroundColor : UIColor.clearColor;
+//    self.containerView.backgroundColor = self.row.section.cornerRadius == 0 ? self.row.containerBackgroundColor : UIColor.clearColor;
+    
+    [self.customContentView.topAnchor constraintEqualToAnchor:self.customContentView.superview.topAnchor].active = YES;
+    [self.customContentView.bottomAnchor constraintEqualToAnchor:self.customContentView.superview.bottomAnchor].active = YES;
+    [self.customContentView.leftAnchor constraintEqualToAnchor:self.customContentView.superview.leftAnchor constant:self.row.section.horizontalInset].active = YES;
+    [self.customContentView.rightAnchor constraintEqualToAnchor:self.customContentView.superview.rightAnchor constant:-self.row.section.horizontalInset].active = YES;
+    
+    [self.containerView.topAnchor constraintEqualToAnchor:self.containerView.superview.topAnchor constant:self.row.contentEdgeMargins.top].active = YES;
+    [self.containerView.bottomAnchor constraintEqualToAnchor:self.containerView.superview.bottomAnchor constant:-self.row.contentEdgeMargins.bottom].active = YES;
+    [self.containerView.leftAnchor constraintEqualToAnchor:self.containerView.superview.leftAnchor constant:self.row.contentEdgeMargins.left].active = YES;
+    [self.containerView.rightAnchor constraintEqualToAnchor:self.containerView.superview.rightAnchor constant:-self.row.contentEdgeMargins.right].active = YES;
     if (self.row.separatorStyle == UITableViewCellSeparatorStyleSingleLine) {
         if (![self.subviews containsObject:self.separatorLineView]) {
             [self addSubview: self.separatorLineView];
-            self.separatorLineView.translatesAutoresizingMaskIntoConstraints = NO;
         }
         CGFloat lineHeight = (1.f / [UIScreen mainScreen].scale);
-        CGFloat left = self.leftMargin + self.row.separatorLeftInset;
-        CGFloat right = self.rightMargin - self.row.separatorRightInset;
         [self.separatorLineView.heightAnchor constraintEqualToConstant:lineHeight].active = YES;
         [self.separatorLineView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
-        [self.separatorLineView.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:left].active = YES;
-        [self.separatorLineView.rightAnchor constraintEqualToAnchor:self.rightAnchor constant:right].active = YES;
+        [self.separatorLineView.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:self.separatorLeftMargin].active = YES;
+        [self.separatorLineView.rightAnchor constraintEqualToAnchor:self.rightAnchor constant:self.separatorRightMargin].active = YES;
     } else {
         [self.separatorLineView removeFromSuperview];
     }
@@ -103,9 +116,19 @@
     return right;
 }
 
+- (CGFloat)separatorLeftMargin {
+    return self.leftMargin + self.row.separatorLeftInset;
+    
+}
+
+- (CGFloat)separatorRightMargin {
+    return self.rightMargin - self.row.separatorRightInset;
+    
+}
 - (UIView *)separatorLineView {
     if (!_separatorLineView) {
         _separatorLineView = [[UIView alloc] init];
+        _separatorLineView.translatesAutoresizingMaskIntoConstraints = NO;
     }
     return _separatorLineView;
 }
@@ -114,4 +137,21 @@
     _separatorColor = separatorColor;
     self.separatorLineView.backgroundColor = separatorColor;
 }
+
+- (UIView *)customContentView {
+    if (!_customContentView) {
+        _customContentView = [[UIView alloc] init];
+        _customContentView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _customContentView;
+}
+
+-(UIView *)containerView {
+    if (!_containerView) {
+        _containerView = [[UIView alloc] init];
+        _containerView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _containerView;
+}
+
 @end

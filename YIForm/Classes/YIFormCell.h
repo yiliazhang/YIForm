@@ -14,14 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @required
 
-@property (nonatomic, weak) __kindof YIFormRow * row;
-/// 初始化配置 添加UI 布局等
--(void)configure;
 
-/// 更新数据 或 UI布局
--(void)update;
-
-@optional
 
 //-(BOOL)formDescriptorCellCanBecomeFirstResponder;
 //-(BOOL)formDescriptorCellBecomeFirstResponder;
@@ -37,8 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface YIFormCell : UITableViewCell<YIFormCellProtocol>
+@property (strong, nonatomic, readonly) UIView *containerView;
 ///
-@property (nullable, strong, nonatomic) UIColor *separatorColor;
+//@property (nonnull, strong, nonatomic, readonly) UIView *customContentView;
+///
+@property (strong, nonatomic) UIColor *separatorColor;
 @property (nonatomic, weak) __kindof YIFormRow * row;
 
 /// top 距 tableview 缩进
@@ -51,6 +47,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// bottom 距 tableview 缩进
 @property (nonatomic, readonly) CGFloat bottomMargin;
+/// 分割线 左 距 tableview 缩进
+@property (nonatomic, readonly) CGFloat separatorLeftMargin;
+
+/// 分割线 右 距 tableview 缩进
+@property (nonatomic, readonly) CGFloat separatorRightMargin;
+
+/// 初始化配置 添加UI 布局等
+-(void)configure;
+
+/// 更新数据 或 UI布局
+-(void)update;
 
 @end
 

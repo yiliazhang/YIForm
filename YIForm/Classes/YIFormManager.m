@@ -234,6 +234,8 @@ NSString * const XLFormSectionsKey = @"formSections";
     if (cell != nil) {
         cell.separatorColor = [self separatorColorFor:formRow];
         [self configureCell:cell];
+        [cell setNeedsUpdateConstraints];
+        [cell updateConstraintsIfNeeded];
         [cell setNeedsLayout];
         [cell layoutIfNeeded];
     }
@@ -429,16 +431,38 @@ NSString * const XLFormSectionsKey = @"formSections";
     YIFormSection *section = self.sections[indexPath.section];
     YIFormRow *item = section.rows[indexPath.row];
     YIFormCell *formCell = (YIFormCell *)cell;
+    UIColor *color = item.containerBackgroundColor;
     CGFloat cornerRadius = section.cornerRadius;
     if (cornerRadius == 0 ) {
         return;
     }
     formCell.separatorColor = UIColor.clearColor;
+    
     cell.backgroundColor = UIColor.clearColor;
     CGRect bounds = CGRectInset(cell.bounds, section.horizontalInset, 0);
-    CAShapeLayer *layer = [[CAShapeLayer alloc] init];
-    CGMutablePathRef pathRef = CGPathCreateMutable();
+    CAShapeLayer *bgLayer = [self layerForTableView:tableView indexPath:indexPath bounds:bounds cornerRadius:cornerRadius containerViewBackgroundColor:color separatorColor:[self separatorColorFor:item] separatorStyle:item.separatorStyle separatorLeftInset:item.separatorLeftInset separatorRightInset:item.separatorRightInset];
+    CAShapeLayer *selectedBgLayer = [self layerForTableView:tableView indexPath:indexPath bounds:bounds cornerRadius:cornerRadius containerViewBackgroundColor:color separatorColor:[self separatorColorFor:item] separatorStyle:item.separatorStyle separatorLeftInset:item.separatorLeftInset separatorRightInset:item.separatorRightInset];
     
+    cell.backgroundView = [self viewWithLayer:bgLayer frame:bounds];
+    cell.selectedBackgroundView = [self viewWithLayer:selectedBgLayer frame:bounds];
+}
+
+- (CAShapeLayer *)layerForTableView:(UITableView *)tableView
+                     indexPath:(NSIndexPath *)indexPath
+                        bounds:(CGRect)bounds
+                  cornerRadius:(CGFloat)cornerRadius
+                    containerViewBackgroundColor:(UIColor *)containerViewBackgroundColor
+                separatorColor:(UIColor *)separatorColor
+                separatorStyle:(UITableViewCellSeparatorStyle)separatorStyle
+            separatorLeftInset:(CGFloat)separatorLeftInset
+            separatorRightInset:(CGFloat)separatorRightInset
+{
+    CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+//    layer.backgroundColor = formCell.containerView.backgroundColor.CGColor;
+//    formCell.containerView.backgroundColor = UIColor.clearColor;
+    
+    CGMutablePathRef pathRef = CGPathCreateMutable();
+
     BOOL addLine = NO;
     if (indexPath.row == 0 && indexPath.row == [tableView numberOfRowsInSection:indexPath.section]-1) {
         CGPathAddRoundedRect(pathRef, nil, bounds, cornerRadius, cornerRadius);
@@ -459,19 +483,22 @@ NSString * const XLFormSectionsKey = @"formSections";
     }
     layer.path = pathRef;
     CFRelease(pathRef);
-    layer.fillColor = [UIColor colorWithWhite:1.f alpha:0.8f].CGColor;
-    if (addLine == YES && item.separatorStyle == UITableViewCellSeparatorStyleSingleLine ) {
+//    layer.fillColor = [UIColor colorWithWhite:1.f alpha:0.8f].CGColor;
+    layer.fillColor = containerViewBackgroundColor.CGColor;
+    if (addLine == YES && separatorStyle == UITableViewCellSeparatorStyleSingleLine ) {
         CALayer *lineLayer = [[CALayer alloc] init];
         CGFloat lineHeight = (1.f / [UIScreen mainScreen].scale);
-        lineLayer.frame = CGRectMake(CGRectGetMinX(bounds)+item.separatorLeftInset, bounds.size.height-lineHeight, bounds.size.width-(item.separatorRightInset + item.separatorLeftInset), lineHeight);
-        lineLayer.backgroundColor = [self separatorColorFor:item].CGColor;
+        lineLayer.frame = CGRectMake(CGRectGetMinX(bounds)+separatorLeftInset, bounds.size.height-lineHeight, bounds.size.width-(separatorRightInset + separatorLeftInset), lineHeight);
+        lineLayer.backgroundColor = separatorColor.CGColor;
         [layer addSublayer:lineLayer];
     }
-    UIView *testView = [[UIView alloc] initWithFrame:bounds];
-    
+    return layer;
+}
+
+- (UIView *)viewWithLayer:(CALayer *)layer frame:(CGRect)rect {
+    UIView *testView = [[UIView alloc] initWithFrame:rect];
     [testView.layer insertSublayer:layer atIndex:0];
-    testView.backgroundColor = UIColor.clearColor;
-    cell.backgroundView = testView;
+    return testView;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section

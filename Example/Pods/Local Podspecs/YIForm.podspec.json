@@ -1,6 +1,6 @@
 {
   "name": "YIForm",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "summary": "iOS 常用复杂表单",
   "description": "iOS 常用复杂表单.\niOS 常用复杂表单.\niOS 常用复杂表单.\niOS 常用复杂表单.",
   "homepage": "https://github.com/yiliazhang/YIForm",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/yiliazhang/YIForm.git",
-    "tag": "0.1.6"
+    "tag": "0.1.7"
   },
   "platforms": {
     "ios": "9.0"
@@ -25,6 +25,11 @@
   "resource_bundles": {
     "YIForm": [
       "YIForm/Assets/*.png"
+    ]
+  },
+  "dependencies": {
+    "Masonry": [
+
     ]
   }
 }

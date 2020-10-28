@@ -7,7 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		310AB1A72547F8C800D5F02B /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 310AB1A62547F8C800D5F02B /* TableViewController.m */; };
+		310AB1B42548137900D5F02B /* YITableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 310AB1B32548137900D5F02B /* YITableViewCell.m */; };
+		313E2D0A25466A0D00F40601 /* YIPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313E2D0925466A0D00F40601 /* YIPopViewController.m */; };
 		31478A46253E70B400E05422 /* YIFormRowText.m in Sources */ = {isa = PBXBuildFile; fileRef = 31478A45253E70B400E05422 /* YIFormRowText.m */; };
+		316D4B6225466BD90032655F /* YIMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 316D4B6125466BD90032655F /* YIMessageViewController.m */; };
+		316D4B6925466C6C0032655F /* GWAuthInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 316D4B6725466C6C0032655F /* GWAuthInfoCell.m */; };
+		316D4B6E25466CE80032655F /* ViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 316D4B6D25466CE80032655F /* ViewFactory.m */; };
+		316D4B7325466CF90032655F /* UIView+GWReoundRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 316D4B7225466CF90032655F /* UIView+GWReoundRect.m */; };
 		31F16A8125382AB400364E1B /* YIAttachUploadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F16A8025382AB400364E1B /* YIAttachUploadCell.m */; };
 		31F16A8625382AD500364E1B /* YIAttachFormRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F16A8525382AD500364E1B /* YIAttachFormRow.m */; };
 		31F16A8E25383F6900364E1B /* YIFormTextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F16A8D25383F6900364E1B /* YIFormTextCell.m */; };
@@ -42,7 +49,21 @@
 
 /* Begin PBXFileReference section */
 		164021A8CBD5C390543BC1B5 /* Pods_YIForm_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YIForm_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		310AB1A52547F8C800D5F02B /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		310AB1A62547F8C800D5F02B /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		310AB1B22548137900D5F02B /* YITableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YITableViewCell.h; sourceTree = "<group>"; };
+		310AB1B32548137900D5F02B /* YITableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YITableViewCell.m; sourceTree = "<group>"; };
+		313E2D0825466A0D00F40601 /* YIPopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YIPopViewController.h; sourceTree = "<group>"; };
+		313E2D0925466A0D00F40601 /* YIPopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YIPopViewController.m; sourceTree = "<group>"; };
 		31478A45253E70B400E05422 /* YIFormRowText.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YIFormRowText.m; sourceTree = "<group>"; };
+		316D4B6025466BD90032655F /* YIMessageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YIMessageViewController.h; sourceTree = "<group>"; };
+		316D4B6125466BD90032655F /* YIMessageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YIMessageViewController.m; sourceTree = "<group>"; };
+		316D4B6725466C6C0032655F /* GWAuthInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GWAuthInfoCell.m; sourceTree = "<group>"; };
+		316D4B6825466C6C0032655F /* GWAuthInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GWAuthInfoCell.h; sourceTree = "<group>"; };
+		316D4B6C25466CE80032655F /* ViewFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewFactory.h; sourceTree = "<group>"; };
+		316D4B6D25466CE80032655F /* ViewFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewFactory.m; sourceTree = "<group>"; };
+		316D4B7125466CF90032655F /* UIView+GWReoundRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+GWReoundRect.h"; sourceTree = "<group>"; };
+		316D4B7225466CF90032655F /* UIView+GWReoundRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GWReoundRect.m"; sourceTree = "<group>"; };
 		31F16A7F25382AB400364E1B /* YIAttachUploadCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YIAttachUploadCell.h; sourceTree = "<group>"; };
 		31F16A8025382AB400364E1B /* YIAttachUploadCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YIAttachUploadCell.m; sourceTree = "<group>"; };
 		31F16A8425382AD500364E1B /* YIAttachFormRow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YIAttachFormRow.h; sourceTree = "<group>"; };
@@ -110,14 +131,18 @@
 		31F16A98253849CC00364E1B /* CustomItems */ = {
 			isa = PBXGroup;
 			children = (
+				316D4B6825466C6C0032655F /* GWAuthInfoCell.h */,
+				316D4B6725466C6C0032655F /* GWAuthInfoCell.m */,
 				31F16A7F25382AB400364E1B /* YIAttachUploadCell.h */,
 				31F16A8025382AB400364E1B /* YIAttachUploadCell.m */,
 				31F16A8425382AD500364E1B /* YIAttachFormRow.h */,
+				310AB1B22548137900D5F02B /* YITableViewCell.h */,
 				31F16A8525382AD500364E1B /* YIAttachFormRow.m */,
 				31F16A8C25383F6900364E1B /* YIFormRowText.h */,
 				31478A45253E70B400E05422 /* YIFormRowText.m */,
 				31F16A8A25383F6900364E1B /* YIFormTextCell.h */,
 				31F16A8D25383F6900364E1B /* YIFormTextCell.m */,
+				310AB1B32548137900D5F02B /* YITableViewCell.m */,
 			);
 			name = CustomItems;
 			sourceTree = "<group>";
@@ -159,6 +184,10 @@
 		6003F593195388D20070C39A /* Example for YIForm */ = {
 			isa = PBXGroup;
 			children = (
+				316D4B7125466CF90032655F /* UIView+GWReoundRect.h */,
+				316D4B7225466CF90032655F /* UIView+GWReoundRect.m */,
+				316D4B6C25466CE80032655F /* ViewFactory.h */,
+				316D4B6D25466CE80032655F /* ViewFactory.m */,
 				6003F59C195388D20070C39A /* YIAppDelegate.h */,
 				6003F59D195388D20070C39A /* YIAppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
@@ -168,6 +197,12 @@
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 				31F16A98253849CC00364E1B /* CustomItems */,
+				313E2D0825466A0D00F40601 /* YIPopViewController.h */,
+				313E2D0925466A0D00F40601 /* YIPopViewController.m */,
+				316D4B6025466BD90032655F /* YIMessageViewController.h */,
+				316D4B6125466BD90032655F /* YIMessageViewController.m */,
+				310AB1A52547F8C800D5F02B /* TableViewController.h */,
+				310AB1A62547F8C800D5F02B /* TableViewController.m */,
 			);
 			name = "Example for YIForm";
 			path = YIForm;
@@ -399,12 +434,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				31F16A8E25383F6900364E1B /* YIFormTextCell.m in Sources */,
+				316D4B7325466CF90032655F /* UIView+GWReoundRect.m in Sources */,
 				31478A46253E70B400E05422 /* YIFormRowText.m in Sources */,
 				6003F59E195388D20070C39A /* YIAppDelegate.m in Sources */,
+				313E2D0A25466A0D00F40601 /* YIPopViewController.m in Sources */,
+				310AB1B42548137900D5F02B /* YITableViewCell.m in Sources */,
 				6003F5A7195388D20070C39A /* YIViewController.m in Sources */,
+				316D4B6E25466CE80032655F /* ViewFactory.m in Sources */,
+				310AB1A72547F8C800D5F02B /* TableViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				31F16A8125382AB400364E1B /* YIAttachUploadCell.m in Sources */,
+				316D4B6925466C6C0032655F /* GWAuthInfoCell.m in Sources */,
 				31F16A8625382AD500364E1B /* YIAttachFormRow.m in Sources */,
+				316D4B6225466BD90032655F /* YIMessageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

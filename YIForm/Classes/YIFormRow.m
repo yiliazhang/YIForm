@@ -137,40 +137,6 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
     }
 }
 
-- (__kindof YIFormCell *)cellForTableView:(UITableView *)tableView {
-    if (!_cell) {
-        id cellClass = self.cellClass;
-        NSBundle *bundle = [NSBundle mainBundle];
-        NSString *cellClassString = cellClass;
-        NSString *cellResource = nil;
-        
-        if ([cellClass isKindOfClass:[NSString class]]) {
-            if ([cellClassString rangeOfString:@"/"].location != NSNotFound) {
-                NSArray *components = [cellClassString componentsSeparatedByString:@"/"];
-                cellResource = [components lastObject];
-                NSString *folderName = [components firstObject];
-                NSString *bundlePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:folderName];
-                bundle = [NSBundle bundleWithPath:bundlePath];
-            } else {
-                cellResource = [cellClassString componentsSeparatedByString:@"."].lastObject;
-            }
-        } else {
-            cellResource = [NSStringFromClass(cellClass) componentsSeparatedByString:@"."].lastObject;
-        }
-        NSString *reuseIdentifier = [cellClass reuseIdentifier];
-        _cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
-        if (!_cell) {
-            _cell = [[cellClass alloc] initWithStyle:self.cellStyle reuseIdentifier:[cellClass reuseIdentifier]];
-        }
-    }
-    _cell.row = self;
-    
-    if (self.accessoryView) {
-        _cell.accessoryView = self.accessoryView;
-    }
-    return _cell;
-}
-
 - (__kindof YIFormCell *)cell {
     if (!_cell) {
         id cellClass = self.cellClass;
@@ -266,6 +232,10 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
     }
     
     return _cellConfigAtConfigure;
+}
+
+- (NSIndexPath *)indexPath {
+    return [self.section.formManager indexPathForRow:self];
 }
 
 @end

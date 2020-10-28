@@ -9,6 +9,7 @@
 #import "YIAttachUploadCell.h"
 #import <YIFormManager.h>
 #import "YIAttachFormRow.h"
+#import "UIView+GWReoundRect.h"
 @import Masonry;
 @interface YIAttachUploadCell()
 ///
@@ -37,13 +38,11 @@
 
 - (void)configure {
     [super configure];
-    self.backgroundColor = [UIColor whiteColor];
-    self.contentView.backgroundColor = [UIColor yellowColor];
-    
-    [self.contentView addSubview:self.uploadButton];
-    [self.contentView addSubview:self.fileButton];
-    [self.contentView addSubview:self.titleLabel];
-    
+    [self.containerView roundRectWithRadius:20];
+    self.containerView.backgroundColor = [UIColor blueColor];
+    [self.containerView addSubview:self.uploadButton];
+    [self.containerView addSubview:self.fileButton];
+    [self.containerView addSubview:self.titleLabel];
     
     [self.fileButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(@(-15));
@@ -61,7 +60,7 @@
 
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@15);
-        make.centerY.equalTo(self.contentView);
+        make.centerY.equalTo(self.containerView);
         make.right.equalTo(self.uploadButton.mas_left);
     }];
 }

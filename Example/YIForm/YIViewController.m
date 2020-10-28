@@ -11,6 +11,8 @@
 #import "YIAttachFormRow.h"
 #import "YIFormRowText.h"
 #import <Masonry/Masonry.h>
+#import "GWAuthInfoCell.h"
+#import "YIMessageViewController.h"
 
 #define kUploadAttachmentsURLDocumentTypes @[@"com.microsoft.word.docx", @"org.openxmlformats.wordprocessingml.document", @"org.openxmlformats.spreadsheetml.sheet", @"org.openxmlformats.presentationml.presentation", @"com.microsoft.word.doc", @"com.microsoft.powerpoint.ppt", @"com.adobe.pdf", @"com.microsoft.powerpoint.​pptx", @"com.microsoft.excel.xlsx", @"com.microsoft.excel.xls", @"public.png", @"public.jpeg", @"public.audio", @"com.microsoft.waveform-​audio", @"public.movie"]
 
@@ -78,12 +80,13 @@
         //        __weak typeof(self) weakSelf = self;
         NSString *title = [NSString stringWithFormat:@"random %d", r];
         YIFormRow *row = [self rowWithTitle:title tag:title];
+//        YIFormRow *row = [self telephoneRow];
         if (r == 1) {
             row.disabled = YES;
             row.separatorStyle = UITableViewCellSeparatorStyleNone;
             row.title = @"disabled - random";
         }
-        row.contentEdgeMargins = UIEdgeInsetsMake(20, 40, 10, 30);
+                row.contentEdgeMargins = UIEdgeInsetsMake(20, 40, 10, 30);
         row.separatorLeftInset = 20;
         row.separatorRightInset = 20;
         [rows addObject:row];
@@ -94,7 +97,7 @@
     section.footerHeight = 20;
     [section addRows:rows];
     section.cornerRadius = 20;
-    section.horizontalInset = 20;
+    section.horizontalInset = 50;
     return section;
 }
 
@@ -325,7 +328,7 @@
     cutCopyPasteItem.cutHandler = ^(YIFormRow *item) {
         item.title = @"(Empty)";
         [UIPasteboard generalPasteboard].string = @"Copied item #3";
-//        [item reload];
+        //        [item reload];
     };
     
     YIFormSection *section = Section();
@@ -359,28 +362,36 @@
     footerView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 5);
     return footerView;
 }
+- (__kindof YIFormRow *)telephoneRow {
+    GWAuthInfoRow *row2 = [[GWAuthInfoRow alloc] init];
+    row2.selectionStyle = UITableViewCellSelectionStyleNone;
+    row2.message = @"您提交的认证信息未通过审核，请修订、完善";
+    row2.tip = @"对结果有疑问请致电：020-12231232";
+    return row2;
+}
 
 - (__kindof YIFormRow *)rowWithTitle:(NSString *)title tag:(NSString *)tag {
-//    YIFormRowText *row00 = Row(YIFormRowText.class);
-//    row00.height = arc4random()%50 + 10;
-//    row00.title = [NSString stringWithFormat:@"%@ height:%.2f",title, row00.height];
-//    Row(YIAttachFormRow.class)
+    //    YIFormRowText *row00 = Row(YIFormRowText.class);
+    //    row00.height = arc4random()%50 + 10;
+    //    row00.title = [NSString stringWithFormat:@"%@ height:%.2f",title, row00.height];
+    //    Row(YIAttachFormRow.class)
     __weak typeof(self) weakSelf = self;
     YIAttachFormRow *row = [[YIAttachFormRow alloc] init];
     row.tag = tag;
     row.title = title;
+    row.containerBackgroundColor = [UIColor orangeColor];
     row.previewBlock = ^(YIAttachFormRow * _Nonnull item) {
         NSArray<NSURL *> *items = item.value;
         if (items.count > 0) {
             [self preview:items[0]];
         }
     };
-
+    
     row.uploadBlock = ^(YIAttachFormRow * _Nonnull item) {
         weakSelf.currrentFileUploadRowTag = item.tag;
         [self chooseDocument];
     };
-
+    
     row.selectionHandler = ^(__kindof YIFormRow * _Nonnull item) {
         NSLog(@"selectionHandler");
     };
@@ -389,13 +400,15 @@
 }
 
 - (void)accessoryButtonAction:(id)sender {
+    __weak typeof(self) weakSelf = self;
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"点击" message:[NSString stringWithFormat:@"Hello,你点到我了"] preferredStyle:UIAlertControllerStyleAlert];
     
     // Create the actions.
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
+        YIMessageViewController *viewController = [[YIMessageViewController alloc] init];
+        [viewController showOnViewController:weakSelf];
     }];
     // Add the actions.
     [alertController addAction:okAction];
