@@ -40,8 +40,8 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 @property (nonatomic) CGFloat separatorLeftInset;
 /// 分割线 右 缩进
 @property (nonatomic) CGFloat separatorRightInset;
-
-
+/// 自动刷新 默认 YES
+@property (nonatomic) BOOL autoRefresh;
 // XLForm
 
 @property (nonatomic, assign  ) UITableViewCellStyle cellStyle;

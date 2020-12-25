@@ -41,6 +41,7 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
 -(instancetype)init {
     self = [super init];
     if (self) {
+        _autoRefresh = YES;
         _height = YIFormRowInitialHeight;
         _separatorLeftInset = 0;
         _separatorRightInset = 0;
@@ -122,16 +123,12 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
             id newValue = [change objectForKey:NSKeyValueChangeNewKey];
             id oldValue = [change objectForKey:NSKeyValueChangeOldKey];
             if ([keyPath isEqualToString:XLValueKey]) {
-                [self.section.formManager formRowValueHasChanged:object oldValue:oldValue newValue:newValue];
+                if (_autoRefresh) {
+                    [self.section.formManager formRowValueHasChanged:object oldValue:oldValue newValue:newValue];
+                }
                 if (self.onChangeBlock) {
                     self.onChangeBlock(oldValue, newValue, self);
                 }
-//            }
-//            else {
-//                [self.section.formManager.delegate formRowDescriptorPredicateHasChanged:object
-//                                                                                            oldValue:oldValue
-//                                                                                            newValue:newValue
-//                                                                                       predicateType:([keyPath isEqualToString:XLHidePredicateCacheKey] ? XLPredicateTypeHidden : XLPredicateTypeDisabled)];
             }
         }
     }

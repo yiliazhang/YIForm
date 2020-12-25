@@ -195,9 +195,14 @@ NSString * const XLFormSectionsKey = @"formSections";
 // MARK: - 刷新 和 其他
 
 - (void)reloadRows:(NSArray<YIFormRow *> *)rows {
-    for (YIFormRow *row in rows) {
-        [self updateFormRow:row];
+    NSMutableArray *indexPathes = [NSMutableArray array];
+    if (rows.count == 0) {
+        return;
     }
+    [rows enumerateObjectsUsingBlock:^(YIFormRow * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [indexPathes addObject:obj.indexPath];
+    }];
+    [self reloadRowsAt:indexPathes];
 }
 
 - (void)reloadSections:(NSArray<YIFormSection *> *)sections {
@@ -230,7 +235,7 @@ NSString * const XLFormSectionsKey = @"formSections";
 -(__kindof YIFormCell *)updateFormRow:(YIFormRow *)formRow
 {
     //    YIFormCell * cell = [formRow cellForTableView:self.tableView];
-    YIFormCell * cell = formRow.cell;
+    YIFormCell *cell = formRow.cell;
     if (cell != nil) {
         cell.separatorColor = [self separatorColorFor:formRow];
         [self configureCell:cell];
@@ -246,6 +251,7 @@ NSString * const XLFormSectionsKey = @"formSections";
 /// @param cell cell
 -(void)configureCell:(YIFormCell *) cell
 {
+    
     [cell update];
     
     if(cell.row != nil && cell.row.cellConfig != nil) {
@@ -524,8 +530,6 @@ NSString * const XLFormSectionsKey = @"formSections";
     //    if (formSection.headerHeight != YIFormSectionHeaderHeightAutomatic) {
     return formSection.headerHeight;
     //    }
-    
-    
     //    return self.tableView.estimatedSectionHeaderHeight;
 }
 
