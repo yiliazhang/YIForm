@@ -8,6 +8,7 @@
 #import "YIFormCell.h"
 #import "YIFormRow.h"
 #import "YIFormSection.h"
+#import "YIFormManager.h"
 @interface YIFormCell()
 ///
 @property (nonnull, strong, nonatomic) UIView *containerView;
@@ -45,6 +46,11 @@
     [super setSelected:selected animated:animated];
     
     // Configure the view for the selected state
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self.row.section.formManager displayRow:self.row];
 }
 
 - (void)configure {

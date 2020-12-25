@@ -110,6 +110,7 @@ typedef NS_ENUM(NSUInteger, XLPredicateType) {
 /// 更新cell ui
 /// @param row
 - (void)displayRow:(YIFormRow *)row;
+
 @end
 
 NS_ASSUME_NONNULL_END
