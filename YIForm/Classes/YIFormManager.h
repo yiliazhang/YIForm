@@ -102,6 +102,14 @@ typedef NS_ENUM(NSUInteger, XLPredicateType) {
 /// @param oldValue oldValue
 /// @param newValue newValue
 -(void)formRowValueHasChanged:(YIFormRow *)formRow oldValue:(id)oldValue newValue:(id)newValue;
+
+/// 更新ui
+/// @param rows
+- (void)displayRows:(NSArray<YIFormRow *> *)rows;
+
+/// 更新cell ui
+/// @param row
+- (void)displayRow:(YIFormRow *)row;
 @end
 
 NS_ASSUME_NONNULL_END

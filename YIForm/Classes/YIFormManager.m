@@ -427,6 +427,15 @@ NSString * const XLFormSectionsKey = @"formSections";
     }
 }
 
+- (void)displayRows:(NSArray<YIFormRow *> *)rows {
+    for (YIFormRow *row in rows) {
+        [self displayRow:row];
+    }
+}
+
+- (void)displayRow:(YIFormRow *)row {
+    [self tableView:self.tableView willDisplayCell:row.cell forRowAtIndexPath:row.indexPath];
+}
 #pragma mark -
 #pragma mark Table view delegate
 
@@ -449,8 +458,8 @@ NSString * const XLFormSectionsKey = @"formSections";
     CAShapeLayer *bgLayer = [self layerForTableView:tableView indexPath:indexPath bounds:bounds cornerRadius:cornerRadius containerViewBackgroundColor:color separatorColor:[self separatorColorFor:item] separatorStyle:item.separatorStyle separatorLeftInset:item.separatorLeftInset separatorRightInset:item.separatorRightInset];
     CAShapeLayer *selectedBgLayer = [self layerForTableView:tableView indexPath:indexPath bounds:bounds cornerRadius:cornerRadius containerViewBackgroundColor:color separatorColor:[self separatorColorFor:item] separatorStyle:item.separatorStyle separatorLeftInset:item.separatorLeftInset separatorRightInset:item.separatorRightInset];
     
-    cell.backgroundView = [self viewWithLayer:bgLayer frame:bounds];
-    cell.selectedBackgroundView = [self viewWithLayer:selectedBgLayer frame:bounds];
+    cell.backgroundView = [self viewWithLayer:bgLayer frame:cell.bounds];
+    cell.selectedBackgroundView = [self viewWithLayer:selectedBgLayer frame:cell.bounds];
 }
 
 - (CAShapeLayer *)layerForTableView:(UITableView *)tableView
