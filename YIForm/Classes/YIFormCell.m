@@ -50,7 +50,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self.row.section.formManager displayRow:self.row];
+    [self.row.section.formManager displayRows:nil];
 }
 
 - (void)configure {

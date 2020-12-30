@@ -8,7 +8,6 @@
 #import <Foundation/Foundation.h>
 #import "YIFormRow.h"
 
-
 extern CGFloat const YIFormSectionHeaderHeightAutomatic;
 extern CGFloat const YIFormSectionFooterHeightAutomatic;
 

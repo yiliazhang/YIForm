@@ -428,14 +428,11 @@ NSString * const XLFormSectionsKey = @"formSections";
 }
 
 - (void)displayRows:(NSArray<YIFormRow *> *)rows {
-    for (YIFormRow *row in rows) {
-        [self displayRow:row];
-    }
+    [rows enumerateObjectsUsingBlock:^(YIFormRow * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [self tableView:self.tableView willDisplayCell:obj.cell forRowAtIndexPath:obj.indexPath];
+    }];
 }
 
-- (void)displayRow:(YIFormRow *)row {
-    [self tableView:self.tableView willDisplayCell:row.cell forRowAtIndexPath:row.indexPath];
-}
 #pragma mark -
 #pragma mark Table view delegate
 

@@ -40,22 +40,13 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 @property (nonatomic) CGFloat separatorLeftInset;
 /// 分割线 右 缩进
 @property (nonatomic) CGFloat separatorRightInset;
-/// 自动刷新 默认 YES
+/// 自动刷新 默认 NO
 @property (nonatomic) BOOL autoRefresh;
 // XLForm
 
 @property (nonatomic, assign  ) UITableViewCellStyle cellStyle;
 
 @property (nonatomic, copy, nullable) YIOnChangeBlock onChangeBlock;
-//@property (nonatomic, assign) BOOL useValueFormatterDuringInput;
-//@property (nonatomic, strong, nullable) NSFormatter *valueFormatter;
-
-//-(void)addValidator:(nullable id<XLFormValidatorProtocol>)validator;
-//-(void)removeValidator:(nullable id<XLFormValidatorProtocol>)validator;
-
-//@property (nonatomic, nullable, copy) NSString * noValueDisplayText;
-//@property (nonatomic, nullable, copy) NSString * selectorTitle;
-//@property (nonatomic, nullable, strong) NSArray * selectorOptions;
 
 @property (nonatomic, strong) NSMutableDictionary * cellConfig;
 //@property (nonatomic, strong) NSMutableDictionary * cellConfigForSelector;
@@ -92,7 +83,6 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 @property (strong, nonatomic, readonly) __kindof YIFormCell *cell;
 /// row 所在section
 @property (nonatomic, weak, null_unspecified) YIFormSection *section;
-//- (__kindof YIFormCell *)cellForTableView:(UITableView *)tableView;
 
 - (void)reload;
 

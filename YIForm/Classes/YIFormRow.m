@@ -41,7 +41,6 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
 -(instancetype)init {
     self = [super init];
     if (self) {
-        _autoRefresh = YES;
         _height = YIFormRowInitialHeight;
         _separatorLeftInset = 0;
         _separatorRightInset = 0;
