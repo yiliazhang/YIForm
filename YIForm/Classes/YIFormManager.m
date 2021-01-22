@@ -445,9 +445,6 @@ NSString * const XLFormSectionsKey = @"formSections";
     YIFormCell *formCell = (YIFormCell *)cell;
     UIColor *color = item.containerBackgroundColor;
     CGFloat cornerRadius = section.cornerRadius;
-    if (cornerRadius == 0 ) {
-        return;
-    }
     formCell.separatorColor = UIColor.clearColor;
     
     cell.backgroundColor = UIColor.clearColor;
@@ -499,7 +496,8 @@ NSString * const XLFormSectionsKey = @"formSections";
     layer.fillColor = containerViewBackgroundColor.CGColor;
     if (addLine == YES && separatorStyle == UITableViewCellSeparatorStyleSingleLine ) {
         CALayer *lineLayer = [[CALayer alloc] init];
-        CGFloat lineHeight = (1.f / [UIScreen mainScreen].scale);
+//        CGFloat lineHeight = (1.f / [UIScreen mainScreen].scale);
+        CGFloat lineHeight = 1;
         lineLayer.frame = CGRectMake(CGRectGetMinX(bounds)+separatorLeftInset, bounds.size.height-lineHeight, bounds.size.width-(separatorRightInset + separatorLeftInset), lineHeight);
         lineLayer.backgroundColor = separatorColor.CGColor;
         [layer addSublayer:lineLayer];

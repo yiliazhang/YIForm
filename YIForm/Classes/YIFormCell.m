@@ -15,8 +15,6 @@
 
 ///
 @property (nonnull, strong, nonatomic) UIView *customContentView;
-///
-@property (nonnull, strong, nonatomic) UIView *separatorLineView;
 @end
 @implementation YIFormCell
 
@@ -59,9 +57,13 @@
 
 - (void)update {
     self.customContentView.backgroundColor = self.row.section.cornerRadius == 0 ? self.row.containerBackgroundColor : UIColor.clearColor;
-//    self.containerView.backgroundColor = self.row.section.cornerRadius == 0 ? self.row.containerBackgroundColor : UIColor.clearColor;
-    
+    CGFloat lineHeight = 0;
+    if (self.row.separatorStyle == UITableViewCellSeparatorStyleSingleLine) {
+//        lineHeight = -(1.f / [UIScreen mainScreen].scale);
+        lineHeight = -1;
+    }
     [self.customContentView.topAnchor constraintEqualToAnchor:self.customContentView.superview.topAnchor].active = YES;
+    [self.customContentView.bottomAnchor constraintEqualToAnchor:self.customContentView.superview.bottomAnchor constant:lineHeight].active = YES;
     [self.customContentView.bottomAnchor constraintEqualToAnchor:self.customContentView.superview.bottomAnchor].active = YES;
     [self.customContentView.leftAnchor constraintEqualToAnchor:self.customContentView.superview.leftAnchor constant:self.row.section.horizontalInset].active = YES;
     [self.customContentView.rightAnchor constraintEqualToAnchor:self.customContentView.superview.rightAnchor constant:-self.row.section.horizontalInset].active = YES;
@@ -70,18 +72,6 @@
     [self.containerView.bottomAnchor constraintEqualToAnchor:self.containerView.superview.bottomAnchor constant:-self.row.contentEdgeMargins.bottom].active = YES;
     [self.containerView.leftAnchor constraintEqualToAnchor:self.containerView.superview.leftAnchor constant:self.row.contentEdgeMargins.left].active = YES;
     [self.containerView.rightAnchor constraintEqualToAnchor:self.containerView.superview.rightAnchor constant:-self.row.contentEdgeMargins.right].active = YES;
-    if (self.row.separatorStyle == UITableViewCellSeparatorStyleSingleLine) {
-        if (![self.subviews containsObject:self.separatorLineView]) {
-            [self addSubview: self.separatorLineView];
-        }
-        CGFloat lineHeight = (1.f / [UIScreen mainScreen].scale);
-        [self.separatorLineView.heightAnchor constraintEqualToConstant:lineHeight].active = YES;
-        [self.separatorLineView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
-        [self.separatorLineView.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:self.separatorLeftMargin].active = YES;
-        [self.separatorLineView.rightAnchor constraintEqualToAnchor:self.rightAnchor constant:self.separatorRightMargin].active = YES;
-    } else {
-        [self.separatorLineView removeFromSuperview];
-    }
 }
 
 - (CGFloat)topMargin {
@@ -131,17 +121,9 @@
     return self.rightMargin - self.row.separatorRightInset;
     
 }
-- (UIView *)separatorLineView {
-    if (!_separatorLineView) {
-        _separatorLineView = [[UIView alloc] init];
-        _separatorLineView.translatesAutoresizingMaskIntoConstraints = NO;
-    }
-    return _separatorLineView;
-}
 
 - (void)setSeparatorColor:(UIColor *)separatorColor {
     _separatorColor = separatorColor;
-    self.separatorLineView.backgroundColor = separatorColor;
 }
 
 - (UIView *)customContentView {
