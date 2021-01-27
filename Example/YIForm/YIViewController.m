@@ -49,15 +49,15 @@
 - (IBAction)refreshAction:(id)sender {
     [self.formManager removeAll];
     NSArray *sections = @[
-        [self accessoryTypeSection],
-        [self customAccessorySection],
-        [self randomSection],
+//        [self accessoryTypeSection],
+//        [self customAccessorySection],
+//        [self randomSection],
         [self deletableSection],
-        [self deleteConfirmSection],
-        [self insertSection],
-        [self movableSection],
-        [self movableAndDeletableSection],
-        [self copyCutPastSection],
+//        [self deleteConfirmSection],
+//        [self insertSection],
+//        [self movableSection],
+//        [self movableAndDeletableSection],
+//        [self copyCutPastSection],
     ];
     [self.formManager addSections:sections];
     [self.tableView reloadData];
@@ -210,7 +210,7 @@
 - (YIFormSection *)deletableSection {
     NSMutableArray *rows = [NSMutableArray array];
     int r = 0;
-    int maxRow = 3;
+    int maxRow = 7;
     while (r < maxRow) {
         //        __weak typeof(self) weakSelf = self;
         NSString *title = [NSString stringWithFormat:@"deletable %d", r];
@@ -220,9 +220,15 @@
             row.disabled = YES;
             row.title = @"disabled - deletable";
             row.separatorColor = [UIColor greenColor];
-        } else {
+        } else if (r == 2) {
             
+            row.separatorColor = [UIColor blackColor];
+        } else if (r == 3) {
+            row.separatorColor = [UIColor clearColor];
+        } else if (r == 4) {
             row.separatorColor = [UIColor blueColor];
+        } else {
+            row.separatorStyle = UITableViewCellSeparatorStyleNone;
         }
         row.contentEdgeMargins = UIEdgeInsetsMake(10, 0, 10, 20);
         row.separatorLeftInset = 5;

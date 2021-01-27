@@ -210,12 +210,14 @@ NSString * const XLFormSectionsKey = @"formSections";
         return;
     }
     NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
-    for (int index = 0; index < sections.count; index++) {
-        YIFormSection *section = sections[index];
-        if ([self.sections containsObject:section]) {
-            [indexSet addIndex:index];
-        }
-    }
+    [sections enumerateObjectsUsingBlock:^(YIFormSection * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self.sections enumerateObjectsUsingBlock:^(__kindof YIFormSection * _Nonnull obj1, NSUInteger idx1, BOOL * _Nonnull stop1) {
+            if ([obj isEqual:obj1]) {
+                [indexSet addIndex:idx1];
+                *stop1 = YES;
+            }
+        }];
+    }];
     if (indexSet.count > 0) {
         [self reloadSectionsAt:indexSet];
     }
