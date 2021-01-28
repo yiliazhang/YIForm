@@ -530,26 +530,30 @@ NSString * const XLFormSectionsKey = @"formSections";
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
     YIFormSection *formSection = self.sections[section];
+    CGFloat height = 0;
     if (formSection.headerView) {
-        return formSection.headerView.frame.size.height;
+        height = formSection.headerView.frame.size.height;
+    } else {
+        height = formSection.headerHeight;
     }
-    //    if (formSection.headerHeight != YIFormSectionHeaderHeightAutomatic) {
-    return formSection.headerHeight;
-    //    }
-    //    return self.tableView.estimatedSectionHeaderHeight;
+    if (height == 0) {
+        return YIFormSectionHeaderHeightAutomatic;
+    }
+    return height;
+    return self.tableView.estimatedSectionHeaderHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {
     YIFormSection *formSection = self.sections[section];
-    
+    CGFloat height = 0;
     if (formSection.footerView) {
-        return formSection.footerView.frame.size.height;
+        height = formSection.footerView.frame.size.height;
+    } else {
+        height = formSection.footerHeight;
     }
-    //    if (formSection.footerHeight != YIFormSectionFooterHeightAutomatic) {
-    return formSection.footerHeight;
-    //    }
-    
-    
+    if (height == 0) {
+        return YIFormSectionFooterHeightAutomatic;
+    }
     return self.tableView.estimatedSectionFooterHeight;
 }
 
@@ -559,13 +563,16 @@ NSString * const XLFormSectionsKey = @"formSections";
         return UITableViewAutomaticDimension;
     }
     YIFormSection *section = self.sections[sectionIndex];
+    CGFloat height = 0;
     if (section.headerView) {
-        return section.headerView.frame.size.height;
-        
+        height = section.headerView.frame.size.height;
+    } else {
+        height = section.headerHeight;
     }
-    //    if (section.headerHeight != YIFormSectionHeaderHeightAutomatic) {
-    return section.headerHeight;
-    //    }
+    if (height == 0) {
+        return YIFormSectionHeaderHeightAutomatic;
+    }
+    return height;
     return UITableViewAutomaticDimension;
 }
 
@@ -575,13 +582,16 @@ NSString * const XLFormSectionsKey = @"formSections";
         return UITableViewAutomaticDimension;
     }
     YIFormSection *section = self.sections[sectionIndex];
+    CGFloat height = 0;
     if (section.footerView) {
-        return section.footerView.frame.size.height;
+        height = section.footerView.frame.size.height;
+    } else {
+        height = section.footerHeight;
     }
-    //    if (section.footerHeight != YIFormSectionFooterHeightAutomatic) {
-    return section.footerHeight;
-    //    }
-    
+    if (height == 0) {
+        return YIFormSectionFooterHeightAutomatic;
+    }
+    return height;
     return UITableViewAutomaticDimension;
 }
 
