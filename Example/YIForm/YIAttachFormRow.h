@@ -12,10 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface YIAttachFormRow : YIFormRow
 
 /// 选择事件回调
-@property (nonatomic, copy) void(^uploadBlock)(YIAttachFormRow *item);
+@property (nonatomic, copy) void(^uploadBlock)(NSURL *fileURL);
 
 /// 选择事件回调
-@property (nonatomic, copy) void(^previewBlock)(YIAttachFormRow *item);
+@property (nonatomic, copy) void(^previewBlock)(NSURL *fileURL);
 
 @end
 

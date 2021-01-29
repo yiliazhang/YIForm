@@ -8,10 +8,11 @@
 
 #import "YIAttachUploadCell.h"
 #import <YIFormManager.h>
-#import "YIAttachFormRow.h"
 #import "UIView+GWReoundRect.h"
+
+#define kUploadAttachmentsURLDocumentTypes @[@"com.microsoft.word.docx", @"org.openxmlformats.wordprocessingml.document", @"org.openxmlformats.spreadsheetml.sheet", @"org.openxmlformats.presentationml.presentation", @"com.microsoft.word.doc", @"com.microsoft.powerpoint.ppt", @"com.adobe.pdf", @"com.microsoft.powerpoint.​pptx", @"com.microsoft.excel.xlsx", @"com.microsoft.excel.xls", @"public.png", @"public.jpeg", @"public.audio", @"com.microsoft.waveform-​audio", @"public.movie"]
 @import Masonry;
-@interface YIAttachUploadCell()
+@interface YIAttachUploadCell()<UIDocumentPickerDelegate, UIDocumentInteractionControllerDelegate>
 ///
 @property (nonnull, strong, nonatomic) UIButton *uploadButton;
 ///
@@ -20,6 +21,7 @@
 @property (nonnull, strong, nonatomic) UILabel *titleLabel;
 @end
 @implementation YIAttachUploadCell
+@synthesize row;
 + (NSString *)reuseIdentifier {
     static NSString *reuseIdentifier = @"YIAttachUploadCell";
     return reuseIdentifier;
@@ -32,7 +34,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
@@ -45,11 +47,11 @@
     [self.containerView addSubview:self.titleLabel];
     
     [self.fileButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(@(-15));
-            make.top.equalTo(@15);
-            make.bottom.equalTo(@(-15));
+        make.right.equalTo(@(-15));
+        make.top.equalTo(@15);
+        make.bottom.equalTo(@(-15));
         make.width.equalTo(@100);
-            make.height.equalTo(@50).priorityHigh();
+        make.height.equalTo(@50).priorityHigh();
     }];
     
     [self.uploadButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -57,7 +59,7 @@
         make.size.mas_equalTo(CGSizeMake(15, 15));
         make.right.equalTo(self.fileButton.mas_left).offset(-5);
     }];
-
+    
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@15);
         make.centerY.equalTo(self.containerView);
@@ -67,9 +69,8 @@
 
 - (void)update {
     [super update];
-    YIAttachFormRow *row = (YIAttachFormRow *)self.row;
-    NSArray *files = row.value;
-    NSString *title = files.count > 0 ? @"已上传" : @"暂无文件";
+    NSURL *file = self.row.value;
+    NSString *title = (file != nil) ? @"已上传" : @"暂无文件";
     UIColor *textColor = self.row.disabled ? UIColor.redColor : UIColor.grayColor;
     self.titleLabel.textColor = textColor;
     self.titleLabel.text = self.row.title;
@@ -79,13 +80,13 @@
 // 刷新
 - (IBAction)fileAction:(id)sender {
     if (self.row.disabled) {
-                        return;
-                    }
+        return;
+    }
     YIAttachFormRow *row = self.row;
     if (row.value) {
-        // TODO: - preview
+        [self preview:self.row.value];
         if (row.previewBlock) {
-            row.previewBlock(row);
+            row.previewBlock(row.value);
         }
     } else {
         [self uploadAction:sender];
@@ -94,12 +95,20 @@
 
 - (IBAction)uploadAction:(id)sender {
     if (self.row.disabled) {
-                        return;
-                    }
-    YIAttachFormRow *row = self.row;
-    if (row.uploadBlock) {
-        row.uploadBlock(row);
+        return;
     }
+    UIDocumentPickerViewController *documentBrowserController = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:kUploadAttachmentsURLDocumentTypes inMode:UIDocumentPickerModeImport];
+    documentBrowserController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    documentBrowserController.delegate = self;
+    UIViewController *viewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    if (viewController) {
+        [viewController presentViewController:documentBrowserController animated:YES completion:nil];
+    }
+}
+- (void)preview:(NSURL *)url {
+    UIDocumentInteractionController *_docVc = [UIDocumentInteractionController interactionControllerWithURL:url];
+    _docVc.delegate = self;
+    [_docVc presentPreviewAnimated:YES];
 }
 
 - (UILabel *)titleLabel {
@@ -109,7 +118,7 @@
         _titleLabel.textColor = [UIColor redColor];
     }
     return _titleLabel;
-                       
+    
 }
 
 - (UIButton *)uploadButton {
@@ -130,10 +139,10 @@
 }
 
 - (nonnull UIButton *)buttonWithTitle:(nullable NSString *)title
-                       imageName:(nullable NSString *)imageName
-             backgroundImageName:(nullable NSString *)backgroundImageName
-                          target:(nullable id)target
-                        selector:(nullable SEL)sel {
+                            imageName:(nullable NSString *)imageName
+                  backgroundImageName:(nullable NSString *)backgroundImageName
+                               target:(nullable id)target
+                             selector:(nullable SEL)sel {
     UIButton *button = UIButton.new;
     if (imageName) {
         [button setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
@@ -150,5 +159,37 @@
         [button addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
     }
     return button;
+}
+
+
+#pragma mark -- UIDocumentInteractionControllerDelegate
+- (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)controller
+{
+    UIViewController *viewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    return viewController;
+}
+- (UIView*)documentInteractionControllerViewForPreview:(UIDocumentInteractionController*)controller
+{
+    UIViewController *viewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    return viewController.view;
+}
+- (CGRect)documentInteractionControllerRectForPreview:(UIDocumentInteractionController*)controller
+{
+    UIViewController *viewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    return viewController.view.frame;
+}
+
+#pragma mark - UIDocumentPickerDelegate
+/// 共享文档回调
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray <NSURL *>*)urls{
+    if (urls.count == 0) {
+        return;
+    }
+    self.row.value = urls[0];
+    [self.row.section.formManager reloadRows:@[self.row]];
+    
+    if (self.row.uploadBlock) {
+        self.row.uploadBlock(urls[0]);
+    }
 }
 @end

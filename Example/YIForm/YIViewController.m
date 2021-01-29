@@ -386,16 +386,10 @@
     row.tag = tag;
     row.title = title;
     row.containerBackgroundColor = [UIColor orangeColor];
-    row.previewBlock = ^(YIAttachFormRow * _Nonnull item) {
-        NSArray<NSURL *> *items = item.value;
-        if (items.count > 0) {
-            [self preview:items[0]];
-        }
+    row.previewBlock = ^(NSURL *fileURL) {
     };
     
-    row.uploadBlock = ^(YIAttachFormRow * _Nonnull item) {
-        weakSelf.currrentFileUploadRowTag = item.tag;
-        [self chooseDocument];
+    row.uploadBlock = ^(NSURL *fileURLs) {
     };
     
     row.selectionHandler = ^(__kindof YIFormRow * _Nonnull item) {
@@ -453,50 +447,6 @@
         _tableView = tableView;
     }
     return _tableView;
-}
-
-
-- (void)preview:(NSURL *)url {
-    UIDocumentInteractionController *_docVc = [UIDocumentInteractionController interactionControllerWithURL:url];
-    _docVc.delegate = self;
-    [_docVc presentPreviewAnimated:YES];
-}
-
-#pragma mark -- UIDocumentInteractionControllerDelegate
-- (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)controller
-{
-    return self;
-}
-- (UIView*)documentInteractionControllerViewForPreview:(UIDocumentInteractionController*)controller
-{
-    return self.view;
-}
-- (CGRect)documentInteractionControllerRectForPreview:(UIDocumentInteractionController*)controller
-{
-    return self.view.frame;
-}
-/// 跳转到文件浏览系统
-- (void)chooseDocument {
-    UIDocumentPickerViewController *documentBrowserController = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:kUploadAttachmentsURLDocumentTypes inMode:UIDocumentPickerModeImport];
-    documentBrowserController.modalPresentationStyle = UIModalPresentationOverFullScreen;
-    documentBrowserController.delegate = self;
-    [self presentViewController:documentBrowserController animated:YES completion:nil];
-}
-
-
-#pragma mark - UIDocumentPickerDelegate
-/// 共享文档回调
-- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray <NSURL *>*)urls API_AVAILABLE(ios(11.0)) {
-    //    __weak __typeof(self)weakSelf = self;
-    //    NSArray <GWUploadAttachmentsURLModel *> *uploadFiles = [GWUploadAttachmentsURLModel uploadFilesWithPickDocumentsAtURLs:urls];
-    //    [self chooseDocumentResult:uploadFiles.firstObject];
-    NSParameterAssert(self.currrentFileUploadRowTag);
-    
-    YIAttachFormRow *row = [self.formManager rowWithTag:self.currrentFileUploadRowTag];
-    if (row) {
-        row.value = urls;
-        [self.formManager reloadRows:@[row]];
-    }
 }
 
 @end

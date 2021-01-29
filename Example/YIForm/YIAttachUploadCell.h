@@ -7,10 +7,13 @@
 //
 
 #import <YIForm/YIForm.h>
+#import "YIAttachFormRow.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface YIAttachUploadCell : YIFormCell
+///
+@property (nonatomic, weak) YIAttachFormRow *row;
 + (NSString *)reuseIdentifier;
 @end
 
