@@ -554,6 +554,7 @@ NSString * const XLFormSectionsKey = @"formSections";
     if (height == 0) {
         return YIFormSectionFooterHeightAutomatic;
     }
+    return height;
     return self.tableView.estimatedSectionFooterHeight;
 }
 
