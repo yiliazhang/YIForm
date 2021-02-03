@@ -48,7 +48,9 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self.row.section.formManager displayRows:nil];
+    if (self.row) {
+        [self.row.section.formManager displayRows:@[self.row]];
+    }
 }
 
 - (void)configure {
