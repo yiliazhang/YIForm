@@ -455,7 +455,7 @@ NSString * const XLFormSectionsKey = @"formSections";
     CAShapeLayer *selectedBgLayer = [self layerForTableView:tableView indexPath:indexPath bounds:bounds cornerRadius:cornerRadius containerViewBackgroundColor:color separatorColor:[self separatorColorFor:item] separatorStyle:item.separatorStyle separatorLeftInset:item.separatorLeftInset separatorRightInset:item.separatorRightInset];
     
     cell.backgroundView = [self viewWithLayer:bgLayer frame:cell.bounds];
-    cell.selectedBackgroundView = [self viewWithLayer:selectedBgLayer frame:cell.bounds];
+//    cell.selectedBackgroundView = [self viewWithLayer:selectedBgLayer frame:cell.bounds];
 }
 
 - (CAShapeLayer *)layerForTableView:(UITableView *)tableView
