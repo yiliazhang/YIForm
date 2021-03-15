@@ -53,11 +53,9 @@ CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
     if (rows.count == 0) {
         return;
     }
-    
     for (YIFormRow *row in rows) {
         row.section = self;
     }
-    
     [_rows addObjectsFromArray:rows];
 }
 
@@ -72,6 +70,7 @@ CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
     if (!row) {
         return;
     }
+    row.section = self;
     [_rows insertObject:row atIndex:index];
 }
 
