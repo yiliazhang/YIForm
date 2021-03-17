@@ -19,6 +19,8 @@ CGFloat YIFormRowInitialHeight = -1;
 @property (nonatomic, copy  ) NSNumber *disablePredicateCache;
 @property (nonatomic, assign) BOOL isDirtyHidePredicateCache;
 @property (nonatomic, copy  ) NSNumber *hidePredicateCache;
+@property (nullable, strong, nonatomic) Class specialCellClass;
+
 @end
 
 
@@ -34,42 +36,58 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
     [self removeObserver:self forKeyPath:XLValueKey];
     [self removeObserver:self forKeyPath:XLDisablePredicateCacheKey];
     [self removeObserver:self forKeyPath:XLHidePredicateCacheKey];
-    
     _cell = nil;
 }
 
--(instancetype)init {
+- (instancetype)initWithCellClass:(Class)cellClass {
     self = [super init];
     if (self) {
-        _height = YIFormRowInitialHeight;
-        _separatorLeftInset = 0;
-        _separatorRightInset = 0;
+        if (cellClass) {
+            NSAssert([cellClass isSubclassOfClass:[YIFormCell class]], @"类型错误cellClass：%@", [cellClass description]);
+            _specialCellClass = cellClass;
+        }
+        [self config];
+    }
+    return self;
+}
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self config];
+    }
+    return self;
+}
+
+- (void)config {
+    _height = YIFormRowInitialHeight;
+    _separatorLeftInset = 0;
+    _separatorRightInset = 0;
 //        _disabled = NO;
 //        _hidden = @NO;
-        _selectionStyle = UITableViewCellSelectionStyleNone;
-        _cellStyle = UITableViewCellStyleDefault;
-        _separatorStyle = UITableViewCellSeparatorStyleNone;
+    _selectionStyle = UITableViewCellSelectionStyleNone;
+    _cellStyle = UITableViewCellStyleDefault;
+    _separatorStyle = UITableViewCellSeparatorStyleNone;
 //        _validators = [NSMutableArray new];
 //        _cellConfig = [NSMutableDictionary dictionary];
 //        _cellConfigIfDisabled = [NSMutableDictionary dictionary];
 //        _cellConfigAtConfigure = [NSMutableDictionary dictionary];
-        _isDirtyDisablePredicateCache = YES;
-        _disablePredicateCache = nil;
-        _isDirtyHidePredicateCache = YES;
-        _hidePredicateCache = nil;
-        _contentEdgeMargins = UIEdgeInsetsZero;
-        [self addObserver:self
-               forKeyPath:XLValueKey
-                  options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
-        [self addObserver:self
-               forKeyPath:XLDisablePredicateCacheKey
-                  options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
-        [self addObserver:self
-               forKeyPath:XLHidePredicateCacheKey
-                  options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
-    }
-    return self;
+    _isDirtyDisablePredicateCache = YES;
+    _disablePredicateCache = nil;
+    _isDirtyHidePredicateCache = YES;
+    _hidePredicateCache = nil;
+    _contentEdgeMargins = UIEdgeInsetsZero;
+    [self addObserver:self
+           forKeyPath:XLValueKey
+              options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+    [self addObserver:self
+           forKeyPath:XLDisablePredicateCacheKey
+              options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
+    [self addObserver:self
+           forKeyPath:XLHidePredicateCacheKey
+              options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];
 }
+
 - (void)reload {
     [self.section.formManager reloadRows:@[self]];
 }
@@ -135,7 +153,7 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
 
 - (__kindof YIFormCell *)cell {
     if (!_cell) {
-        id cellClass = self.cellClass;
+        id cellClass = self.currentCellClass;
 //        NSBundle *bundle = [NSBundle mainBundle];
 //        NSString *cellClassString = cellClass;
 //        NSString *cellResource = nil;
@@ -182,8 +200,16 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
     }];
 }
 
-- (id)cellClass {
-    return YIFormCell.class;
+- (Class)currentCellClass {
+    if (self.specialCellClass) {
+        return self.specialCellClass;
+    }
+    NSAssert([self.cellClass isSubclassOfClass:[YIFormCell class]], @"类型错误cellClass：%@", [self.cellClass description]);
+    return self.cellClass;
+}
+
+- (Class)cellClass {
+    return [YIFormCell class];
 }
 
 - (BOOL)disabled {

@@ -12,6 +12,7 @@
 #import "YIFormRowText.h"
 #import <Masonry/Masonry.h>
 #import "GWAuthInfoCell.h"
+#import "YIFormTextCell.h"
 #import "YIMessageViewController.h"
 
 #define kUploadAttachmentsURLDocumentTypes @[@"com.microsoft.word.docx", @"org.openxmlformats.wordprocessingml.document", @"org.openxmlformats.spreadsheetml.sheet", @"org.openxmlformats.presentationml.presentation", @"com.microsoft.word.doc", @"com.microsoft.powerpoint.ppt", @"com.adobe.pdf", @"com.microsoft.powerpoint.​pptx", @"com.microsoft.excel.xlsx", @"com.microsoft.excel.xls", @"public.png", @"public.jpeg", @"public.audio", @"com.microsoft.waveform-​audio", @"public.movie"]
@@ -49,15 +50,16 @@
 - (IBAction)refreshAction:(id)sender {
     [self.formManager removeAll];
     NSArray *sections = @[
-//        [self accessoryTypeSection],
-//        [self customAccessorySection],
-//        [self randomSection],
+        [self accessoryTypeSection],
+        [self specialCellClassSection],
+        [self customAccessorySection],
+        [self randomSection],
         [self deletableSection],
-//        [self deleteConfirmSection],
-//        [self insertSection],
-//        [self movableSection],
-//        [self movableAndDeletableSection],
-//        [self copyCutPastSection],
+        [self deleteConfirmSection],
+        [self insertSection],
+        [self movableSection],
+        [self movableAndDeletableSection],
+        [self copyCutPastSection],
     ];
     [self.formManager addSections:sections];
     [self.tableView reloadData];
@@ -137,6 +139,29 @@
     while (r < maxRow) {
         NSString *title = [NSString stringWithFormat:@"accessoryType %d", r];
         YIFormRow *row = [self rowWithTitle:title tag:title];
+        row.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        row.accessoryButtonTapHandler = ^(__kindof YIFormRow * _Nonnull item) {
+            NSLog(@"accessoryButtonTapHandler");
+        };
+        [rows addObject:row];
+        r++;
+    }
+    
+    YIFormSection *section = Section();
+    [section addRows:rows];
+    section.headerView = [self headerViewWithTitle:@"accessoryType \r\n 有accesoryView 的情况下就不要设置 contentEdgeMargins 或 horizontalInset"];
+    section.footerHeight = 20;
+    return section;
+}
+
+- (YIFormSection *)specialCellClassSection {
+    // 有accesoryView 的情况下就不要设置 contentEdgeMargins 或 horizontalInset
+    NSMutableArray *rows = [NSMutableArray array];
+    int r = 0;
+    int maxRow = 3;
+    while (r < maxRow) {
+        NSString *title = [NSString stringWithFormat:@"accessoryType %d", r];
+        YIFormRow *row = [self rowWithTitle:title specialCellClass:[YIFormTextCell class]];
         row.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         row.accessoryButtonTapHandler = ^(__kindof YIFormRow * _Nonnull item) {
             NSLog(@"accessoryButtonTapHandler");
@@ -398,7 +423,28 @@
     
     return row;
 }
-
+- (__kindof YIFormRow *)rowWithTitle:(NSString *)title specialCellClass:(id)cellClass {
+    //    YIFormRowText *row00 = Row(YIFormRowText.class);
+    //    row00.height = arc4random()%50 + 10;
+    //    row00.title = [NSString stringWithFormat:@"%@ height:%.2f",title, row00.height];
+    //    Row(YIAttachFormRow.class)
+    __weak typeof(self) weakSelf = self;
+    YIAttachFormRow *row = [[YIAttachFormRow alloc] initWithCellClass:cellClass];
+    row.title = title;
+    row.containerBackgroundColor = [UIColor whiteColor];
+//    row.containerBackgroundColor = [UIColor orangeColor];
+    row.previewBlock = ^(NSURL *fileURL) {
+    };
+    
+    row.uploadBlock = ^(NSURL *fileURLs) {
+    };
+    
+    row.selectionHandler = ^(__kindof YIFormRow * _Nonnull item) {
+        NSLog(@"selectionHandler");
+    };
+    
+    return row;
+}
 - (void)accessoryButtonAction:(id)sender {
     __weak typeof(self) weakSelf = self;
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"点击" message:[NSString stringWithFormat:@"Hello,你点到我了"] preferredStyle:UIAlertControllerStyleAlert];

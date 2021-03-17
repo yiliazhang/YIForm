@@ -28,7 +28,9 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 @property (nonatomic, copy) NSString *title;
 
 /// 对应的cell
-@property (nonnull, strong, nonatomic, readonly) id cellClass;
+@property (nonnull, strong, nonatomic, readonly) Class cellClass;
+/// 当前cellclass
+@property (strong, nonatomic, readonly) Class currentCellClass;
 /// 值
 @property(nonatomic, strong, nullable) id value;
 
@@ -86,6 +88,9 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 
 - (void)reload;
 
+/// special cell class init
+/// @param cellClass subclass of YIFormCell
+- (instancetype)initWithCellClass:(Class)cellClass;
 @end
 
 NS_ASSUME_NONNULL_END
