@@ -100,7 +100,7 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 
 + (instancetype)rowWithContentEdgeInsets:(UIEdgeInsets)contentEdgeInsets;
 
-+ (instancetype)rowWithCellClass:(nullable Class)cellClass title:(nullable NSString *)title value:(NSString *)value contentEdgeInsets:(UIEdgeInsets)contentEdgeInsets;
++ (instancetype)rowWithCellClass:(nullable Class)cellClass title:(nullable NSString *)title value:(nullable NSString *)value contentEdgeInsets:(UIEdgeInsets)contentEdgeInsets;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -46,8 +46,11 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
     return row;
 }
 
-+ (instancetype)rowWithCellClass:(Class)cellClass title:(nullable NSString *)title value:(NSString *)value contentEdgeInsets:(UIEdgeInsets)contentEdgeInsets {
-    YIFormRow *row = [[self alloc] initWithCellClass:cellClass];
++ (instancetype)rowWithCellClass:(nullable Class)cellClass title:(nullable NSString *)title value:(nullable NSString *)value contentEdgeInsets:(UIEdgeInsets)contentEdgeInsets {
+    YIFormRow *row = [self row];
+    if (cellClass) {
+        row = [[self alloc] initWithCellClass:cellClass];
+    }
     row.title = title;
     row.value = value;
     row.contentEdgeInsets = contentEdgeInsets;
