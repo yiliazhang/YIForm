@@ -70,24 +70,24 @@
     [self.customContentView.leftAnchor constraintEqualToAnchor:self.customContentView.superview.leftAnchor constant:self.row.section.horizontalInset].active = YES;
     [self.customContentView.rightAnchor constraintEqualToAnchor:self.customContentView.superview.rightAnchor constant:-self.row.section.horizontalInset].active = YES;
     
-    [self.containerView.topAnchor constraintEqualToAnchor:self.containerView.superview.topAnchor constant:self.row.contentEdgeMargins.top].active = YES;
-    [self.containerView.bottomAnchor constraintEqualToAnchor:self.containerView.superview.bottomAnchor constant:-self.row.contentEdgeMargins.bottom].active = YES;
-    [self.containerView.leftAnchor constraintEqualToAnchor:self.containerView.superview.leftAnchor constant:self.row.contentEdgeMargins.left].active = YES;
-    [self.containerView.rightAnchor constraintEqualToAnchor:self.containerView.superview.rightAnchor constant:-self.row.contentEdgeMargins.right].active = YES;
+    [self.containerView.topAnchor constraintEqualToAnchor:self.containerView.superview.topAnchor constant:self.row.contentEdgeInsets.top].active = YES;
+    [self.containerView.bottomAnchor constraintEqualToAnchor:self.containerView.superview.bottomAnchor constant:-self.row.contentEdgeInsets.bottom].active = YES;
+    [self.containerView.leftAnchor constraintEqualToAnchor:self.containerView.superview.leftAnchor constant:self.row.contentEdgeInsets.left].active = YES;
+    [self.containerView.rightAnchor constraintEqualToAnchor:self.containerView.superview.rightAnchor constant:-self.row.contentEdgeInsets.right].active = YES;
 }
 
 - (CGFloat)topMargin {
     CGFloat top = 0;
-    if (self.row.contentEdgeMargins.top != 0) {
-        top = self.row.contentEdgeMargins.top;
+    if (self.row.contentEdgeInsets.top != 0) {
+        top = self.row.contentEdgeInsets.top;
     }
     return top;
 }
 
 - (CGFloat)leftMargin {
     CGFloat left = 0;
-    if (self.row.contentEdgeMargins.left != 0) {
-        left = self.row.contentEdgeMargins.left;
+    if (self.row.contentEdgeInsets.left != 0) {
+        left = self.row.contentEdgeInsets.left;
     }
     if (self.row.section.horizontalInset != 0) {
         left += self.row.section.horizontalInset;
@@ -97,16 +97,16 @@
 
 - (CGFloat)bottomMargin {
     CGFloat bottom = 0;
-    if (self.row.contentEdgeMargins.bottom != 0) {
-        bottom = -self.row.contentEdgeMargins.bottom;
+    if (self.row.contentEdgeInsets.bottom != 0) {
+        bottom = -self.row.contentEdgeInsets.bottom;
     }
     return bottom;
 }
 
 - (CGFloat)rightMargin {
     CGFloat right = 0;
-    if (self.row.contentEdgeMargins.right != 0) {
-        right = -self.row.contentEdgeMargins.right;
+    if (self.row.contentEdgeInsets.right != 0) {
+        right = -self.row.contentEdgeInsets.right;
     }
     if (self.row.section.horizontalInset != 0) {
         right -= self.row.section.horizontalInset;

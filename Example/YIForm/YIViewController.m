@@ -88,7 +88,7 @@
             row.separatorStyle = UITableViewCellSeparatorStyleNone;
             row.title = @"disabled - random";
         }
-                row.contentEdgeMargins = UIEdgeInsetsMake(20, 40, 10, 30);
+                row.contentEdgeInsets = UIEdgeInsetsMake(20, 40, 10, 30);
         row.separatorLeftInset = 20;
         row.separatorRightInset = 20;
         [rows addObject:row];
@@ -255,7 +255,7 @@
         } else {
             row.separatorStyle = UITableViewCellSeparatorStyleNone;
         }
-        row.contentEdgeMargins = UIEdgeInsetsMake(10, 0, 10, 20);
+        row.contentEdgeInsets = UIEdgeInsetsMake(10, 0, 10, 20);
         row.separatorLeftInset = 5;
         row.separatorRightInset = 20;
         
@@ -407,7 +407,7 @@
     //    row00.title = [NSString stringWithFormat:@"%@ height:%.2f",title, row00.height];
     //    Row(YIAttachFormRow.class)
     __weak typeof(self) weakSelf = self;
-    YIAttachFormRow *row = [[YIAttachFormRow alloc] init];
+    YIAttachFormRow *row = [YIAttachFormRow row];
     row.tag = tag;
     row.title = title;
     row.containerBackgroundColor = [UIColor orangeColor];
@@ -429,7 +429,7 @@
     //    row00.title = [NSString stringWithFormat:@"%@ height:%.2f",title, row00.height];
     //    Row(YIAttachFormRow.class)
     __weak typeof(self) weakSelf = self;
-    YIAttachFormRow *row = [[YIAttachFormRow alloc] initWithCellClass:cellClass];
+    YIAttachFormRow *row = [YIAttachFormRow rowWithCellClass:cellClass];
     row.title = title;
     row.containerBackgroundColor = [UIColor whiteColor];
 //    row.containerBackgroundColor = [UIColor orangeColor];

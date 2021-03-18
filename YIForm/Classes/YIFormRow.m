@@ -30,9 +30,32 @@ NSString * const XLDisablePredicateCacheKey = @"disabled";
 NSString * const XLHidePredicateCacheKey = @"hidden";
 
 @implementation YIFormRow
++ (instancetype)row {
+    return [[self alloc] init];
+}
 
--(void)dealloc
-{
++ (instancetype)rowWithCellClass:(Class)cellClass {
+    return [[self alloc] initWithCellClass:cellClass];
+}
+
+
+
++ (instancetype)rowWithContentEdgeInsets:(UIEdgeInsets)contentEdgeInsets {
+    YIFormRow *row = [self row];
+    row.contentEdgeInsets = contentEdgeInsets;
+    return row;
+}
+
++ (instancetype)rowWithCellClass:(nullable Class)cellClass title:(nullable NSString *)title value:(NSString *)value contentEdgeInsets:(UIEdgeInsets)contentEdgeInsets {
+    YIFormRow *row = [[self alloc] initWithCellClass:cellClass];
+    row.title = title;
+    row.value = value;
+    row.contentEdgeInsets = contentEdgeInsets;
+    return row;
+}
+
+
+-(void)dealloc {
     [self removeObserver:self forKeyPath:XLValueKey];
     [self removeObserver:self forKeyPath:XLDisablePredicateCacheKey];
     [self removeObserver:self forKeyPath:XLHidePredicateCacheKey];
@@ -76,7 +99,7 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
     _disablePredicateCache = nil;
     _isDirtyHidePredicateCache = YES;
     _hidePredicateCache = nil;
-    _contentEdgeMargins = UIEdgeInsetsZero;
+    _contentEdgeInsets = UIEdgeInsetsZero;
     [self addObserver:self
            forKeyPath:XLValueKey
               options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:0];

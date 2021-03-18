@@ -20,12 +20,14 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 //@property(nonatomic) BOOL hidden;
 /// 是否 disabled 默认NO
 @property (nonatomic) BOOL disabled;
+/// 是否 required 默认NO
+@property (nonatomic) BOOL required;
 
 ///
 @property (nullable, strong, nonatomic) NSString *tag;
 
 /// title
-@property (nonatomic, copy) NSString *title;
+@property (nullable, nonatomic, copy) NSString *title;
 
 /// 对应的cell
 @property (nonnull, strong, nonatomic, readonly) Class cellClass;
@@ -37,7 +39,7 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 /// 行高 default is 44.0f
 @property (nonatomic, assign) CGFloat height;
 /// cell 内缩进
-@property (nonatomic, assign) UIEdgeInsets contentEdgeMargins;
+@property (nonatomic, assign) UIEdgeInsets contentEdgeInsets;
 /// 分割线 左 缩进
 @property (nonatomic) CGFloat separatorLeftInset;
 /// 分割线 右 缩进
@@ -91,6 +93,14 @@ typedef void(^YIOnChangeBlock)(id __nullable oldValue, id __nullable newValue, Y
 /// special cell class init
 /// @param cellClass subclass of YIFormCell
 - (instancetype)initWithCellClass:(Class)cellClass;
+
++ (instancetype)row;
+
++ (instancetype)rowWithCellClass:(Class)cellClass;
+
++ (instancetype)rowWithContentEdgeInsets:(UIEdgeInsets)contentEdgeInsets;
+
++ (instancetype)rowWithCellClass:(nullable Class)cellClass title:(nullable NSString *)title value:(NSString *)value contentEdgeInsets:(UIEdgeInsets)contentEdgeInsets;
 @end
 
 NS_ASSUME_NONNULL_END
