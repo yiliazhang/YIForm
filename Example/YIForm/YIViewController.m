@@ -50,7 +50,7 @@
 - (IBAction)refreshAction:(id)sender {
     [self.formManager removeAll];
     NSArray *sections = @[
-        [self accessoryTypeSection],
+//        [self accessoryTypeSection],
         [self specialCellClassSection],
         [self customAccessorySection],
         [self randomSection],

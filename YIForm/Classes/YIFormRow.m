@@ -46,14 +46,13 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
     return row;
 }
 
-+ (instancetype)rowWithCellClass:(nullable Class)cellClass title:(nullable NSString *)title value:(NSString *)value contentEdgeInsets:(UIEdgeInsets)contentEdgeInsets {
++ (instancetype)rowWithCellClass:(Class)cellClass title:(nullable NSString *)title value:(NSString *)value contentEdgeInsets:(UIEdgeInsets)contentEdgeInsets {
     YIFormRow *row = [[self alloc] initWithCellClass:cellClass];
     row.title = title;
     row.value = value;
     row.contentEdgeInsets = contentEdgeInsets;
     return row;
 }
-
 
 -(void)dealloc {
     [self removeObserver:self forKeyPath:XLValueKey];
@@ -66,6 +65,7 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
     self = [super init];
     if (self) {
         if (cellClass) {
+            NSAssert(cellClass, @"cellClass无效：%@", [cellClass description]);
             NSAssert([cellClass isSubclassOfClass:[YIFormCell class]], @"类型错误cellClass：%@", [cellClass description]);
             _specialCellClass = cellClass;
         }
