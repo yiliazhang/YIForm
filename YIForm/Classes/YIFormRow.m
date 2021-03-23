@@ -72,7 +72,7 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
             NSAssert([cellClass isSubclassOfClass:[YIFormCell class]], @"类型错误cellClass：%@", [cellClass description]);
             _specialCellClass = cellClass;
         }
-        [self config];
+        [self rowConfig];
     }
     return self;
 }
@@ -80,12 +80,12 @@ NSString * const XLHidePredicateCacheKey = @"hidden";
 - (instancetype)init {
     self = [super init];
     if (self) {
-        [self config];
+        [self rowConfig];
     }
     return self;
 }
 
-- (void)config {
+- (void)rowConfig {
     _height = YIFormRowInitialHeight;
     _separatorLeftInset = 0;
     _separatorRightInset = 0;

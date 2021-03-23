@@ -50,7 +50,7 @@
 - (IBAction)refreshAction:(id)sender {
     [self.formManager removeAll];
     NSArray *sections = @[
-//        [self accessoryTypeSection],
+        [self accessoryTypeSection],
         [self specialCellClassSection],
         [self customAccessorySection],
         [self randomSection],
@@ -162,6 +162,8 @@
     while (r < maxRow) {
         NSString *title = [NSString stringWithFormat:@"accessoryType %d", r];
         YIFormRow *row = [self rowWithTitle:title specialCellClass:[YIFormTextCell class]];
+        row.title = @"asfasf";
+        row.value = @"dddd";
         row.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         row.accessoryButtonTapHandler = ^(__kindof YIFormRow * _Nonnull item) {
             NSLog(@"accessoryButtonTapHandler");
