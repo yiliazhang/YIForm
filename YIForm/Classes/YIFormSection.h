@@ -66,6 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// @param indexes 数组
 - (void)removeRowsAt:(NSIndexSet *)indexes;
 
+- (void)removeAll;
 /// 在 index 处插入 row
 /// @param row row
 /// @param index index

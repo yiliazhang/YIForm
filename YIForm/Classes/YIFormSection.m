@@ -7,7 +7,6 @@
 
 #import "YIFormSection.h"
 
-
 CGFloat const YIFormSectionHeaderHeightAutomatic = 0.01;
 CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
 @interface YIFormSection()
@@ -64,6 +63,10 @@ CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
         return;
     }
     [_rows removeObjectsAtIndexes:indexes];
+}
+
+- (void)removeAll {
+    [_rows removeAllObjects];
 }
 
 - (void)insertRow:(YIFormRow *)row at:(NSInteger)index {
