@@ -6,6 +6,7 @@
 //
 
 #import "YIFormSection.h"
+#import "YIFormManager.h"
 
 CGFloat const YIFormSectionHeaderHeightAutomatic = 0.01;
 CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
@@ -110,11 +111,11 @@ CGFloat const YIFormSectionFooterHeightAutomatic = 0.01;
 }
 
 - (void)reload {
-//    [self.formManager r];
+    [self.formManager reloadSections:@[self]];
 }
 
 + (instancetype)section {
-    return [[YIFormSection alloc] init];
+    return [[self alloc] init];
 }
 
 @end

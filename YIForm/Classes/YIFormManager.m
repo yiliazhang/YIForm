@@ -529,8 +529,12 @@ NSString * const XLFormSectionsKey = @"formSections";
 {}
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
-    YIFormSection *formSection = self.sections[section];
     CGFloat height = 0;
+    if (self.sections.count <= section) {
+        return YIFormSectionHeaderHeightAutomatic;
+    }
+    YIFormSection *formSection = self.sections[section];
+    
     if (formSection.headerView) {
         height = formSection.headerView.frame.size.height;
     } else {
@@ -544,8 +548,11 @@ NSString * const XLFormSectionsKey = @"formSections";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {
-    YIFormSection *formSection = self.sections[section];
     CGFloat height = 0;
+    if (self.sections.count <= section) {
+        return YIFormSectionFooterHeightAutomatic;
+    }
+    YIFormSection *formSection = self.sections[section];
     if (formSection.footerView) {
         height = formSection.footerView.frame.size.height;
     } else {
@@ -580,7 +587,7 @@ NSString * const XLFormSectionsKey = @"formSections";
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)sectionIndex
 {
     if (self.sections.count <= sectionIndex) {
-        return UITableViewAutomaticDimension;
+        return YIFormSectionFooterHeightAutomatic;
     }
     YIFormSection *section = self.sections[sectionIndex];
     CGFloat height = 0;
@@ -600,6 +607,8 @@ NSString * const XLFormSectionsKey = @"formSections";
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
+    NSAssert(self.sections.count > indexPath.section, @"section错误");
+    NSAssert(self.sections[indexPath.section].rows.count > indexPath.row, @"row错误");
     YIFormSection *section = self.sections[indexPath.section];
     id item = section.rows[indexPath.row];
     if ([item respondsToSelector:@selector(setAccessoryButtonTapHandler:)]) {
@@ -634,6 +643,8 @@ NSString * const XLFormSectionsKey = @"formSections";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSAssert(self.sections.count > indexPath.section, @"section错误");
+    NSAssert(self.sections[indexPath.section].rows.count > indexPath.row, @"row错误");
     YIFormSection *section = self.sections[indexPath.section];
     id item = section.rows[indexPath.row];
     if ([item respondsToSelector:@selector(setSelectionHandler:)]) {
@@ -651,12 +662,12 @@ NSString * const XLFormSectionsKey = @"formSections";
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSAssert(self.sections.count > indexPath.section, @"section错误");
+    NSAssert(self.sections[indexPath.section].rows.count > indexPath.row, @"row错误");
     YIFormSection *section = self.sections[indexPath.section];
     YIFormRow *item = section.rows[indexPath.row];
-    
     if (![item isKindOfClass:[YIFormRow class]])
         return UITableViewCellEditingStyleNone;
-    
     return item.editingStyle;
 }
 
@@ -682,6 +693,8 @@ NSString * const XLFormSectionsKey = @"formSections";
 
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
+    NSAssert(self.sections.count > sourceIndexPath.section, @"section错误");
+    NSAssert(self.sections[sourceIndexPath.section].rows.count > sourceIndexPath.row, @"row错误");
     YIFormSection *sourceSection = self.sections[sourceIndexPath.section];
     YIFormRow *item = sourceSection.rows[sourceIndexPath.row];
     if (item.moveHandler) {
@@ -704,6 +717,8 @@ NSString * const XLFormSectionsKey = @"formSections";
 
 - (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSAssert(self.sections.count > indexPath.section, @"section错误");
+    NSAssert(self.sections[indexPath.section].rows.count > indexPath.row, @"row错误");
     id anItem = self.sections[indexPath.section].rows[indexPath.row];
     
     if ([anItem respondsToSelector:@selector(setCopyHandler:)]) {
@@ -716,6 +731,8 @@ NSString * const XLFormSectionsKey = @"formSections";
 
 - (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
 {
+    NSAssert(self.sections.count > indexPath.section, @"section错误");
+    NSAssert(self.sections[indexPath.section].rows.count > indexPath.row, @"row错误");
     id anItem = self.sections[indexPath.section].rows[indexPath.row];
     if ([anItem respondsToSelector:@selector(setCopyHandler:)]) {
         YIFormRow *item = anItem;
@@ -737,6 +754,8 @@ NSString * const XLFormSectionsKey = @"formSections";
 
 - (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
 {
+    NSAssert(self.sections.count > indexPath.section, @"section错误");
+    NSAssert(self.sections[indexPath.section].rows.count > indexPath.row, @"row错误");
     YIFormRow *item = self.sections[indexPath.section].rows[indexPath.row];
     
     if (action == @selector(copy:)) {
