@@ -3,7 +3,7 @@
 //  SoamO2OClient
 //
 //  Created by apple on 2020/8/17.
-//  Copyright © 2020 Goldwind. All rights reserved.
+//  Copyright © 2020 Yilia. All rights reserved.
 //
 
 #import "ViewFactory.h"

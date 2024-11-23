@@ -3,7 +3,7 @@
 //  SoamO2OEngineer
 //
 //  Created by Yilia on 2020/10/23.
-//  Copyright © 2020 Goldwind. All rights reserved.
+//  Copyright © 2020 Yilia. All rights reserved.
 //
 
 #import "YIFormCell.h"

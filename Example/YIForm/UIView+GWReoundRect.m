@@ -3,7 +3,7 @@
 //  SoamO2OEngineer
 //
 //  Created by apple on 2020/7/16.
-//  Copyright © 2020 Goldwind. All rights reserved.
+//  Copyright © 2020 Yilia. All rights reserved.
 //
 
 #import "UIView+GWReoundRect.h"
